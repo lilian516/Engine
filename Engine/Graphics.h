@@ -23,7 +23,11 @@ public :
 	void onResize();
 	void flushCommandQueue();
 	bool initMainWindow();
+	void render();
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
+	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
+	ID3D12Resource* currentBackBuffer()const;
+	
 
 	ID3D12Device *m_d3dDevice;
 	IDXGIFactory4 *m_fDxgiFactory;

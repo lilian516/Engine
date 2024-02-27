@@ -1,9 +1,12 @@
 #include "Graphics.h"
 #include "Entity.h"
+#include <d3d12.h>
 
 #include <vector>
 #include <iostream>
 #include <string>
+
+
 
 
 using Microsoft::WRL::ComPtr;
@@ -113,9 +116,7 @@ bool Graphics::initDirectX() {
 			deleteDirectX();
 			return false;
 
-		}
-
-		
+		}	
 	}
 
 	m_d3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_fFence));
@@ -320,6 +321,66 @@ void Graphics::flushCommandQueue()
 		WaitForSingleObject(eventHandle, INFINITE);
 		CloseHandle(eventHandle);
 	}
+}
+
+
+void Graphics::render() {
+	m_cDirectCmdListAlloc->Reset();
+
+	// A command list can be reset after it has been added to the command queue via ExecuteCommandList.
+	// Reusing the command list reuses memory.
+	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
+
+	// Indicate a state transition on the resource usage.
+	CD3DX12_RESOURCE_BARRIER rIntermediate = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	m_cCommandList->ResourceBarrier(1, &rIntermediate);
+
+	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.
+	m_cCommandList->RSSetViewports(1, &m_vScreenViewport);
+	m_cCommandList->RSSetScissorRects(1, &m_rScissorRect);
+
+	// Clear the back buffer and depth buffer.
+	m_cCommandList->ClearRenderTargetView(currentBackBufferView(), Colors::LightSteelBlue, 0, nullptr);
+	m_cCommandList->ClearDepthStencilView(depthStencilView(), D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, nullptr);
+
+	// Specify the buffers we are going to render to.
+	D3D12_CPU_DESCRIPTOR_HANDLE CurrentBBView = currentBackBufferView();
+	D3D12_CPU_DESCRIPTOR_HANDLE DSview = depthStencilView();
+	m_cCommandList->OMSetRenderTargets(1, &CurrentBBView, true, &DSview);
+
+	// Indicate a state transition on the resource usage.
+	CD3DX12_RESOURCE_BARRIER rValue = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	m_cCommandList->ResourceBarrier(1, &rValue);
+
+	// Done recording commands.
+	m_cCommandList->Close();
+
+	// Add the command list to the queue for execution.
+	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
+	m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
+
+	// swap the back and front buffers
+	m_cSwapChain->Present(0, 0);
+	m_iCurrBackBuffer = (m_iCurrBackBuffer + 1) % m_sSwapChainBufferCount;
+
+	// Wait until frame commands are complete.  This waiting is inefficient and is
+	// done for simplicity.  Later we will show how to organize our rendering code
+	// so we do not have to wait per frame.
+	flushCommandQueue();
+}
+
+
+D3D12_CPU_DESCRIPTOR_HANDLE Graphics::currentBackBufferView()const
+{
+	return CD3DX12_CPU_DESCRIPTOR_HANDLE(
+		m_dRtvHeap->GetCPUDescriptorHandleForHeapStart(),
+		m_iCurrBackBuffer,
+		m_iRtvDescriptorSize);
+}
+
+ID3D12Resource* Graphics::currentBackBuffer()const
+{
+	return m_cSwapChainBuffer[m_iCurrBackBuffer];
 }
 
 D3D12_CPU_DESCRIPTOR_HANDLE Graphics::depthStencilView()const

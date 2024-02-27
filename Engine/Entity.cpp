@@ -3,3 +3,11 @@
 Entity::Entity() {
 
 }
+
+void Entity::update() {
+
+}
+
+void Entity::render() {
+
+}
