@@ -325,7 +325,8 @@ void Graphics::flushCommandQueue()
 
 
 void Graphics::update() {
-
+	
+	
 }
 
 void Graphics::render() {
@@ -344,7 +345,8 @@ void Graphics::render() {
 	m_cCommandList->RSSetScissorRects(1, &m_rScissorRect);
 
 	// Clear the back buffer and depth buffer.
-	m_cCommandList->ClearRenderTargetView(currentBackBufferView(), Colors::LimeGreen, 0, nullptr);
+	
+	m_cCommandList->ClearRenderTargetView(currentBackBufferView(), m_vColor, 0, nullptr);
 	m_cCommandList->ClearDepthStencilView(depthStencilView(), D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, nullptr);
 
 	// Specify the buffers we are going to render to.

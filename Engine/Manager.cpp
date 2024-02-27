@@ -19,7 +19,7 @@ void Manager::mainLoop() {
 }
 
 void Manager::update() {
-
+	m_oGraphics->update();
 }
 
 void Manager::render() {

@@ -60,5 +60,8 @@ public :
 	HINSTANCE m_hAppInst = nullptr;
 	std::wstring m_wMainWndCaption = L"d3d App";
 
+	XMVECTORF32 m_vColor = Colors::LimeGreen;
+	
+
 };
 
