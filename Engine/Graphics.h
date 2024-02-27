@@ -24,6 +24,7 @@ public :
 	void flushCommandQueue();
 	bool initMainWindow();
 	void render();
+	void update();
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
 	ID3D12Resource* currentBackBuffer()const;
