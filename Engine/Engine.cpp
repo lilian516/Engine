@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "Engine.h"
+#include "Graphics.h"
 
 #define MAX_LOADSTRING 100
 
@@ -26,6 +27,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Placez le code ici.
+
+
+    Graphics* oGraphics = new Graphics();
+    oGraphics->initGraphics();
+
 
     // Initialise les chaînes globales
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
