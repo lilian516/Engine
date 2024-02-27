@@ -1,4 +1,8 @@
 #include "Mesh.h"
+#include "Graphics.h"
+
+using namespace DirectX;
+
 
 struct Vertex {
 	DirectX::XMFLOAT3 position;
