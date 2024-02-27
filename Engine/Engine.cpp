@@ -3,6 +3,8 @@
 
 #include "framework.h"
 #include "Engine.h"
+#include "Graphics.h"
+#include "Manager.h"
 
 #define MAX_LOADSTRING 100
 
@@ -27,16 +29,22 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Placez le code ici.
 
-    // Initialise les chaînes globales
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_ENGINE, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
+    Manager* oManager = new Manager();
+    oManager->initManager();
+    
+    
 
-    // Effectue l'initialisation de l'application :
-    if (!InitInstance (hInstance, nCmdShow))
-    {
-        return FALSE;
-    }
+
+    //// Initialise les chaînes globales
+    //LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+    //LoadStringW(hInstance, IDC_ENGINE, szWindowClass, MAX_LOADSTRING);
+    //MyRegisterClass(hInstance);
+
+    //// Effectue l'initialisation de l'application :
+    //if (!InitInstance (hInstance, nCmdShow))
+    //{
+    //    return FALSE;
+    //}
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
 
@@ -50,6 +58,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
+        
+        oManager->mainLoop();
+        
     }
 
     return (int) msg.wParam;

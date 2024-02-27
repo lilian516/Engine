@@ -15,11 +15,7 @@
 using namespace std;
 using namespace DirectX;
 
-struct Transform
-{
-	XMVECTOR vPosition;
-	XMVECTOR vScale;
-};
+
 
 
 class Entity
@@ -27,6 +23,7 @@ class Entity
 
 public :
 	Entity();
-	Transform tTransform;
+	virtual void update();
+	virtual void render();
 };
 
