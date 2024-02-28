@@ -53,5 +53,5 @@ void Collider::noCollision() {
 		if (distanceCalcul(m_oEntity.getTransform().m_vPosition, entity->getTransform().m_vPosition) < 0) {
 			m_cCollision = FirstCollision;
 		}
-	}l
+	}
 }
