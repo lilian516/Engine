@@ -7,7 +7,6 @@ Script::Script() {
 
 Script::~Script() {
 
-
 }
 
 void Script::setScript() {

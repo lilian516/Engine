@@ -8,6 +8,7 @@ class Shader
 public:
 	Shader();
 	~Shader();
+	void update();
 	void initializePipelineState(ID3D12Device* device);
 	void initializeRootSignature(ID3D12Device* device);
 	void initializeShader();

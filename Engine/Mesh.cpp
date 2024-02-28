@@ -17,6 +17,10 @@ void Mesh::init(ID3D12Device* device) {
 	m_d3dDevice = device;
 }
 
+void Mesh::update() {
+
+}
+
 void Mesh::uploadMeshToBuffers(MeshData mesh) {
 
 	D3D12_HEAP_PROPERTIES heapProperties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);

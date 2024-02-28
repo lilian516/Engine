@@ -21,6 +21,7 @@ public:
 
 	Mesh();
 	~Mesh();
+	void update();
 	void init(ID3D12Device* device);
 	void buildBoxGeometry();
 	void buildPyramidGeometry();

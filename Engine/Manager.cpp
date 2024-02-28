@@ -14,11 +14,8 @@ void Manager::initManager() {
 }
 
 void Manager::mainLoop() {
-	
-	
 	update();
 	render();
-	
 	
 }
 
@@ -26,6 +23,15 @@ void Manager::update() {
 	m_oGraphics->update();
 	m_oInputManager->update();
 	m_oTimer->update();
+	for (int i = 0; i < m_vEntity.size(); i++) {
+		m_vEntity[i]->update();
+	}
+	for (int i = 0; i < m_vShader.size(); i++) {
+		m_vShader[i]->update();
+	}
+	for (int i = 0; i < m_vMesh.size(); i++) {
+		m_vMesh[i]->update();
+	}
 }
 
 void Manager::render() {
@@ -35,6 +41,8 @@ void Manager::render() {
 void Manager::addEntity(Entity* oEntity) {
 	m_vEntity.push_back(oEntity);
 }
+
+
 
 Manager::~Manager() {
 	delete m_oGraphics;

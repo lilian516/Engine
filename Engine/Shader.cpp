@@ -14,6 +14,9 @@ Shader::Shader() {
 Shader::~Shader() {
 
 }
+void Shader::update() {
+
+}
 
 void Shader::initializePipelineState(ID3D12Device* device) {
 

@@ -1,4 +1,6 @@
 #include "Entity.h"
+#include "Component.h"
+
 
 Entity::Entity() {
 
@@ -23,7 +25,9 @@ void Entity::SRT() {
 }
 
 void Entity::update() {
-
+	for (int i = 0; i < m_vComponents.size(); i++) {
+		m_vComponents[i]->update();
+	}
 }
 
 void Entity::render() {
