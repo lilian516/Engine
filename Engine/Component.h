@@ -9,5 +9,6 @@ public :
 	void setComponent(int iId);
 	virtual void update();
 	virtual void render();
+	int getId();
 };
 

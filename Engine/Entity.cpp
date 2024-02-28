@@ -12,9 +12,10 @@ void Entity::initEntity() {
 
 void Entity::AddComponents(Component* cComponent) {
 	m_vComponents.push_back(cComponent);
+}
 
 vector<Component*> Entity::GetVectorComponents() {
-	return vComponents;
+	return m_vComponents;
 }
 
 void Entity::SRT() {

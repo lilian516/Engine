@@ -16,6 +16,6 @@ void Component::render() {
 
 }
 
-int Component::GetId() {
+int Component::getId() {
 	return m_iId;
 }
