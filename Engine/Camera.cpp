@@ -8,8 +8,8 @@ Camera::~Camera() {
 
 }
 
-void Camera::initCamera(int windowWidth,int windowHeight) {
-	setComponent(0);
+void Camera::initCamera(int windowWidth,int windowHeight, Entity *oEntity) {
+    initComponent(0, *oEntity);
     m_fCameraPosition = { 0.0f, 0.0f, -5.0f };
     m_fCameraTarget = { 0.0f, 0.0f, 0.0f };
     m_fCameraUp = { 0.0f, 1.0f, 0.0f };

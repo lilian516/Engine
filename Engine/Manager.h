@@ -28,5 +28,7 @@ public :
 	vector<Entity*> m_vEntity;
 	vector<Shader*> m_vShader;
 	vector<Mesh*> m_vMesh;
+	Mesh* m_oMesh;
+	Shader* m_oShader;
 };
 

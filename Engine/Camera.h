@@ -6,7 +6,7 @@ public:
 
 	Camera();
 	~Camera();
-	void initCamera(int windowWidth, int windowHeight);
+	void initCamera(int windowWidth, int windowHeight, Entity *oEntity);
 	void update()override;
 
 private:

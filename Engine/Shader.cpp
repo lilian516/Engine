@@ -21,6 +21,7 @@ void Shader::update() {
 void Shader::initializePipelineState(ID3D12Device* device) {
 
 	m_d3dPipelineStateObjectDescriptor = {};
+	
 	m_d3dPipelineStateObjectDescriptor.InputLayout = { m_vInputLayout.data(), (UINT)m_vInputLayout.size() };
 	m_d3dPipelineStateObjectDescriptor.pRootSignature = m_d3dRootSignature;
 	m_d3dPipelineStateObjectDescriptor.VS.pShaderBytecode = m_bVertexShader->GetBufferPointer();
@@ -40,7 +41,7 @@ void Shader::initializePipelineState(ID3D12Device* device) {
 
 
 	m_hHresult = device->CreateGraphicsPipelineState(&m_d3dPipelineStateObjectDescriptor, IID_PPV_ARGS(&m_d3dPipelineState));
-	//CheckSucceded(m_hHresult);
+	CheckSucceded(m_hHresult);
 	
 	
 }

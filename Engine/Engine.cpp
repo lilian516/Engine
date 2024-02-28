@@ -38,7 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oEntity->initEntity();
     oManager->addEntity(oEntity);
     Camera* oCamera = new Camera();
-    oCamera->initCamera(800,600);
+    oCamera->initCamera(800,600, oEntity);
 
     MeshRenderer* oMeshRenderer = new MeshRenderer();
     oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);

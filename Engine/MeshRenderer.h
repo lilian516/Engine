@@ -9,8 +9,7 @@ public:
 	~MeshRenderer();
 	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device);
 	void update()override;
-	Mesh* m_oMesh;
-	Shader* m_oShader;
+	
 
 private:
 
