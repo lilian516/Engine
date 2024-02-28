@@ -2,7 +2,8 @@
 #include <d3d12.h>
 #include <dxgi1_4.h>
 #include <d3dcompiler.h>
-
+#include <vector>
+#include "Entity.h"
 class Shader
 {
 public:
@@ -17,6 +18,8 @@ public:
 private:
 	HRESULT m_hHresult;
 
+	std::vector<D3D12_INPUT_ELEMENT_DESC> m_vInputLayout;
+
 	ID3DBlob* m_bVertexShader;
 	ID3DBlob* m_bPixelShader;
 
@@ -27,6 +30,11 @@ private:
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC m_d3dPipelineStateObjectDescriptor;
 protected:
 
+	DXGI_FORMAT m_fBackBufferFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
 
+	bool      m_b4xMsaaState = false;
+	UINT      m_i4xMsaaQuality = 0;
+
+	DXGI_FORMAT m_fDepthStencilFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 };
 
