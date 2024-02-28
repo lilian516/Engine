@@ -4,7 +4,7 @@ Entity::Entity() {
 
 }
 
-void Entity::AddComponents() {
+void Entity::AddComponents(Component* cComponent) {
 
 }
 

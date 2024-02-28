@@ -2,7 +2,7 @@
 #include "Graphics.h"
 #include <stdexcept>
 
-using namespace DirectX;
+
 
 
 Mesh::Mesh() {

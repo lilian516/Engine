@@ -1,9 +1,7 @@
 #pragma once
-#include "d3d12.h"
 #include <vector>
-
+#include "Entity.h"
 using namespace DirectX;
-
 
 struct Vertex {
 	XMFLOAT3 Pos;
