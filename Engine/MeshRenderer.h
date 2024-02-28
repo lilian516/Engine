@@ -1,10 +1,11 @@
 #pragma once
-#include "Entity.h"
-class MeshRenderer :public Entity
+#include "Component.h"
+class MeshRenderer :public Component
 {
 public:
 	MeshRenderer();
 	~MeshRenderer();
+	void SetMeshRenderer();
 
 private:
 
