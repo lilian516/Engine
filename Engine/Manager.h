@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Shader.h"
 #include "Mesh.h"
+#include "InputManager.h"
 #include <vector>
 #include <iostream>
 
@@ -19,6 +20,7 @@ public :
 	void render();
 
 	Graphics *m_oGraphics;
+	InputManager *m_oInputManager;
 	vector<Entity> m_vEntity;
 	vector<Shader> m_vShader;
 	vector<Mesh> m_vMesh;
