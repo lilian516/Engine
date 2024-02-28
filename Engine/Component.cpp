@@ -4,8 +4,10 @@ Component::Component() {
 
 }
 
-void Component::setComponent(int iId) {
+void Component::initComponent(int iId, Entity oEntity) {
 	m_iId = iId;
+	m_oEntity = oEntity;
+
 }
 
 void Component::update() {

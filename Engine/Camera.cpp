@@ -8,6 +8,6 @@ Camera::~Camera() {
 
 }
 
-void Camera::SetCamera() {
-	setComponent(0);
+void Camera::SetCamera(Entity *oEntity) {
+	initComponent(0, *oEntity);
 }

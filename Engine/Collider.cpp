@@ -8,8 +8,8 @@ Collider::~Collider() {
 
 }
 
-void Collider::setCollider() {
-	setComponent(1);
+void Collider::setCollider(Entity *oEntity) {
+	initComponent(1, *oEntity);
 	m_cCollision = NoCollide;
 }
 

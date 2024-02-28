@@ -58,9 +58,9 @@ public :
 	D3D12_VIEWPORT m_vScreenViewport;
 	D3D12_RECT m_rScissorRect;
 	HINSTANCE m_hAppInst = nullptr;
-	std::wstring m_wMainWndCaption = L"d3d App";
+	std::wstring m_wMainWndCaption = L"App Les 4 fantastiques";
 
-	XMVECTORF32 m_vColor = Colors::LimeGreen;
+	XMVECTORF32 m_vColor = Colors::LightSkyBlue;
 	
 
 };

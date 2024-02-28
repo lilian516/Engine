@@ -6,7 +6,7 @@ public:
 
 	Camera();
 	~Camera();
-	void SetCamera();
+	void SetCamera(Entity *oEntity);
 
 private:
 
