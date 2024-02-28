@@ -9,3 +9,7 @@ Script::~Script() {
 
 
 }
+
+void Script::SetScript() {
+	SetComponent(4);
+}

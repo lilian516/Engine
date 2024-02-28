@@ -1,11 +1,12 @@
 #pragma once
-#include "Entity.h"
-class Camera :public Entity
+#include "Component.h"
+class Camera :public Component
 {
 public:
 
 	Camera();
 	~Camera();
+	void SetCamera();
 
 private:
 

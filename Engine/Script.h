@@ -1,10 +1,11 @@
 #pragma once
-#include "Entity.h"
-class Script : public Entity
+#include "Component.h"
+class Script : public Component
 {
 public:
 	Script();
 	~Script();
+	void SetScript();
 private:
 
 protected:
