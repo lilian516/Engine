@@ -13,19 +13,15 @@ Mesh::~Mesh() {
 
 }
 
-void Mesh::init(ID3D12Device* device) {
-	m_d3dDevice = device;
-}
-
 void Mesh::update() {
 
 }
 
-void Mesh::uploadMeshToBuffers(MeshData mesh) {
+void Mesh::uploadMeshToBuffers(MeshData mesh, ID3D12Device* device) {
 
 	D3D12_HEAP_PROPERTIES heapProperties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 	D3D12_RESOURCE_DESC vertexBufferDesc = CD3DX12_RESOURCE_DESC::Buffer(mesh.vertices.size() * sizeof(Vertex));
-	HRESULT hresult = m_d3dDevice->CreateCommittedResource(&heapProperties,D3D12_HEAP_FLAG_NONE,&vertexBufferDesc,D3D12_RESOURCE_STATE_GENERIC_READ,nullptr,IID_PPV_ARGS(&mesh.vertexBuffer));
+	HRESULT hresult = device->CreateCommittedResource(&heapProperties,D3D12_HEAP_FLAG_NONE,&vertexBufferDesc,D3D12_RESOURCE_STATE_GENERIC_READ,nullptr,IID_PPV_ARGS(&mesh.vertexBuffer));
 	if (FAILED(hresult)) {
 		throw std::runtime_error("Failed to create vertex buffer.");
 	}
@@ -40,7 +36,7 @@ void Mesh::uploadMeshToBuffers(MeshData mesh) {
 	mesh.vertexBuffer->Unmap(0, nullptr);
 
 	D3D12_RESOURCE_DESC indexBufferDesc = CD3DX12_RESOURCE_DESC::Buffer(mesh.indices.size() * sizeof(uint16_t));
-	hresult = m_d3dDevice->CreateCommittedResource(&heapProperties,D3D12_HEAP_FLAG_NONE,&indexBufferDesc,D3D12_RESOURCE_STATE_GENERIC_READ,nullptr,IID_PPV_ARGS(&mesh.indexBuffer));
+	hresult = device->CreateCommittedResource(&heapProperties,D3D12_HEAP_FLAG_NONE,&indexBufferDesc,D3D12_RESOURCE_STATE_GENERIC_READ,nullptr,IID_PPV_ARGS(&mesh.indexBuffer));
 	if (FAILED(hresult)) {
 		throw std::runtime_error("Failed to create index buffer.");
 	}
@@ -54,7 +50,7 @@ void Mesh::uploadMeshToBuffers(MeshData mesh) {
 	mesh.indexBuffer->Unmap(0, nullptr);
 }
 
-void Mesh::buildBoxGeometry() {
+void Mesh::buildBoxGeometry(ID3D12Device* device) {
 	std::vector<Vertex> vertices =
 	{
 		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.0f), XMFLOAT4(Colors::White) }),//0
@@ -96,10 +92,10 @@ void Mesh::buildBoxGeometry() {
 		2, 3, 7
 	};
 	m_mMesh.indices = std::move(indices);
-	uploadMeshToBuffers(m_mMesh);
+	uploadMeshToBuffers(m_mMesh,device);
 }
 
-void Mesh::buildPyramidGeometry() {
+void Mesh::buildPyramidGeometry(ID3D12Device* device) {
 	std::vector<Vertex> vertices =
 	{
 		Vertex({ XMFLOAT3(0.5f, 0.0f, 0.0f), XMFLOAT4(Colors::White) }),//0
@@ -127,5 +123,5 @@ void Mesh::buildPyramidGeometry() {
 		0, 3, 2
 	};
 	m_mMesh.indices = std::move(indices);
-	uploadMeshToBuffers(m_mMesh);
+	uploadMeshToBuffers(m_mMesh,device);
 }

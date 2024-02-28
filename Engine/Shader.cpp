@@ -55,12 +55,21 @@ void Shader::initializePipelineState(ID3D12Device* device) {
 }
 
 void Shader::initializeRootSignature(ID3D12Device* device) {
+	rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // Par exemple, un descripteur de constant buffer
+	rootParameters[0].Descriptor.RegisterSpace = 0;
+	rootParameters[0].Descriptor.ShaderRegister = 0;
+	rootParameters[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;
 
-	m_d3dRootSignature = {};
+	m_d3dRootSignatureDescriptor.NumParameters = 1;
+	m_d3dRootSignatureDescriptor.pParameters = rootParameters;
+	m_d3dRootSignatureDescriptor.NumStaticSamplers = 0;
+	m_d3dRootSignatureDescriptor.pStaticSamplers = nullptr;
+	m_d3dRootSignatureDescriptor.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 	ID3DBlob* signature;
 	ID3DBlob* error;
 
-	D3D12SerializeRootSignature(&m_d3dRootSignatureDescriptor, D3D_ROOT_SIGNATURE_VERSION_1, &signature, &error);
+	m_hHresult = D3D12SerializeRootSignature(&m_d3dRootSignatureDescriptor, D3D_ROOT_SIGNATURE_VERSION_1, &signature, &error);
+	CheckSucceded(m_hHresult);
 	m_hHresult = device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&m_d3dRootSignature));
 	CheckSucceded(m_hHresult);
 
@@ -116,7 +125,4 @@ void Shader::buildConstantBuffers(ID3D12Device* device, ID3D12GraphicsCommandLis
 
 	CD3DX12_CPU_DESCRIPTOR_HANDLE constantBufferViewHandle(m_dConstantBufferViewHeapDescriptor->GetCPUDescriptorHandleForHeapStart());
 	device->CreateConstantBufferView(&m_bConstantBufferViewDescriptor, constantBufferViewHandle);
-
-	CD3DX12_GPU_DESCRIPTOR_HANDLE gpuHandle(m_dConstantBufferViewHeapDescriptor->GetGPUDescriptorHandleForHeapStart());
-	commandList->SetGraphicsRootDescriptorTable(0, gpuHandle);
 }

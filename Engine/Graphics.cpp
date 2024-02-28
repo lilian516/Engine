@@ -43,18 +43,20 @@ bool Graphics::initGraphics() {
 	}
 	onResize();
 
-	/*m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
-	m_oMesh = new Mesh();
-	m_oMesh->init(m_d3dDevice);
-	m_oShader = new Shader();
+	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
+	Mesh* m_oMesh = new Mesh();
+	Shader* m_oShader = new Shader();
+	m_oShader->createHeapDescriptor(m_d3dDevice);
 	m_oShader->initializeRootSignature(m_d3dDevice);
+	m_oShader->createConstantBuffer(m_d3dDevice);
+	m_oShader->buildConstantBuffers(m_d3dDevice, m_cCommandList);
 	m_oShader->initializeShader();
-	m_oMesh->buildBoxGeometry();
+	m_oMesh->buildBoxGeometry(m_d3dDevice);
 	m_oShader->initializePipelineState(m_d3dDevice);
 
 	m_cCommandList->Close();
 	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
-	m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);*/
+	m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
 
 	// Wait until initialization is complete.
 	flushCommandQueue();

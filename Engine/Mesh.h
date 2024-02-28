@@ -22,13 +22,11 @@ public:
 	Mesh();
 	~Mesh();
 	void update();
-	void init(ID3D12Device* device);
-	void buildBoxGeometry();
-	void buildPyramidGeometry();
-	void uploadMeshToBuffers(MeshData mesh);
+	void buildBoxGeometry(ID3D12Device* device);
+	void buildPyramidGeometry(ID3D12Device* device);
+	void uploadMeshToBuffers(MeshData mesh, ID3D12Device* device);
 	MeshData m_mMesh;
 private:
-	ID3D12Device* m_d3dDevice;
 	
 
 protected:

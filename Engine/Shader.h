@@ -22,24 +22,19 @@ public:
 	HRESULT compileShader(const WCHAR* filename, const char* entrypoint, const char* profile, ID3DBlob** out_code);
 	ID3D12PipelineState* m_d3dPipelineState;
 	ID3D12RootSignature* m_d3dRootSignature;
+	ID3D12DescriptorHeap* m_dConstantBufferViewHeapDescriptor = nullptr;
 
 private:
 	HRESULT m_hHresult;
 	std::vector<D3D12_INPUT_ELEMENT_DESC> m_vInputLayout;
-
-	ID3DBlob* m_bVertexShader;
-	ID3DBlob* m_bPixelShader;
-
-	
+	ID3DBlob* m_bVertexShader = nullptr;
+	ID3DBlob* m_bPixelShader = nullptr;
 	D3D12_ROOT_SIGNATURE_DESC m_d3dRootSignatureDescriptor;
-
-	
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC m_d3dPipelineStateObjectDescriptor;
-
 	D3D12_CONSTANT_BUFFER_VIEW_DESC m_bConstantBufferViewDescriptor;
-	ID3D12DescriptorHeap* m_dConstantBufferViewHeapDescriptor;
-	ID3D12Resource* m_rConstantBuffer;
+	ID3D12Resource* m_rConstantBuffer = nullptr;
 	UINT m_uConstantBufferSize;
+	D3D12_ROOT_PARAMETER rootParameters[1];
 protected:
 
 	DXGI_FORMAT m_fBackBufferFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
