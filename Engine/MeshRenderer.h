@@ -5,7 +5,7 @@ class MeshRenderer :public Component
 public:
 	MeshRenderer();
 	~MeshRenderer();
-	void SetMeshRenderer();
+	void SetMeshRenderer(Entity *oEntity);
 
 private:
 

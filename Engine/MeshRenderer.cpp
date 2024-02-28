@@ -10,6 +10,6 @@ MeshRenderer::~MeshRenderer() {
 
 }
 
-void MeshRenderer::SetMeshRenderer() {
-	setComponent(3);
+void MeshRenderer::SetMeshRenderer(Entity *oEntity) {
+	initComponent(3, *oEntity);
 }

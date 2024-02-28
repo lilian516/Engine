@@ -9,6 +9,6 @@ Script::~Script() {
 
 }
 
-void Script::setScript() {
-	setComponent(4);
+void Script::setScript(Entity *oEntity) {
+	initComponent(4, *oEntity);
 }
