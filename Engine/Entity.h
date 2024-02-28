@@ -24,12 +24,12 @@ using namespace DirectX;
 class Entity
 {
 private :
-	
 	Transform *m_tTranform;
 public :
 	Entity();
 	void initEntity();
 	void AddComponents(Component* cComponent);
+	Transform getTransform();
 	vector<Component*> GetVectorComponents();
 	void SRT();
 	virtual void update();
