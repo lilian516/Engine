@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Graphics.h"
 #include "Manager.h"
+#include "MeshRenderer.h"
 #include "Entity.h"
 
 #define MAX_LOADSTRING 100
@@ -32,12 +33,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     Manager* oManager = new Manager();
     oManager->initManager();
+
     Entity* oEntity = new Entity();
     oEntity->initEntity();
     oManager->addEntity(oEntity);
     Camera* oCamera = new Camera();
     oCamera->initCamera(800,600);
 
+    MeshRenderer* oMeshRenderer = new MeshRenderer();
+    oMeshRenderer->SetMeshRenderer(oEntity);
+    oEntity->AddComponents(oMeshRenderer);
 
     //// Initialise les chaînes globales
     //LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -77,27 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //  FONCTION : MyRegisterClass()
 //
 //  OBJECTIF : Inscrit la classe de fenêtre.
-//
-ATOM MyRegisterClass(HINSTANCE hInstance)
-{
-    WNDCLASSEXW wcex;
 
-    wcex.cbSize = sizeof(WNDCLASSEX);
-
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc    = WndProc;
-    wcex.cbClsExtra     = 0;
-    wcex.cbWndExtra     = 0;
-    wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ENGINE));
-    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_ENGINE);
-    wcex.lpszClassName  = szWindowClass;
-    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
-    return RegisterClassExW(&wcex);
-}
 
 //
 //   FONCTION : InitInstance(HINSTANCE, int)
@@ -108,24 +93,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 //        Dans cette fonction, nous enregistrons le handle de l'instance dans une variable globale, puis
 //        nous créons et affichons la fenêtre principale du programme.
-//
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
-{
-   hInst = hInstance; // Stocke le handle d'instance dans la variable globale
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
-   if (!hWnd)
-   {
-      return FALSE;
-   }
-
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
-
-   return TRUE;
-}
 
 //
 //  FONCTION : WndProc(HWND, UINT, WPARAM, LPARAM)

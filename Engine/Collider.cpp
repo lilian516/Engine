@@ -1,4 +1,5 @@
 #include "Collider.h"
+#include "MathHelper.h"
 
 Collider::Collider() {
 
@@ -8,26 +9,26 @@ Collider::~Collider() {
 
 }
 
-void Collider::setCollider() {
-	setComponent(1);
-	m_cCollision = NoCollide;
+void Collider::setCollider(Entity* oEntity) {
+	initComponent(1,*oEntity);
+	m_cCollision = NoCollision;
 }
 
 void Collider::update() {
 	switch (m_cCollision)
 	{
-	case FirstCollide:
+	case FirstCollision:
 		enterCollision();
-		m_cCollision = Collide;
+		m_cCollision = Collision;
 		break;
-	case Collide:
+	case Collision:
 		stayCollision();
 		break;
-	case LastCollide:
+	case LastCollision:
 		exitCollision();
-		m_cCollision = LastCollide;
+		m_cCollision = NoCollision;
 		break;
-	case NoCollide:
+	case NoCollision:
 		noCollision();
 		break;
 	default:
@@ -48,5 +49,7 @@ void Collider::exitCollision() {
 }
 
 void Collider::noCollision() {
-
+	//for (Entity* entity : m_vColliderEntity) {
+	//	if (distanceCalcul(m_))
+	//}
 }

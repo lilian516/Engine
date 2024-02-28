@@ -8,6 +8,6 @@ Effect::~Effect() {
 
 }
 
-void Effect::setEffect() {
-	setComponent(2);
+void Effect::setEffect(Entity *oEntity) {
+	initComponent(2,*oEntity);
 }

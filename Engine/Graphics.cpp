@@ -59,6 +59,7 @@ MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 bool Graphics::initMainWindow()
 {
+	
 	WNDCLASS wc;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = MainWndProc;
@@ -70,6 +71,8 @@ bool Graphics::initMainWindow()
 	wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
 	wc.lpszMenuName = 0;
 	wc.lpszClassName = L"MainWnd";
+	
+	
 
 	if (!RegisterClass(&wc))
 	{
