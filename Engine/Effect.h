@@ -1,10 +1,11 @@
 #pragma once
-#include "Entity.h"
-class Effect :public Entity
+#include "Component.h"
+class Effect :public Component
 {
 public:
 	Effect();
 	~Effect();
+	void SetEffect();
 private:
 
 protected:
