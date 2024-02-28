@@ -6,6 +6,7 @@ public:
 	MeshRenderer();
 	~MeshRenderer();
 	void SetMeshRenderer(Entity *oEntity);
+	void update()override;
 
 private:
 
