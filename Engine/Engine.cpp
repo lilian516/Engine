@@ -39,7 +39,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oManager->addEntity(oEntity);
 
     MeshRenderer* oMeshRenderer = new MeshRenderer();
-    oMeshRenderer->SetMeshRenderer(oEntity);
+    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
     oEntity->AddComponents(oMeshRenderer);
 
     //// Initialise les chaînes globales

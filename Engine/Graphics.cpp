@@ -42,6 +42,23 @@ bool Graphics::initGraphics() {
 		return false;
 	}
 	onResize();
+
+	/*m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
+	m_oMesh = new Mesh();
+	m_oMesh->init(m_d3dDevice);
+	m_oShader = new Shader();
+	m_oShader->initializeRootSignature(m_d3dDevice);
+	m_oShader->initializeShader();
+	m_oMesh->buildBoxGeometry();
+	m_oShader->initializePipelineState(m_d3dDevice);
+
+	m_cCommandList->Close();
+	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
+	m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);*/
+
+	// Wait until initialization is complete.
+	flushCommandQueue();
+
 	return true;
 }
 
@@ -341,8 +358,11 @@ void Graphics::render() {
 	m_cDirectCmdListAlloc->Reset();
 
 	// A command list can be reset after it has been added to the command queue via ExecuteCommandList.
-	// Reusing the command list reuses memory.
+	// Reusing the command list reuses memory. m_oShader->m_d3dPipelineState
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
+
+	
+	
 
 	// Indicate a state transition on the resource usage.
 	CD3DX12_RESOURCE_BARRIER rIntermediate = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
@@ -357,10 +377,35 @@ void Graphics::render() {
 	m_cCommandList->ClearRenderTargetView(currentBackBufferView(), m_vColor, 0, nullptr);
 	m_cCommandList->ClearDepthStencilView(depthStencilView(), D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, nullptr);
 
+
+
 	// Specify the buffers we are going to render to.
 	D3D12_CPU_DESCRIPTOR_HANDLE CurrentBBView = currentBackBufferView();
 	D3D12_CPU_DESCRIPTOR_HANDLE DSview = depthStencilView();
 	m_cCommandList->OMSetRenderTargets(1, &CurrentBBView, true, &DSview);
+
+
+
+
+	//on dessinne ici le cube
+	/*ID3D12DescriptorHeap* descriptorHeaps[] = {mCbvHeap.Get()};
+	m_cCommandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
+
+	m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
+
+	m_cCommandList->IASetVertexBuffers(0, 1,  m_oMesh->m_mMesh);
+	m_cCommandList->IASetIndexBuffer(&mBoxGeo->IndexBufferView());
+	m_cCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	m_cCommandList->SetGraphicsRootDescriptorTable(0, mCbvHeap->GetGPUDescriptorHandleForHeapStart());
+
+	m_cCommandList->DrawIndexedInstanced(
+		mBoxGeo->DrawArgs["box"].IndexCount,
+		1, 0, 0, 0);*/
+
+	////
+
+
 
 	// Indicate a state transition on the resource usage.
 	CD3DX12_RESOURCE_BARRIER rValue = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);

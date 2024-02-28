@@ -6,6 +6,8 @@
 #pragma comment(lib, "dxgi.lib")
 #include "Entity.h"
 #include <string>
+#include "Mesh.h"
+#include "Shader.h"
 
 class Graphics
 {
@@ -61,6 +63,8 @@ public :
 	std::wstring m_wMainWndCaption = L"App Les 4 fantastiques";
 
 	XMVECTORF32 m_vColor = Colors::LightSkyBlue;
+
+	
 	
 
 };

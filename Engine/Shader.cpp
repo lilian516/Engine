@@ -39,8 +39,10 @@ void Shader::initializePipelineState(ID3D12Device* device) {
 	m_d3dPipelineStateObjectDescriptor.DSVFormat = m_fDepthStencilFormat;
 
 
-	m_hHresult =device->CreateGraphicsPipelineState(&m_d3dPipelineStateObjectDescriptor, IID_PPV_ARGS(&m_d3dPipelineState));
-	CheckSucceded(m_hHresult);
+	m_hHresult = device->CreateGraphicsPipelineState(&m_d3dPipelineStateObjectDescriptor, IID_PPV_ARGS(&m_d3dPipelineState));
+	//CheckSucceded(m_hHresult);
+	
+	
 }
 
 void Shader::initializeRootSignature(ID3D12Device* device) {

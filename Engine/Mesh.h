@@ -26,9 +26,10 @@ public:
 	void buildBoxGeometry();
 	void buildPyramidGeometry();
 	void uploadMeshToBuffers(MeshData mesh);
+	MeshData m_mMesh;
 private:
 	ID3D12Device* m_d3dDevice;
-	MeshData m_mMesh;
+	
 
 protected:
 
