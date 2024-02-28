@@ -5,7 +5,7 @@
 class Collider :public Component
 {
 private:
-	enum CollisionState { FirstCollide, Collide, LastCollide, NoCollide };
+	enum CollisionState { FirstCollision, Collision, LastCollision, NoCollision };
 	vector<Entity*> m_vColliderEntity;
 	Entity* m_eCollidingEntity;
 public:
