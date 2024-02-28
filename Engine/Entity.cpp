@@ -4,7 +4,14 @@ Entity::Entity() {
 
 }
 
-void Entity::AddComponents() {
+void Entity::initEntity() {
+	m_tTranform = new Transform();
+	m_tTranform->Identify();
+
+}
+
+void Entity::AddComponents(Component* cComponent) {
+	m_vComponents.push_back(cComponent);
 
 }
 

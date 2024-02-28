@@ -4,6 +4,14 @@ Component::Component() {
 
 }
 
-void Component::SetComponent(int id) {
-	m_iId = id;
+void Component::setComponent(int iId) {
+	m_iId = iId;
+}
+
+void Component::update() {
+
+}
+
+void Component::render() {
+
 }

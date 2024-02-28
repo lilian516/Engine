@@ -5,7 +5,7 @@ class Effect :public Component
 public:
 	Effect();
 	~Effect();
-	void SetEffect();
+	void setEffect();
 private:
 
 protected:

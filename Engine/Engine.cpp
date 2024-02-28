@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Graphics.h"
 #include "Manager.h"
+#include "Entity.h"
 
 #define MAX_LOADSTRING 100
 
@@ -31,8 +32,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     Manager* oManager = new Manager();
     oManager->initManager();
-    
-    
+    Entity* oEntity = new Entity();
+    oEntity->initEntity();
+    oManager->addEntity(oEntity);
 
 
     //// Initialise les chaînes globales
@@ -49,16 +51,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
 
     MSG msg;
-    Timer timer;
-    float fFps = 0.0f;
-    timer.Start();
+    
     // Boucle de messages principale :
     while (GetMessage(&msg, nullptr, 0, 0))
     {
-        timer.Update();
-        if (timer.CalculFPS() != 0) {
-            fFps = timer.CalculFPS();
-        }
+        
         /*if (fFps != 0) {
             string sFps = std::to_string(fFps) + "\n";
             OutputDebugStringA(sFps.c_str());

@@ -8,6 +8,6 @@ Effect::~Effect() {
 
 }
 
-void Effect::SetEffect() {
-	SetComponent(2);
+void Effect::setEffect() {
+	setComponent(2);
 }
