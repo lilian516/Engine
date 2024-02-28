@@ -4,8 +4,12 @@ Entity::Entity() {
 
 }
 
-void Entity::AddComponents() {
+void Entity::AddComponents(Component* cComponent) {
+	vComponents.push_back(cComponent);
+}
 
+vector<Component*> Entity::GetVectorComponents() {
+	return vComponents;
 }
 
 void Entity::SRT() {

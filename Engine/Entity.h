@@ -12,8 +12,8 @@
 
 #include "d3dx12.h"
 #include "Transform.h"
-#include "Component.h"
 
+class Component;
 
 using namespace std;
 using namespace DirectX;
@@ -24,10 +24,11 @@ using namespace DirectX;
 class Entity
 {
 private :
-	vector<Component> vComponents;
+	vector<Component*> vComponents;
 public :
 	Entity();
 	void AddComponents(Component* cComponent);
+	vector<Component*> GetVectorComponents();
 	void SRT();
 	virtual void update();
 	virtual void render();
