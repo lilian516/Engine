@@ -89,3 +89,34 @@ void Shader::initializeShader() {
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 	};
 }
+
+void Shader::createHeapDescriptor(ID3D12Device* device) {
+	D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
+	cbvHeapDesc.NumDescriptors = 1;
+	cbvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	cbvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	cbvHeapDesc.NodeMask = 0;
+	m_hHresult = device->CreateDescriptorHeap(&cbvHeapDesc, IID_PPV_ARGS(&m_dConstantBufferViewHeapDescriptor));
+	CheckSucceded(m_hHresult);
+}
+
+void Shader::createConstantBuffer(ID3D12Device* device) {
+	m_uConstantBufferSize = sizeof(ConstantBufferObject);
+	CD3DX12_HEAP_PROPERTIES value = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+	CD3DX12_RESOURCE_DESC value1 = CD3DX12_RESOURCE_DESC::Buffer(m_uConstantBufferSize);
+	m_hHresult = device->CreateCommittedResource(&value,D3D12_HEAP_FLAG_NONE, &value1,D3D12_RESOURCE_STATE_GENERIC_READ,nullptr,IID_PPV_ARGS(&m_rConstantBuffer));
+	CheckSucceded(m_hHresult);
+
+}
+
+void Shader::buildConstantBuffers(ID3D12Device* device, ID3D12GraphicsCommandList* commandList)
+{
+	m_bConstantBufferViewDescriptor.BufferLocation = m_rConstantBuffer->GetGPUVirtualAddress();
+	m_bConstantBufferViewDescriptor.SizeInBytes = m_uConstantBufferSize;
+
+	CD3DX12_CPU_DESCRIPTOR_HANDLE constantBufferViewHandle(m_dConstantBufferViewHeapDescriptor->GetCPUDescriptorHandleForHeapStart());
+	device->CreateConstantBufferView(&m_bConstantBufferViewDescriptor, constantBufferViewHandle);
+
+	CD3DX12_GPU_DESCRIPTOR_HANDLE gpuHandle(m_dConstantBufferViewHeapDescriptor->GetGPUDescriptorHandleForHeapStart());
+	commandList->SetGraphicsRootDescriptorTable(0, gpuHandle);
+}
