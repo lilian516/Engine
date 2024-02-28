@@ -33,3 +33,7 @@ void Entity::update() {
 void Entity::render() {
 
 }
+
+Transform Entity::getTransform() {
+	return *m_tTranform;
+}

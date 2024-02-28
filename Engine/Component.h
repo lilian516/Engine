@@ -4,8 +4,9 @@ class Component : public Entity
 {
 private :
 	int m_iId;
-	Entity m_oEntity;
 public :
+	Entity m_oEntity;
+
 	Component();
 	void initComponent(int iId, Entity oEntity);
 	virtual void update();
