@@ -44,6 +44,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
     oEntity->AddComponents(oMeshRenderer);
 
+    
+
     //// Initialise les chaînes globales
     //LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     //LoadStringW(hInstance, IDC_ENGINE, szWindowClass, MAX_LOADSTRING);

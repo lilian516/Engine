@@ -23,11 +23,18 @@ void Shader::initializePipelineState(ID3D12Device* device) {
 	m_d3dPipelineStateObjectDescriptor = {};
 	
 	m_d3dPipelineStateObjectDescriptor.InputLayout = { m_vInputLayout.data(), (UINT)m_vInputLayout.size() };
+
 	m_d3dPipelineStateObjectDescriptor.pRootSignature = m_d3dRootSignature;
+
 	m_d3dPipelineStateObjectDescriptor.VS.pShaderBytecode = m_bVertexShader->GetBufferPointer();
 	m_d3dPipelineStateObjectDescriptor.VS.BytecodeLength = m_bVertexShader->GetBufferSize();
+
+	
+
 	m_d3dPipelineStateObjectDescriptor.PS.pShaderBytecode = m_bPixelShader->GetBufferPointer();
 	m_d3dPipelineStateObjectDescriptor.PS.BytecodeLength = m_bPixelShader->GetBufferSize();
+
+
 	m_d3dPipelineStateObjectDescriptor.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
 	m_d3dPipelineStateObjectDescriptor.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
 	m_d3dPipelineStateObjectDescriptor.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
@@ -41,6 +48,7 @@ void Shader::initializePipelineState(ID3D12Device* device) {
 
 
 	m_hHresult = device->CreateGraphicsPipelineState(&m_d3dPipelineStateObjectDescriptor, IID_PPV_ARGS(&m_d3dPipelineState));
+	
 	CheckSucceded(m_hHresult);
 	
 	

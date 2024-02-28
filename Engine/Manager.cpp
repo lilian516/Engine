@@ -12,13 +12,12 @@ void Manager::initManager() {
 	m_oTimer = new Timer();
 	m_oTimer->start();
 
-	m_oMesh = new Mesh();
-	m_oMesh->init(m_oGraphics->m_d3dDevice);
-	m_oShader = new Shader();
-	m_oShader->initializeRootSignature(m_oGraphics->m_d3dDevice);
+	
+	
+	/*m_oShader->initializeRootSignature(m_oGraphics->m_d3dDevice);
 	m_oShader->initializeShader();
 	m_oMesh->buildBoxGeometry();
-	m_oShader->initializePipelineState(m_oGraphics->m_d3dDevice);
+	m_oShader->initializePipelineState(m_oGraphics->m_d3dDevice);*/
 }
 
 void Manager::mainLoop() {
@@ -58,3 +57,5 @@ Manager::~Manager() {
 	delete m_oTimer;
 
 }
+
+

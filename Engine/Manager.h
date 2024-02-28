@@ -20,6 +20,7 @@ public :
 	void update();
 	void render();
 	void addEntity(Entity* oEntity);
+	
 	~Manager();
 
 	Graphics *m_oGraphics;
@@ -30,5 +31,6 @@ public :
 	vector<Mesh*> m_vMesh;
 	Mesh* m_oMesh;
 	Shader* m_oShader;
+	
 };
 
