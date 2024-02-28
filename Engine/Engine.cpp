@@ -35,6 +35,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Entity* oEntity = new Entity();
     oEntity->initEntity();
     oManager->addEntity(oEntity);
+    Camera* oCamera = new Camera();
+    oCamera->initCamera(800,600);
 
 
     //// Initialise les chaînes globales
@@ -62,6 +64,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         
         oManager->mainLoop();
+        oCamera->update();
         
     }
 
