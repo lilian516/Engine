@@ -8,8 +8,11 @@
 #include <DirectXPackedVector.h>
 #include <DirectXColors.h>
 #include <DirectXCollision.h>
+#include <vector>
 
 #include "d3dx12.h"
+#include "Transform.h"
+#include "Component.h"
 
 
 using namespace std;
@@ -20,9 +23,12 @@ using namespace DirectX;
 
 class Entity
 {
-
+private :
+	vector<Component> vComponents;
 public :
 	Entity();
+	void AddComponents(Component* cComponent);
+	void SRT();
 	virtual void update();
 	virtual void render();
 };

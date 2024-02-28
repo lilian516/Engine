@@ -4,6 +4,14 @@ Entity::Entity() {
 
 }
 
+void Entity::AddComponents() {
+
+}
+
+void Entity::SRT() {
+	
+}
+
 void Entity::update() {
 
 }

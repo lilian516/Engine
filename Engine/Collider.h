@@ -1,10 +1,11 @@
 #pragma once
-#include "Entity.h"
-class Collider :public Entity
+#include "Component.h"
+class Collider :public Component
 {
 public:
 	Collider();
 	~Collider();
+	void SetCollider();
 private:
 
 protected:
