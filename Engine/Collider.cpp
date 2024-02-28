@@ -8,6 +8,6 @@ Collider::~Collider() {
 
 }
 
-void Collider::SetCollider() {
-	SetComponent(1);
+void Collider::setCollider() {
+	setComponent(1);
 }

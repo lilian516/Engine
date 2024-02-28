@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "Shader.h"
 #include "Mesh.h"
+#include "InputManager.h"
+#include "Timer.h"
 #include <vector>
 #include <iostream>
 
@@ -17,9 +19,13 @@ public :
 	void mainLoop();
 	void update();
 	void render();
+	void addEntity(Entity* oEntity);
+	~Manager();
 
 	Graphics *m_oGraphics;
-	vector<Entity> m_vEntity;
+	Timer* m_oTimer;
+	InputManager *m_oInputManager;
+	vector<Entity*> m_vEntity;
 	vector<Shader> m_vShader;
 	vector<Mesh> m_vMesh;
 };

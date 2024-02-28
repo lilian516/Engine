@@ -4,9 +4,14 @@ Entity::Entity() {
 
 }
 
-void Entity::AddComponents(Component* cComponent) {
-	vComponents.push_back(cComponent);
+void Entity::initEntity() {
+	m_tTranform = new Transform();
+	m_tTranform->Identify();
+
 }
+
+void Entity::AddComponents(Component* cComponent) {
+	m_vComponents.push_back(cComponent);
 
 vector<Component*> Entity::GetVectorComponents() {
 	return vComponents;

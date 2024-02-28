@@ -11,5 +11,5 @@ MeshRenderer::~MeshRenderer() {
 }
 
 void MeshRenderer::SetMeshRenderer() {
-	SetComponent(3);
+	setComponent(3);
 }

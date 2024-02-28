@@ -6,7 +6,8 @@ private :
 	int m_iId;
 public :
 	Component();
-	void SetComponent(int id);
-	int GetId();
+	void setComponent(int iId);
+	virtual void update();
+	virtual void render();
 };
 

@@ -9,5 +9,5 @@ Camera::~Camera() {
 }
 
 void Camera::SetCamera() {
-	SetComponent(0);
+	setComponent(0);
 }

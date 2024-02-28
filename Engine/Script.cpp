@@ -10,6 +10,6 @@ Script::~Script() {
 
 }
 
-void Script::SetScript() {
-	SetComponent(4);
+void Script::setScript() {
+	setComponent(4);
 }

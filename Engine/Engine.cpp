@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Graphics.h"
 #include "Manager.h"
+#include "Entity.h"
 
 #define MAX_LOADSTRING 100
 
@@ -31,8 +32,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     Manager* oManager = new Manager();
     oManager->initManager();
-    
-    
+    Entity* oEntity = new Entity();
+    oEntity->initEntity();
+    oManager->addEntity(oEntity);
 
 
     //// Initialise les chaînes globales

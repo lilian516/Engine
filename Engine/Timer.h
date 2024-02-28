@@ -7,13 +7,13 @@ class Timer
 public:
     Timer();
     ~Timer();
-    void Start();
-    void Update();
-    void Break();
-    void Restart();
-    float GetDeltaTime();
-    float CalculFPS();
-    float GetCurrentTime();
+    void start();
+    void update();
+    void breakTime();
+    void restart();
+    float getDeltaTime();
+    float calculFPS();
+    float getCurrentTime();
 
 private:
     float m_fTime;

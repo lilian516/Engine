@@ -5,7 +5,7 @@ class Script : public Component
 public:
 	Script();
 	~Script();
-	void SetScript();
+	void setScript();
 private:
 
 protected:

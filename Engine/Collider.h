@@ -5,7 +5,7 @@ class Collider :public Component
 public:
 	Collider();
 	~Collider();
-	void SetCollider();
+	void setCollider();
 private:
 
 protected:

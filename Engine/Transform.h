@@ -33,7 +33,7 @@ struct Transform
 	void Identify();
 	void Rotate(float pitch, float roll, float yaw);
 	void Scale(XMFLOAT4 ratio);
-	void SetPosition(float x, float y, float z);
-	void UpdateTransform();
+	void setPosition(float x, float y, float z);
+	void updateTransform();
 };
 
