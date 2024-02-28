@@ -9,8 +9,8 @@ Collider::~Collider() {
 
 }
 
-void Collider::setCollider() {
-	setComponent(1);
+void Collider::setCollider(Entity* oEntity) {
+	initComponent(1,*oEntity);
 	m_cCollision = NoCollision;
 }
 
@@ -49,7 +49,7 @@ void Collider::exitCollision() {
 }
 
 void Collider::noCollision() {
-	for (Entity* entity : m_vColliderEntity) {
-		if (distanceCalcul())
-	}
+	//for (Entity* entity : m_vColliderEntity) {
+	//	if (distanceCalcul(m_))
+	//}
 }
