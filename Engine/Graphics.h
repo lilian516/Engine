@@ -4,10 +4,18 @@
 #pragma comment(lib,"d3dcompiler.lib")
 #pragma comment(lib, "D3D12.lib")
 #pragma comment(lib, "dxgi.lib")
+
 #include "Entity.h"
 #include <string>
-#include "Mesh.h"
-#include "Shader.h"
+
+
+
+#include "ObjectConstants.h"
+
+
+class Shader;
+class Mesh;
+
 
 class Graphics
 {
@@ -28,6 +36,7 @@ public :
 	bool initMainWindow();
 	void render();
 	void update();
+	float aspectRatio()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
 	ID3D12Resource* currentBackBuffer()const;
@@ -49,14 +58,15 @@ public :
 	IDXGISwapChain *m_cSwapChain;
 
 	static const int m_sSwapChainBufferCount = 2;
-	ID3D12Resource *m_cSwapChainBuffer[m_sSwapChainBufferCount];
+	//ID3D12Resource *m_cSwapChainBuffer[m_sSwapChainBufferCount];
+	Microsoft::WRL::ComPtr<ID3D12Resource> m_cSwapChainBuffer[m_sSwapChainBufferCount];
 	HWND      m_hMainWindow = nullptr;
 	ID3D12DescriptorHeap *m_dRtvHeap;
 	ID3D12DescriptorHeap *m_dDsvHeap;
 	int m_iClientWidth = 800;
 	int m_iClientHeight = 600;
 	UINT64 m_iCurrentFence = 0;
-	ID3D12Resource *m_rDepthStencilBuffer;
+	Microsoft::WRL::ComPtr<ID3D12Resource> m_rDepthStencilBuffer;
 	int m_iCurrBackBuffer = 0;
 	DXGI_FORMAT m_fDepthStencilFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	D3D12_VIEWPORT m_vScreenViewport;
@@ -66,9 +76,18 @@ public :
 
 	XMVECTORF32 m_vColor = Colors::LightSkyBlue;
 
-	Shader* m_oShader;
-	Mesh* m_oMesh;
+	Shader *m_oShader;
+	Mesh *m_oMesh;
 
+
+	float m_fRadius = 5.0f;
+	float m_fTheta = 1.5f * XM_PI;
+	float m_fPhi = XM_PIDIV4;
+
+	XMFLOAT4X4 m_fWorld = Identity4x4();
+	XMFLOAT4X4 m_fView = Identity4x4();
+	XMFLOAT4X4 m_fProj = Identity4x4();
+	
 	
 	
 

@@ -6,7 +6,8 @@
 #include <iostream>
 #include <string>
 
-
+#include "Shader.h"
+#include "Mesh.h"
 
 
 using Microsoft::WRL::ComPtr;
@@ -68,9 +69,16 @@ LRESULT CALLBACK
 MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg) {
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
+		case WM_DESTROY:
+		
+			PostQuitMessage(0);
+			return 0;
+		case WM_CLOSE:
+			PostQuitMessage(0);
+			return 0;
+
+		
+		
 	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
@@ -251,8 +259,8 @@ void Graphics::onResize() {
 
 	// Release the previous resources we will be recreating.
 	for (int i = 0; i < m_sSwapChainBufferCount; ++i)
-		m_cSwapChainBuffer[i] = nullptr;
-	m_rDepthStencilBuffer = nullptr;
+		m_cSwapChainBuffer[i].Reset();
+	m_rDepthStencilBuffer.Reset();
 
 	// Resize the swap chain.
 	m_cSwapChain->ResizeBuffers(
@@ -266,7 +274,7 @@ void Graphics::onResize() {
 	for (UINT i = 0; i < m_sSwapChainBufferCount; i++)
 	{
 		m_cSwapChain->GetBuffer(i, IID_PPV_ARGS(&m_cSwapChainBuffer[i]));
-		m_d3dDevice->CreateRenderTargetView(m_cSwapChainBuffer[i], nullptr, rtvHeapHandle);
+		m_d3dDevice->CreateRenderTargetView(m_cSwapChainBuffer[i].Get(), nullptr, rtvHeapHandle);
 		rtvHeapHandle.Offset(1, m_iRtvDescriptorSize);
 	}
 
@@ -304,12 +312,12 @@ void Graphics::onResize() {
 	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
 	dsvDesc.Format = m_fDepthStencilFormat;
 	dsvDesc.Texture2D.MipSlice = 0;
-	m_d3dDevice->CreateDepthStencilView(m_rDepthStencilBuffer, &dsvDesc, depthStencilView());
+	m_d3dDevice->CreateDepthStencilView(m_rDepthStencilBuffer.Get(), &dsvDesc, depthStencilView());
 
 	// Transition the resource from its initial state to be used as a depth buffer.
 
 	CD3DX12_RESOURCE_BARRIER cTransitionBarrier = CD3DX12_RESOURCE_BARRIER::Transition(
-		m_rDepthStencilBuffer,
+		m_rDepthStencilBuffer.Get(),
 		D3D12_RESOURCE_STATE_COMMON,
 		D3D12_RESOURCE_STATE_DEPTH_WRITE
 	);
@@ -332,8 +340,17 @@ void Graphics::onResize() {
 	m_vScreenViewport.MaxDepth = 1.0f;
 
 	m_rScissorRect = { 0, 0, m_iClientWidth, m_iClientHeight };
+
+	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, aspectRatio(), 1.0f, 1000.0f);
+	XMStoreFloat4x4(&m_fProj, P);
 	
 }
+
+float Graphics::aspectRatio()const
+{
+	return static_cast<float>(m_iClientWidth) / m_iClientHeight;
+}
+
 
 
 void Graphics::flushCommandQueue()
@@ -363,8 +380,8 @@ void Graphics::flushCommandQueue()
 
 void Graphics::update() {
 	
-	/ Convert Spherical to Cartesian coordinates.
-		float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
+	//Convert Spherical to Cartesian coordinates.
+	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
 	float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
 	float y = m_fRadius * cosf(m_fPhi);
 
@@ -378,13 +395,17 @@ void Graphics::update() {
 
 	XMMATRIX world = XMLoadFloat4x4(&m_fWorld);
 	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
-	XMMATRIX worldViewProj = world * mMatrixView * proj;
+	XMMATRIX worldViewProj = world * view * proj;
 
 	// Update the constant buffer with the latest worldViewProj matrix.
 	ObjectConstants objConstants;
 	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
 
-	m_oShader->m_uObjectCB->CopyData(0, );
+	m_oShader->m_uObjectCB->CopyData(0, objConstants);
+
+	onResize();
+	
+	
 }
 
 void Graphics::render() {
@@ -478,7 +499,7 @@ D3D12_CPU_DESCRIPTOR_HANDLE Graphics::currentBackBufferView()const
 
 ID3D12Resource* Graphics::currentBackBuffer()const
 {
-	return m_cSwapChainBuffer[m_iCurrBackBuffer];
+	return m_cSwapChainBuffer[m_iCurrBackBuffer].Get();
 }
 
 D3D12_CPU_DESCRIPTOR_HANDLE Graphics::depthStencilView()const

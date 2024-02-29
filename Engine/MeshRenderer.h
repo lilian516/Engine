@@ -7,11 +7,14 @@ class MeshRenderer :public Component
 public:
 	MeshRenderer();
 	~MeshRenderer();
-	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device);
+	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader *oShader, Mesh *oMesh);
 	void update()override;
+	void render()override;
 	
 
 private:
+	Shader* m_oShader;
+	Mesh* m_oMesh;
 
 protected:
 };

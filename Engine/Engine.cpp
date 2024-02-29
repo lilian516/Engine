@@ -34,9 +34,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Manager* oManager = new Manager();
     oManager->initManager();
 
-    //Entity* oEntity = new Entity();
-    //oEntity->initEntity();
-    //oManager->addEntity(oEntity);
+    Entity* oEntity = new Entity();
+    oEntity->initEntity();
+    oManager->addEntity(oEntity);
     ////Camera* oCamera = new Camera();
     ////oCamera->initCamera(800,600, oEntity);
 

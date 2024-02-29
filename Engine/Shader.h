@@ -6,23 +6,16 @@
 #include "Entity.h"
 #include <memory>
 #include "UploadBuffer.h"
+#include "Graphics.h"
+#include "ObjectConstants.h"
+
 using namespace std;
+
+
 class Shader
 {
 public:
-	static DirectX::XMFLOAT4X4 Identity4x4()
-	{
-		static DirectX::XMFLOAT4X4 I(
-			1.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f);
-
-		return I;
-	}
-	struct ConstantBufferObject {
-		DirectX::XMFLOAT4X4 m_mWorldViewProjectionMatrix = Identity4x4();
-	};
+	
 	Shader();
 	~Shader();
 	void update();
@@ -33,7 +26,7 @@ public:
 	HRESULT compileShader(const WCHAR* filename, const char* entrypoint, const char* profile, ID3DBlob** out_code);
 	ID3D12PipelineState* m_d3dPipelineState;
 	ID3D12RootSignature* m_d3dRootSignature;
-	std::unique_ptr<UploadBuffer<ConstantBufferObject>> m_uObjectCB;
+	std::unique_ptr<UploadBuffer<ObjectConstants>> m_uObjectCB;
 
 private:
 	HRESULT m_hHresult;

@@ -104,7 +104,7 @@ void Shader::initializeShader() {
 
 void Shader::buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHeap* dCbvHeap)
 {
-	m_uObjectCB = std::make_unique<UploadBuffer<ConstantBufferObject>>(device, 1, true);
+	m_uObjectCB = std::make_unique<UploadBuffer<ObjectConstants>>(device, 1, true);
 
 	//UINT objCBByteSize = CalcConstantBufferByteSize(sizeof(ConstantBufferObject));
 	//
