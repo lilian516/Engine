@@ -23,6 +23,7 @@ public :
 	void createSwapChain();
 	void createRtvAndDsvDescriptorHeaps();
 	void onResize();
+	void createHeapDescriptor();
 	void flushCommandQueue();
 	bool initMainWindow();
 	void render();
@@ -30,6 +31,7 @@ public :
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
 	ID3D12Resource* currentBackBuffer()const;
+	ID3D12DescriptorHeap* m_dConstantBufferViewHeapDescriptor = nullptr;
 	
 
 	ID3D12Device *m_d3dDevice;
@@ -63,6 +65,9 @@ public :
 	std::wstring m_wMainWndCaption = L"App Les 4 fantastiques";
 
 	XMVECTORF32 m_vColor = Colors::LightSkyBlue;
+
+	Shader* m_oShader;
+	Mesh* m_oMesh;
 
 	
 	

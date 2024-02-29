@@ -42,16 +42,16 @@ bool Graphics::initGraphics() {
 		return false;
 	}
 	onResize();
-
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
-	Mesh* m_oMesh = new Mesh();
-	Shader* m_oShader = new Shader();
-	m_oShader->createHeapDescriptor(m_d3dDevice);
+	createHeapDescriptor();
+	m_oShader = new Shader();
+	m_oMesh = new Mesh();
+	
+	
+	m_oShader->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
 	m_oShader->initializeRootSignature(m_d3dDevice);
-	m_oShader->createConstantBuffer(m_d3dDevice);
-	m_oShader->buildConstantBuffers(m_d3dDevice, m_cCommandList);
 	m_oShader->initializeShader();
-	m_oMesh->buildBoxGeometry(m_d3dDevice);
+	m_oMesh->buildBoxGeometry(m_d3dDevice,m_cCommandList);
 	m_oShader->initializePipelineState(m_d3dDevice);
 
 	m_cCommandList->Close();
@@ -215,6 +215,15 @@ void Graphics::createSwapChain() {
 	//note pour plus tard peut etre problème avec throwiffailed
 }
 
+void Graphics::createHeapDescriptor() {
+	D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
+	cbvHeapDesc.NumDescriptors = 1;
+	cbvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	cbvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	cbvHeapDesc.NodeMask = 0;
+	HRESULT m_hHresult = m_d3dDevice->CreateDescriptorHeap(&cbvHeapDesc, IID_PPV_ARGS(&m_dConstantBufferViewHeapDescriptor));
+}
+
 void Graphics::createRtvAndDsvDescriptorHeaps() {
 	D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc;
 	rtvHeapDesc.NumDescriptors = m_sSwapChainBufferCount;
@@ -323,6 +332,7 @@ void Graphics::onResize() {
 	m_vScreenViewport.MaxDepth = 1.0f;
 
 	m_rScissorRect = { 0, 0, m_iClientWidth, m_iClientHeight };
+	
 }
 
 
@@ -353,7 +363,28 @@ void Graphics::flushCommandQueue()
 
 void Graphics::update() {
 	
-	
+	/ Convert Spherical to Cartesian coordinates.
+		float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
+	float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
+	float y = m_fRadius * cosf(m_fPhi);
+
+	// Build the view matrix.
+	XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
+	XMVECTOR target = XMVectorZero();
+	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+
+	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
+	XMStoreFloat4x4(&m_fView, view);
+
+	XMMATRIX world = XMLoadFloat4x4(&m_fWorld);
+	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
+	XMMATRIX worldViewProj = world * mMatrixView * proj;
+
+	// Update the constant buffer with the latest worldViewProj matrix.
+	ObjectConstants objConstants;
+	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
+
+	m_oShader->m_uObjectCB->CopyData(0, );
 }
 
 void Graphics::render() {
@@ -363,16 +394,16 @@ void Graphics::render() {
 	// Reusing the command list reuses memory. m_oShader->m_d3dPipelineState
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 
+
+	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.
+	m_cCommandList->RSSetViewports(1, &m_vScreenViewport);
+	m_cCommandList->RSSetScissorRects(1, &m_rScissorRect);
 	
 	
 
 	// Indicate a state transition on the resource usage.
 	CD3DX12_RESOURCE_BARRIER rIntermediate = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
 	m_cCommandList->ResourceBarrier(1, &rIntermediate);
-
-	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.
-	m_cCommandList->RSSetViewports(1, &m_vScreenViewport);
-	m_cCommandList->RSSetScissorRects(1, &m_rScissorRect);
 
 	// Clear the back buffer and depth buffer.
 	
@@ -387,25 +418,31 @@ void Graphics::render() {
 	m_cCommandList->OMSetRenderTargets(1, &CurrentBBView, true, &DSview);
 
 
-
-
 	//on dessinne ici le cube
-	/*ID3D12DescriptorHeap* descriptorHeaps[] = {mCbvHeap.Get()};
+	ID3D12DescriptorHeap* descriptorHeaps[] = {m_dConstantBufferViewHeapDescriptor};
 	m_cCommandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
 
+
+	// PER OBJECT
 	m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
 
-	m_cCommandList->IASetVertexBuffers(0, 1,  m_oMesh->m_mMesh);
-	m_cCommandList->IASetIndexBuffer(&mBoxGeo->IndexBufferView());
+	m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
+
+	D3D12_VERTEX_BUFFER_VIEW meshVertexBufferView = m_oMesh->m_mMesh.VertexBufferView();
+	m_cCommandList->IASetVertexBuffers(0, 1, &meshVertexBufferView);
+	D3D12_INDEX_BUFFER_VIEW meshIndexBufferView = m_oMesh->m_mMesh.IndexBufferView();
+	m_cCommandList->IASetIndexBuffer(&meshIndexBufferView);
 	m_cCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	m_cCommandList->SetGraphicsRootDescriptorTable(0, mCbvHeap->GetGPUDescriptorHandleForHeapStart());
+	m_cCommandList->SetGraphicsRootConstantBufferView(0, m_oShader->m_uObjectCB->Resource()->GetGPUVirtualAddress());
 
-	m_cCommandList->DrawIndexedInstanced(
-		mBoxGeo->DrawArgs["box"].IndexCount,
+	//m_cCommandList->SetGraphicsRootDescriptorTable(0, m_dConstantBufferViewHeapDescriptor->GetGPUDescriptorHandleForHeapStart());
+
+	/*m_cCommandList->Draw(m_oMesh->m_mMesh..IndexCount,
 		1, 0, 0, 0);*/
 
-	////
+	m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(),1,0,0,0);
+	// PER OBJECT
 
 
 

@@ -34,15 +34,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Manager* oManager = new Manager();
     oManager->initManager();
 
-    Entity* oEntity = new Entity();
-    oEntity->initEntity();
-    oManager->addEntity(oEntity);
-    Camera* oCamera = new Camera();
-    oCamera->initCamera(800,600, oEntity);
+    //Entity* oEntity = new Entity();
+    //oEntity->initEntity();
+    //oManager->addEntity(oEntity);
+    ////Camera* oCamera = new Camera();
+    ////oCamera->initCamera(800,600, oEntity);
 
-    MeshRenderer* oMeshRenderer = new MeshRenderer();
-    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
-    oEntity->AddComponents(oMeshRenderer);
+    //MeshRenderer* oMeshRenderer = new MeshRenderer();
+    //oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
+    //oEntity->AddComponents(oMeshRenderer);
 
     
 
@@ -71,7 +71,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         
         oManager->mainLoop();
-        oCamera->update();
+        //oCamera->update();
         
     }
 
