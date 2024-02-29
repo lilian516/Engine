@@ -98,15 +98,6 @@ void Transform::Scale(XMFLOAT4 ratio) {
 	m_bUpdate = true;
 }
 
-void Transform::setPosition(float x, float y, float z) {
-	m_vPosition = { x,y,z,0.0f };
-	m_mPosition._11 = x;
-	m_mPosition._22 = y;
-	m_mPosition._33 = z;
-
-	m_bUpdate = true;
-}
-
 void Transform::updateTransform() {
 	if (m_bUpdate) {
 		XMMATRIX mRotation = XMLoadFloat4x4(&m_mRotation);

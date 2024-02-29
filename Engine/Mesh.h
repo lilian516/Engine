@@ -9,6 +9,8 @@ struct Vertex {
 };
 
 struct MeshData {
+	XMFLOAT3 maxCoordinate;
+	XMFLOAT3 minCoordinate;
 	std::vector<Vertex> vertices;
 	std::vector<uint16_t> indices;
 	ID3D12Resource* vertexBuffer;
@@ -26,6 +28,7 @@ public:
 	void buildBoxGeometry();
 	void buildPyramidGeometry();
 	void uploadMeshToBuffers(MeshData mesh);
+	void getMinMaxCoordinate(std::vector<Vertex> vertices);
 	MeshData m_mMesh;
 private:
 	ID3D12Device* m_d3dDevice;

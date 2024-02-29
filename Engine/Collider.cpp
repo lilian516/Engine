@@ -1,5 +1,4 @@
 #include "Collider.h"
-#include "MathHelper.h"
 
 Collider::Collider() {
 
@@ -49,8 +48,17 @@ void Collider::exitCollision() {
 }
 
 void Collider::noCollision() {
+	float fDistance;
+	XMVECTOR vEntityPosition;
+	XMFLOAT4 vPos= m_oEntity.getTransform().m_vPosition;
+	XMVECTOR vPosition = XMLoadFloat4(&vPos);
+
 	for (Entity* entity : m_vColliderEntity) {
-		if (distanceCalcul(m_oEntity.getTransform().m_vPosition, entity->getTransform().m_vPosition) < 0) {
+		vPos = entity->getTransform().m_vPosition;
+		vEntityPosition = XMLoadFloat4(&vPos);
+		fDistance = XMVector4Length(XMVectorSubtract(vEntityPosition, vPosition)).m128_f32[0];
+		fDistance = round(fDistance * 1000) / 1000;
+		if (fDistance < 0) {
 			m_cCollision = FirstCollision;
 		}
 	}

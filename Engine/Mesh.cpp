@@ -129,3 +129,24 @@ void Mesh::buildPyramidGeometry() {
 	m_mMesh.indices = std::move(indices);
 	uploadMeshToBuffers(m_mMesh);
 }
+
+void Mesh::getMinMaxCoordinate(std::vector<Vertex> vertices) {
+	XMFLOAT3 vMax = vertices[0].Pos;
+	XMFLOAT3 vMin = vertices[0].Pos;
+	for (Vertex vertex : vertices) {
+		if (vertex.Pos.x > vMax.x)
+			vMax.x = vertex.Pos.x;
+		if (vertex.Pos.y > vMax.y)
+			vMax.y = vertex.Pos.y;
+		if (vertex.Pos.z > vMax.z)
+			vMax.z = vertex.Pos.z;
+		if (vertex.Pos.x < vMin.x)
+			vMin.x = vertex.Pos.x;
+		if (vertex.Pos.y < vMin.y)
+			vMin.y = vertex.Pos.y;
+		if (vertex.Pos.z < vMin.z)
+			vMin.z = vertex.Pos.z;
+	}
+	m_mMesh.maxCoordinate = vMax;
+	m_mMesh.minCoordinate = vMin;
+}

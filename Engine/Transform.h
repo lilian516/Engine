@@ -19,6 +19,8 @@ struct Transform
 	XMFLOAT4X4 m_mRotation;
 
 	//-- POSITION --//
+	XMFLOAT3 m_vMinAABB;
+	XMFLOAT3 m_vMinAABB;
 	XMFLOAT4 m_vPosition;
 	XMFLOAT4X4 m_mPosition;
 
@@ -32,8 +34,9 @@ struct Transform
 
 	void Identify();
 	void Rotate(float pitch, float roll, float yaw);
+	void RotateAABB(float pitch, float roll, float yaw);
 	void Scale(XMFLOAT4 ratio);
-	void setPosition(float x, float y, float z);
+	void ScaleAABB(XMFLOAT4 ratio);
 	void updateTransform();
 };
 
