@@ -6,17 +6,21 @@ public:
 
 	Camera();
 	~Camera();
-	void initCamera(int windowWidth, int windowHeight, Entity *oEntity);
+	void initCamera(Entity *oEntity);
 	void update()override;
 
 private:
-	XMFLOAT3 m_fCameraPosition;
-	XMFLOAT3 m_fCameraTarget;
-	XMFLOAT3 m_fCameraUp;
-	XMMATRIX m_mViewMatrix;
-	XMMATRIX m_mProjectionMatrix;
-	float m_fCameraMoveSpeed;
-	POINT m_pMousePose;
+	XMFLOAT3 m_fPosition;
+	float m_yaw;
+	float m_pitch;
+
+	float m_fMoveSpeed;
+	float m_fRotationSpeed;
+
+	XMFLOAT4X4 m_mViewMatrix;
+
+	float m_fMouseX;
+	float m_fMouseY;
 protected:
 
 };
