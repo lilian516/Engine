@@ -425,11 +425,9 @@ void Graphics::update(Manager* oManager) {
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
 		for (int j = 0; j < oManager->m_vEntity[i]->m_vComponents.size(); j++) {
 			oManager->m_vEntity[i]->m_vComponents[j]->update();
-			/*if (MeshRenderer* meshRenderer = dynamic_cast<MeshRenderer*>(oManager->m_vEntity[i]->m_vComponents[j])) {
-				meshRenderer->update();
-			}*/
+			
 		}
-		//oManager->m_vEntity[i]
+		
 	}
 	onResize();
 	
