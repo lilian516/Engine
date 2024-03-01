@@ -36,16 +36,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Manager* oManager = new Manager();
     Mesh* oMesh = new Mesh();
     Shader* oShader = new Shader();
+    Mesh* oMesh2 = new Mesh();
     oManager->m_vMesh.push_back(oMesh);
+    oManager->m_vMesh.push_back(oMesh2);
     oManager->m_vShader.push_back(oShader);
     oManager->initManager();
+  
     Entity* oEntity = new Entity();
     oEntity->initEntity();
     MeshRenderer* oMeshRenderer = new MeshRenderer();
     oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh);
     oEntity->AddComponents(oMeshRenderer);
+
+    Entity* oEntity2 = new Entity();
+    oEntity2->initEntity();
+    MeshRenderer* oMeshRenderer2 = new MeshRenderer();
+    oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh2);
+    oEntity2->AddComponents(oMeshRenderer2);
     
     oManager->addEntity(oEntity);
+    oManager->addEntity(oEntity2);
     
 
     

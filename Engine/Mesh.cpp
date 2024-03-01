@@ -36,45 +36,7 @@ void Mesh::update() {
 
 void Mesh::uploadMeshToBuffers(MeshData mesh, ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 
-	/*ID3D12Resource* tempResource;
-	D3D12_HEAP_PROPERTIES heapProperties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-	D3D12_RESOURCE_DESC vertexBufferDesc = CD3DX12_RESOURCE_DESC::Buffer(mesh.vertices.size() * sizeof(Vertex));
-	HRESULT hresult = device->CreateCommittedResource(&heapProperties,D3D12_HEAP_FLAG_NONE,&vertexBufferDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&tempResource));
-	hresult = device->CreateCommittedResource(&heapProperties, D3D12_HEAP_FLAG_NONE, &vertexBufferDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&mesh.vertexBuffer));
-	mesh.vertexBufferGPU = tempResource;
-	if (FAILED(hresult)) {
-		throw std::runtime_error("Failed to create vertex buffer.");
-	}
-
-	UINT8* pVertexDataBegin;
-	D3D12_RANGE readRange = { 0, 0 };
-	hresult = mesh.vertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexDataBegin));
-	if (FAILED(hresult)) {
-		throw std::runtime_error("Failed to map vertex buffer.");
-	}
-	memcpy(pVertexDataBegin, mesh.vertices.data(), mesh.vertices.size() * sizeof(Vertex));
-	mesh.vertexBuffer->Unmap(0, nullptr);
-
-	D3D12_RESOURCE_DESC indexBufferDesc = CD3DX12_RESOURCE_DESC::Buffer(mesh.indices.size() * sizeof(uint16_t));
-	ID3D12Resource* tempRsource2;
-	hresult = device->CreateCommittedResource(&heapProperties,D3D12_HEAP_FLAG_NONE,&indexBufferDesc,D3D12_RESOURCE_STATE_GENERIC_READ,nullptr,IID_PPV_ARGS(&tempRsource2));
-	hresult = device->CreateCommittedResource(&heapProperties, D3D12_HEAP_FLAG_NONE, &indexBufferDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&mesh.indexBuffer));
-	mesh.indexBufferGPU = tempRsource2;
-	if (FAILED(hresult)) {
-		throw std::runtime_error("Failed to create index buffer.");
-	}
-
-	UINT8* pIndexDataBegin;
-	hresult = mesh.indexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pIndexDataBegin));
-	if (FAILED(hresult)) {
-		throw std::runtime_error("Failed to map index buffer.");
-	}
-	memcpy(pIndexDataBegin, mesh.indices.data(), mesh.indices.size() * sizeof(uint16_t));
-	mesh.indexBuffer->Unmap(0, nullptr);
-
-	mesh.vertexByteStride = sizeof(Vertex);
-	mesh.vertexByteSize = (UINT)mesh.vertices.size() * sizeof(Vertex);
-	mesh.indexBufferByteSize = (UINT)mesh.indices.size() * sizeof(std::uint16_t);*/
+	
 	const UINT vbByteSize = (UINT)m_mMesh.vertices.size() * sizeof(Vertex);
 	const UINT ibByteSize = (UINT)m_mMesh.indices.size() * sizeof(std::uint16_t);
 

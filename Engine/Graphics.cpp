@@ -57,6 +57,7 @@ bool Graphics::initGraphics(Manager* oManager) {
 
 	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
 		oManager->m_vMesh[i]->buildPyramidGeometry(m_d3dDevice, m_cCommandList);
+		
 	}
 
 	m_cCommandList->Close();
