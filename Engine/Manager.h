@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "InputManager.h"
+#include "MeshRenderer.h"
 #include "Timer.h"
 #include <vector>
 #include <iostream>
@@ -29,6 +30,7 @@ public :
 	vector<Entity*> m_vEntity;
 	vector<Shader*> m_vShader;
 	vector<Mesh*> m_vMesh;
+	vector<MeshRenderer*> m_vMeshRenderer;
 	Mesh* m_oMesh;
 	Shader* m_oShader;
 	

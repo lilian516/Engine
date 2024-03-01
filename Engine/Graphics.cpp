@@ -46,10 +46,13 @@ bool Graphics::initGraphics(Manager* oManager) {
 	onResize();
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 	createHeapDescriptor();
-	
+	for (int i = 0; i < oManager->m_vMeshRenderer.size(); i++) {
+		oManager->m_vMeshRenderer[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
+		
+	}
 	
 	for (int i = 0; i < oManager->m_vShader.size(); i++) {
-		oManager->m_vShader[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
+		//oManager->m_vShader[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
 		oManager->m_vShader[i]->initializeRootSignature(m_d3dDevice);
 		oManager->m_vShader[i]->initializeShader();
 		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);
@@ -59,6 +62,8 @@ bool Graphics::initGraphics(Manager* oManager) {
 		oManager->m_vMesh[i]->buildPyramidGeometry(m_d3dDevice, m_cCommandList);
 		
 	}
+
+	
 
 	m_cCommandList->Close();
 	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
@@ -386,28 +391,38 @@ void Graphics::flushCommandQueue()
 void Graphics::update(Manager* oManager) {
 	
 	//Convert Spherical to Cartesian coordinates.
-	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
-	float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
-	float y = m_fRadius * cosf(m_fPhi);
+	//float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
+	//float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
+	//float y = m_fRadius * cosf(m_fPhi);
 
-	// Build the view matrix.
-	XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
-	XMVECTOR target = XMVectorZero();
-	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	////// Build the view matrix.
+	//XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
+	//XMVECTOR target = XMVectorZero();
+	//XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
-	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
-	XMStoreFloat4x4(&m_fView, view);
+	//XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
+	//XMStoreFloat4x4(&m_fView, view);
 
-	XMMATRIX world = XMLoadFloat4x4(&m_fWorld);
-	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
-	XMMATRIX worldViewProj = world * view * proj;
+	//XMMATRIX world = XMLoadFloat4x4(&m_fWorld);
+	//XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
+	//XMMATRIX worldViewProj = world * view * proj;
 
-	// Update the constant buffer with the latest worldViewProj matrix.
-	ObjectConstants objConstants;
-	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
+	////// Update the constant buffer with the latest worldViewProj matrix.
+	//ObjectConstants objConstants;
+	//XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
 
-	for (int i = 0; i < oManager->m_vShader.size(); i++) {
-		oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
+	//for (int i = 0; i < oManager->m_vEntity.size(); i++) {
+	//	for (int j = 0; j < oManager->m_vEntity[i]->m_vComponents.size(); j++) {
+	//		if (MeshRenderer* meshRenderer = dynamic_cast<MeshRenderer*>(oManager->m_vEntity[i]->m_vComponents[j])) {
+	//			meshRenderer->m_uObjectCB->CopyData(0, objConstants);
+	//		}
+
+	//	}
+
+	//	//oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
+	//}
+	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
+		oManager->m_vEntity[i]->update();
 	}
 	onResize();
 	
@@ -453,7 +468,10 @@ void Graphics::render(Manager* oManager) {
 	// PER OBJECT
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
 		oManager->m_vEntity[i]->render(this);
+
 	}
+
+
 	/*Entity* oEntity2 = new Entity();
 	MeshRenderer* oMeshRenderer = new MeshRenderer();
 	oMeshRenderer->SetMeshRenderer(oEntity2, m_d3dDevice, m_oShader, m_oMesh);

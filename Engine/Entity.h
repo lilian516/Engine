@@ -25,17 +25,17 @@ using namespace DirectX;
 class Entity
 {
 private :
-	Transform *m_tTranform;
+	
 public :
 	vector<Component*> m_vComponents;
-
+	Transform m_tTranform;
 	Entity();
 	void initEntity();
 	void AddComponents(Component* cComponent);
-	Transform getTransform();
+	Transform& getTransform();
 	vector<Component*> GetVectorComponents();
 	void SRT();
 	virtual void update();
 	virtual void render(Graphics* oGraphics);
-	vector<Component*> m_vComponents;
+	
 };

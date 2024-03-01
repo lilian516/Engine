@@ -7,8 +7,8 @@ Entity::Entity() {
 }
 
 void Entity::initEntity() {
-	m_tTranform = new Transform();
-	m_tTranform->Identify();
+	//m_tTranform = new Transform();
+	m_tTranform.Identify();
 
 }
 
@@ -28,14 +28,16 @@ void Entity::update() {
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		m_vComponents[i]->update();
 	}
+	
 }
 
 void Entity::render(Graphics* oGraphics) {
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		m_vComponents[i]->render(oGraphics);
+
 	}
 }
 
-Transform Entity::getTransform() {
-	return *m_tTranform;
+Transform& Entity::getTransform() {
+	return m_tTranform;
 }
