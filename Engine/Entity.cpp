@@ -8,7 +8,7 @@ Entity::Entity() {
 
 void Entity::initEntity() {
 	//m_tTranform = new Transform();
-	m_tTranform.identify();
+	m_tTransform.identify();
 
 }
 
@@ -39,5 +39,5 @@ void Entity::render(Graphics* oGraphics) {
 }
 
 Transform& Entity::getTransform() {
-	return m_tTranform;
+	return m_tTransform;
 }

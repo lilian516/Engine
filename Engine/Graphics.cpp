@@ -52,7 +52,7 @@ bool Graphics::initGraphics(Manager* oManager) {
 	}
 	
 	for (int i = 0; i < oManager->m_vShader.size(); i++) {
-		//oManager->m_vShader[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
+		
 		oManager->m_vShader[i]->initializeRootSignature(m_d3dDevice);
 		oManager->m_vShader[i]->initializeShader();
 		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);

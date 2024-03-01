@@ -67,6 +67,7 @@ void MeshRenderer::buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHe
 {
 	m_uObjectCB = std::make_unique<UploadBuffer<ObjectConstants>>(device, 1, true);
 
+
 	//UINT objCBByteSize = CalcConstantBufferByteSize(sizeof(ConstantBufferObject));
 	//
 	//D3D12_GPU_VIRTUAL_ADDRESS cbAddress = m_uObjectCB->Resource()->GetGPUVirtualAddress();
