@@ -20,10 +20,6 @@ void Camera::initCamera(int windowWidth,int windowHeight, Entity *oEntity) {
     m_mViewMatrix = XMMatrixLookAtLH(XMLoadFloat3(&m_fCameraPosition), XMLoadFloat3(&m_fCameraTarget), XMLoadFloat3(&m_fCameraUp));
     m_pMousePose.x = 400;
     m_pMousePose.y = 300;
-    
-    m_pMousePose.x = 400;
-    m_pMousePose.y = 300;
-
 }
 
 void Camera::update() {
