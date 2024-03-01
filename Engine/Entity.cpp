@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include "Component.h"
 #include "Graphics.h"
-
+#include "Transform.h"
 Entity::Entity() {
 
 }

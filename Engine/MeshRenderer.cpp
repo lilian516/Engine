@@ -1,5 +1,5 @@
 #include "MeshRenderer.h"
-
+#include "Transform.h"
 
 MeshRenderer::MeshRenderer() {
 
@@ -23,7 +23,7 @@ void MeshRenderer::update() {
 	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
 	XMStoreFloat4x4(&m_fView, view);
 	
-	XMMATRIX world = XMLoadFloat4x4(&m_oEntity.getTransform().m_mPosition);
+	XMMATRIX world = XMLoadFloat4x4(&m_oEntity.getTransform().m_mTransform);
 	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
 	XMMATRIX worldViewProj = world * view * proj;
 
@@ -68,18 +68,4 @@ void MeshRenderer::buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHe
 	m_uObjectCB = std::make_unique<UploadBuffer<ObjectConstants>>(device, 1, true);
 
 
-	//UINT objCBByteSize = CalcConstantBufferByteSize(sizeof(ConstantBufferObject));
-	//
-	//D3D12_GPU_VIRTUAL_ADDRESS cbAddress = m_uObjectCB->Resource()->GetGPUVirtualAddress();
-	//// Offset to the ith object constant buffer in the buffer.
-	//int boxCBufIndex = 0;
-	//cbAddress += boxCBufIndex * objCBByteSize;
-	//
-	//D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc;
-	//cbvDesc.BufferLocation = cbAddress;
-	//cbvDesc.SizeInBytes = CalcConstantBufferByteSize(sizeof(ConstantBufferObject));
-	//
-	//device->CreateConstantBufferView(
-	//	&cbvDesc,
-	//	dCbvHeap->GetCPUDescriptorHandleForHeapStart());
 }

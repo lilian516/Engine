@@ -1,6 +1,8 @@
 #include "Transform.h"
 
-Transform::Transform() {}
+Transform::Transform() {
+
+}
 Transform::~Transform() {}
 
 void Transform::identify() {
@@ -43,6 +45,7 @@ void Transform::identify() {
 		0.0f, 0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f
 	};
+	
 }
 
 void Transform::rotate(float pitch, float roll, float yaw) {
