@@ -18,7 +18,8 @@ void Camera::initCamera(int windowWidth,int windowHeight, Entity *oEntity) {
     float aspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
     m_mProjectionMatrix = XMMatrixPerspectiveFovLH(XM_PIDIV4, aspectRatio, 0.1f, 100.0f);
     m_mViewMatrix = XMMatrixLookAtLH(XMLoadFloat3(&m_fCameraPosition), XMLoadFloat3(&m_fCameraTarget), XMLoadFloat3(&m_fCameraUp));
-    GetCursorPos(&m_pMousePose);
+    m_pMousePose.x = 400;
+    m_pMousePose.y = 300;
 
 }
 
