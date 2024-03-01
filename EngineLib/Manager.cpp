@@ -1,4 +1,6 @@
+#include "pch.h"
 #include "Manager.h"
+#include "Component.h"
 #include "Resource.h"
 
 Manager::Manager() {

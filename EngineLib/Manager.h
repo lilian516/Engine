@@ -4,10 +4,12 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "InputManager.h"
-#include "MeshRenderer.h"
+
 #include "Timer.h"
 #include <vector>
 #include <iostream>
+
+class MeshRenderer;
 
 using namespace std;
 

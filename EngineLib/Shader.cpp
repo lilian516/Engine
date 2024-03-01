@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Shader.h"
 #define Assert(x) \
 	if (!(x)){ MessageBoxA(0, #x, "Assertion Failed", MB_OK); __debugbreak();}

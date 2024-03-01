@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "MathHelper.h"
 
 void normalizeVector(XMFLOAT4* vector) {

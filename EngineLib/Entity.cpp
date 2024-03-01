@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Entity.h"
 #include "Component.h"
 #include "Graphics.h"

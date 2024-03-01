@@ -1,7 +1,8 @@
+#include "pch.h"
 #include "Graphics.h"
 #include "Entity.h"
 #include <d3d12.h>
-#include "MeshRenderer.h"
+
 #include <vector>
 #include <iostream>
 #include <string>
@@ -9,6 +10,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Manager.h"
+#include "MeshRenderer.h"
 
 
 using Microsoft::WRL::ComPtr;

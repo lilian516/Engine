@@ -24,9 +24,6 @@
     <ClInclude Include="framework.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -36,22 +33,7 @@
     <ClInclude Include="UploadBuffer.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Camera.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Collider.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\Engine\Component.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Effect.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\MeshRenderer.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Script.h">
       <Filter>Fichiers d%27en-tête\Components</Filter>
     </ClInclude>
     <ClInclude Include="DDSTextureLoader.h">
@@ -78,6 +60,30 @@
     <ClInclude Include="Mesh.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectConstants.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Script.h">
+      <Filter>Fichiers d%27en-tête\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineLib.cpp">
@@ -94,24 +100,6 @@
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Camera.cpp">
-      <Filter>Fichiers sources\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Collider.cpp">
-      <Filter>Fichiers sources\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Component.cpp">
-      <Filter>Fichiers sources\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Effect.cpp">
-      <Filter>Fichiers sources\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\MeshRenderer.cpp">
-      <Filter>Fichiers sources\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Script.cpp">
-      <Filter>Fichiers sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="DDSTextureLoader.cpp">
       <Filter>Fichiers sources</Filter>
@@ -133,6 +121,27 @@
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectConstants.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>Fichiers sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Script.cpp">
+      <Filter>Fichiers sources\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

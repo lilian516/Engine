@@ -1,4 +1,4 @@
-
+#include "pch.h"
 #include "Collider.h"
 #include "MathHelper.h"
 #include "Transform.h"
