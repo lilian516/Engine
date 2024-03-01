@@ -37,5 +37,4 @@ public :
 	void SRT();
 	virtual void update();
 	virtual void render(Graphics* oGraphics);
-	vector<Component*> m_vComponents;
 };
