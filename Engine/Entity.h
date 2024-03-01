@@ -27,9 +27,9 @@ class Entity
 private :
 	
 public :
-	Transform* m_tTranform;
+	
 	vector<Component*> m_vComponents;
-	Transform m_tTranform;
+	Transform m_tTransform;
 	Entity();
 	void initEntity();
 	void AddComponents(Component* cComponent);
