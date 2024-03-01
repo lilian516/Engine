@@ -1,5 +1,6 @@
 #include "Collider.h"
 #include "MathHelper.h"
+#include "Transform.h"
 
 Collider::Collider() {
 

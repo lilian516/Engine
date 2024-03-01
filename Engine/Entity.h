@@ -9,12 +9,14 @@
 #include <DirectXColors.h>
 #include <DirectXCollision.h>
 #include <vector>
+#include "Transform.h"
 
 #include "d3dx12.h"
-#include "Transform.h"
+
 
 class Component;
 class Graphics;
+
 
 using namespace std;
 using namespace DirectX;
