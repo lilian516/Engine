@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.h"
+#include "Graphics.h"
+
 class Component : public Entity
 {
 private :
@@ -10,7 +12,7 @@ public :
 	Component();
 	void initComponent(int iId, Entity oEntity);
 	virtual void update();
-	virtual void render();
+	virtual void render(Graphics* oGraphics);
 	int getId();
 };
 

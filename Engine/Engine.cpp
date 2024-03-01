@@ -7,6 +7,8 @@
 #include "Manager.h"
 #include "MeshRenderer.h"
 #include "Entity.h"
+#include "Mesh.h"
+#include "Shader.h"
 
 #define MAX_LOADSTRING 100
 
@@ -32,11 +34,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Placez le code ici.
 
     Manager* oManager = new Manager();
+    Mesh* oMesh = new Mesh();
+    Shader* oShader = new Shader();
+    oManager->m_vMesh.push_back(oMesh);
+    oManager->m_vShader.push_back(oShader);
     oManager->initManager();
-
     Entity* oEntity = new Entity();
     oEntity->initEntity();
+    MeshRenderer* oMeshRenderer = new MeshRenderer();
+    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh);
+    oEntity->AddComponents(oMeshRenderer);
+    
     oManager->addEntity(oEntity);
+    
+
+    
     ////Camera* oCamera = new Camera();
     ////oCamera->initCamera(800,600, oEntity);
 

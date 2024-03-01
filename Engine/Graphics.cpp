@@ -1,13 +1,14 @@
 #include "Graphics.h"
 #include "Entity.h"
 #include <d3d12.h>
-
+#include "MeshRenderer.h"
 #include <vector>
 #include <iostream>
 #include <string>
 
 #include "Shader.h"
 #include "Mesh.h"
+#include "Manager.h"
 
 
 using Microsoft::WRL::ComPtr;
@@ -35,7 +36,7 @@ Graphics::Graphics() {
 	m_rDepthStencilBuffer = nullptr;
 }
 
-bool Graphics::initGraphics() {
+bool Graphics::initGraphics(Manager* oManager) {
 	if (initMainWindow() == false) {
 		return false;
 	}
@@ -45,15 +46,18 @@ bool Graphics::initGraphics() {
 	onResize();
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 	createHeapDescriptor();
-	m_oShader = new Shader();
-	m_oMesh = new Mesh();
 	
 	
-	m_oShader->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
-	m_oShader->initializeRootSignature(m_d3dDevice);
-	m_oShader->initializeShader();
-	m_oMesh->buildBoxGeometry(m_d3dDevice,m_cCommandList);
-	m_oShader->initializePipelineState(m_d3dDevice);
+	for (int i = 0; i < oManager->m_vShader.size(); i++) {
+		oManager->m_vShader[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
+		oManager->m_vShader[i]->initializeRootSignature(m_d3dDevice);
+		oManager->m_vShader[i]->initializeShader();
+		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);
+	}
+
+	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
+		oManager->m_vMesh[i]->buildPyramidGeometry(m_d3dDevice, m_cCommandList);
+	}
 
 	m_cCommandList->Close();
 	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
@@ -378,7 +382,7 @@ void Graphics::flushCommandQueue()
 }
 
 
-void Graphics::update() {
+void Graphics::update(Manager* oManager) {
 	
 	//Convert Spherical to Cartesian coordinates.
 	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
@@ -401,14 +405,15 @@ void Graphics::update() {
 	ObjectConstants objConstants;
 	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
 
-	m_oShader->m_uObjectCB->CopyData(0, objConstants);
-
+	for (int i = 0; i < oManager->m_vShader.size(); i++) {
+		oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
+	}
 	onResize();
 	
 	
 }
 
-void Graphics::render() {
+void Graphics::render(Manager* oManager) {
 	m_cDirectCmdListAlloc->Reset();
 
 	// A command list can be reset after it has been added to the command queue via ExecuteCommandList.
@@ -445,9 +450,15 @@ void Graphics::render() {
 
 
 	// PER OBJECT
+	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
+		oManager->m_vEntity[i]->render(this);
+	}
+	/*Entity* oEntity2 = new Entity();
+	MeshRenderer* oMeshRenderer = new MeshRenderer();
+	oMeshRenderer->SetMeshRenderer(oEntity2, m_d3dDevice, m_oShader, m_oMesh);
 	m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
-
-	m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
+	oMeshRenderer->render(this);*/
+	/*m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
 
 	D3D12_VERTEX_BUFFER_VIEW meshVertexBufferView = m_oMesh->m_mMesh.VertexBufferView();
 	m_cCommandList->IASetVertexBuffers(0, 1, &meshVertexBufferView);
@@ -457,12 +468,8 @@ void Graphics::render() {
 
 	m_cCommandList->SetGraphicsRootConstantBufferView(0, m_oShader->m_uObjectCB->Resource()->GetGPUVirtualAddress());
 
-	//m_cCommandList->SetGraphicsRootDescriptorTable(0, m_dConstantBufferViewHeapDescriptor->GetGPUDescriptorHandleForHeapStart());
 
-	/*m_cCommandList->Draw(m_oMesh->m_mMesh..IndexCount,
-		1, 0, 0, 0);*/
-
-	m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(),1,0,0,0);
+	m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(),1,0,0,0);*/
 	// PER OBJECT
 
 

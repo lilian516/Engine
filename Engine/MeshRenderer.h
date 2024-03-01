@@ -9,7 +9,7 @@ public:
 	~MeshRenderer();
 	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader *oShader, Mesh *oMesh);
 	void update()override;
-	void render()override;
+	void render(Graphics* oGraphics)override;
 	
 
 private:

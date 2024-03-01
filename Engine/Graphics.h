@@ -15,13 +15,14 @@
 
 class Shader;
 class Mesh;
+class Manager;
 
 
 class Graphics
 {
 public :
 	Graphics();
-	bool initGraphics();
+	bool initGraphics(Manager* oManager);
 	bool initDirectX();
 	bool deleteDirectX();
 	void logAdapters();
@@ -34,8 +35,8 @@ public :
 	void createHeapDescriptor();
 	void flushCommandQueue();
 	bool initMainWindow();
-	void render();
-	void update();
+	void render(Manager* oManager);
+	void update(Manager* oManager);
 	float aspectRatio()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
@@ -75,9 +76,6 @@ public :
 	std::wstring m_wMainWndCaption = L"App Les 4 fantastiques";
 
 	XMVECTORF32 m_vColor = Colors::LightSkyBlue;
-
-	Shader *m_oShader;
-	Mesh *m_oMesh;
 
 
 	float m_fRadius = 5.0f;
