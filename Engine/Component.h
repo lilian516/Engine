@@ -1,6 +1,9 @@
 #pragma once
 #include "Entity.h"
 #include "Graphics.h"
+#include <memory>
+
+#include "ObjectConstants.h"
 
 class Component : public Entity
 {
@@ -14,5 +17,6 @@ public :
 	virtual void update();
 	virtual void render(Graphics* oGraphics);
 	int getId();
+	
 };
 

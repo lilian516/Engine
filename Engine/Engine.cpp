@@ -37,27 +37,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Mesh* oMesh = new Mesh();
     Shader* oShader = new Shader();
     Mesh* oMesh2 = new Mesh();
+    MeshRenderer* oMeshRenderer = new MeshRenderer();
     oManager->m_vMesh.push_back(oMesh);
     oManager->m_vMesh.push_back(oMesh2);
     oManager->m_vShader.push_back(oShader);
-    oManager->initManager();
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer);
+    
   
     Entity* oEntity = new Entity();
     oEntity->initEntity();
-    MeshRenderer* oMeshRenderer = new MeshRenderer();
+    
+    //oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
+    oManager->initManager();
     oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh);
+    
     oEntity->AddComponents(oMeshRenderer);
 
-    Entity* oEntity2 = new Entity();
+   /* Entity* oEntity2 = new Entity();
     oEntity2->initEntity();
     MeshRenderer* oMeshRenderer2 = new MeshRenderer();
     oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh2);
-    oEntity2->AddComponents(oMeshRenderer2);
+    oEntity2->AddComponents(oMeshRenderer2);*/
     
     oManager->addEntity(oEntity);
-    oManager->addEntity(oEntity2);
+    //oManager->addEntity(oEntity2);
     
-
+    
     
     ////Camera* oCamera = new Camera();
     ////oCamera->initCamera(800,600, oEntity);

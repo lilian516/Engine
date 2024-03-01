@@ -26,7 +26,7 @@ public:
 	HRESULT compileShader(const WCHAR* filename, const char* entrypoint, const char* profile, ID3DBlob** out_code);
 	ID3D12PipelineState* m_d3dPipelineState;
 	ID3D12RootSignature* m_d3dRootSignature;
-	std::unique_ptr<UploadBuffer<ObjectConstants>> m_uObjectCB;
+	
 
 private:
 	HRESULT m_hHresult;

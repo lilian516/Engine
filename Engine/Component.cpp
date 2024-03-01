@@ -21,3 +21,5 @@ void Component::render(Graphics* oGraphics) {
 int Component::getId() {
 	return m_iId;
 }
+
+

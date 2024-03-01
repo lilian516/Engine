@@ -27,9 +27,7 @@ void Manager::update() {
 	m_oGraphics->update(this);
 	m_oInputManager->update();
 	m_oTimer->update();
-	for (int i = 0; i < m_vEntity.size(); i++) {
-		m_vEntity[i]->update();
-	}
+	
 	for (int i = 0; i < m_vShader.size(); i++) {
 		m_vShader[i]->update();
 	}

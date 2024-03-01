@@ -29,13 +29,14 @@ private :
 public :
 	Transform* m_tTranform;
 	vector<Component*> m_vComponents;
-
+	Transform m_tTranform;
 	Entity();
 	void initEntity();
 	void AddComponents(Component* cComponent);
-	Transform getTransform();
+	Transform& getTransform();
 	vector<Component*> GetVectorComponents();
 	void SRT();
 	virtual void update();
 	virtual void render(Graphics* oGraphics);
+	
 };
