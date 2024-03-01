@@ -21,6 +21,7 @@ public :
 	void update();
 	void render();
 	void addEntity(Entity* oEntity);
+	int runWindow(HINSTANCE hInstance);
 	
 	~Manager();
 

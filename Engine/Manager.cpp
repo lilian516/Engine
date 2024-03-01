@@ -1,4 +1,5 @@
 #include "Manager.h"
+#include "Resource.h"
 
 Manager::Manager() {
 
@@ -15,6 +16,28 @@ void Manager::initManager() {
 	
 	
 	
+}
+
+int Manager::runWindow(HINSTANCE hInstance) {
+	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
+
+	MSG msg;
+
+	// Boucle de messages principale :
+	while (GetMessage(&msg, nullptr, 0, 0))
+	{
+		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		mainLoop();
+
+
+	}
+
+	return (int)msg.wParam;
 }
 
 void Manager::mainLoop() {
