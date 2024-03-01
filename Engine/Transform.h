@@ -30,10 +30,10 @@ struct Transform
 	Transform();
 	~Transform();
 
-	void Identify();
-	void Rotate(float pitch, float roll, float yaw);
-	void Scale(XMFLOAT4 ratio);
-	void setPosition(float x, float y, float z);
+	void identify();
+	void rotate(float pitch, float roll, float yaw);
+	void scale(XMFLOAT3 ratio);
+	void translation(XMFLOAT4 vDirection);
 	void updateTransform();
 };
 

@@ -8,7 +8,7 @@ Entity::Entity() {
 
 void Entity::initEntity() {
 	m_tTranform = new Transform();
-	m_tTranform->Identify();
+	m_tTranform->identify();
 
 }
 
