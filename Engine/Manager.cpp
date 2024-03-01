@@ -6,7 +6,7 @@ Manager::Manager() {
 
 void Manager::initManager() {
 	m_oGraphics = new Graphics();
-	m_oGraphics->initGraphics();
+	m_oGraphics->initGraphics(this);
 	m_oInputManager = new InputManager();
 	m_oInputManager->init();
 	m_oTimer = new Timer();
@@ -14,10 +14,7 @@ void Manager::initManager() {
 
 	
 	
-	/*m_oShader->initializeRootSignature(m_oGraphics->m_d3dDevice);
-	m_oShader->initializeShader();
-	m_oMesh->buildBoxGeometry();
-	m_oShader->initializePipelineState(m_oGraphics->m_d3dDevice);*/
+	
 }
 
 void Manager::mainLoop() {
@@ -27,7 +24,7 @@ void Manager::mainLoop() {
 }
 
 void Manager::update() {
-	m_oGraphics->update();
+	m_oGraphics->update(this);
 	m_oInputManager->update();
 	m_oTimer->update();
 	for (int i = 0; i < m_vEntity.size(); i++) {
@@ -42,7 +39,7 @@ void Manager::update() {
 }
 
 void Manager::render() {
-	m_oGraphics->render();
+	m_oGraphics->render(this);
 }
 
 void Manager::addEntity(Entity* oEntity) {

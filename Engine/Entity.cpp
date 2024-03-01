@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include "Component.h"
-
+#include "Graphics.h"
 
 Entity::Entity() {
 
@@ -30,8 +30,10 @@ void Entity::update() {
 	}
 }
 
-void Entity::render() {
-
+void Entity::render(Graphics* oGraphics) {
+	for (int i = 0; i < m_vComponents.size(); i++) {
+		m_vComponents[i]->render(oGraphics);
+	}
 }
 
 Transform Entity::getTransform() {

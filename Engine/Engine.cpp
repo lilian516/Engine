@@ -7,6 +7,8 @@
 #include "Manager.h"
 #include "MeshRenderer.h"
 #include "Entity.h"
+#include "Mesh.h"
+#include "Shader.h"
 
 #define MAX_LOADSTRING 100
 
@@ -32,17 +34,37 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Placez le code ici.
 
     Manager* oManager = new Manager();
+    Mesh* oMesh = new Mesh();
+    Shader* oShader = new Shader();
+    Mesh* oMesh2 = new Mesh();
+    oManager->m_vMesh.push_back(oMesh);
+    oManager->m_vMesh.push_back(oMesh2);
+    oManager->m_vShader.push_back(oShader);
     oManager->initManager();
-
+  
     Entity* oEntity = new Entity();
     oEntity->initEntity();
-    oManager->addEntity(oEntity);
-    Camera* oCamera = new Camera();
-    oCamera->initCamera(800,600, oEntity);
-
     MeshRenderer* oMeshRenderer = new MeshRenderer();
-    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
+    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh);
     oEntity->AddComponents(oMeshRenderer);
+
+    Entity* oEntity2 = new Entity();
+    oEntity2->initEntity();
+    MeshRenderer* oMeshRenderer2 = new MeshRenderer();
+    oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh2);
+    oEntity2->AddComponents(oMeshRenderer2);
+    
+    oManager->addEntity(oEntity);
+    oManager->addEntity(oEntity2);
+    
+
+    
+    ////Camera* oCamera = new Camera();
+    ////oCamera->initCamera(800,600, oEntity);
+
+    //MeshRenderer* oMeshRenderer = new MeshRenderer();
+    //oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
+    //oEntity->AddComponents(oMeshRenderer);
 
     
 
@@ -71,7 +93,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         
         oManager->mainLoop();
-        oCamera->update();
+        //oCamera->update();
         
     }
 

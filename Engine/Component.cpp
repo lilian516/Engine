@@ -14,7 +14,7 @@ void Component::update() {
 
 }
 
-void Component::render() {
+void Component::render(Graphics* oGraphics) {
 
 }
 

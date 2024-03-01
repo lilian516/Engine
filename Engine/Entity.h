@@ -14,6 +14,7 @@
 #include "Transform.h"
 
 class Component;
+class Graphics;
 
 using namespace std;
 using namespace DirectX;
@@ -35,7 +36,6 @@ public :
 	vector<Component*> GetVectorComponents();
 	void SRT();
 	virtual void update();
-	virtual void render();
-	
+	virtual void render(Graphics* oGraphics);
+	vector<Component*> m_vComponents;
 };
-

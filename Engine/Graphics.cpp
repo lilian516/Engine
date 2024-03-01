@@ -1,12 +1,14 @@
 #include "Graphics.h"
 #include "Entity.h"
 #include <d3d12.h>
-
+#include "MeshRenderer.h"
 #include <vector>
 #include <iostream>
 #include <string>
 
-
+#include "Shader.h"
+#include "Mesh.h"
+#include "Manager.h"
 
 
 using Microsoft::WRL::ComPtr;
@@ -34,7 +36,7 @@ Graphics::Graphics() {
 	m_rDepthStencilBuffer = nullptr;
 }
 
-bool Graphics::initGraphics() {
+bool Graphics::initGraphics(Manager* oManager) {
 	if (initMainWindow() == false) {
 		return false;
 	}
@@ -42,19 +44,25 @@ bool Graphics::initGraphics() {
 		return false;
 	}
 	onResize();
+	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
+	createHeapDescriptor();
+	
+	
+	for (int i = 0; i < oManager->m_vShader.size(); i++) {
+		oManager->m_vShader[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
+		oManager->m_vShader[i]->initializeRootSignature(m_d3dDevice);
+		oManager->m_vShader[i]->initializeShader();
+		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);
+	}
 
-	/*m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
-	m_oMesh = new Mesh();
-	m_oMesh->init(m_d3dDevice);
-	m_oShader = new Shader();
-	m_oShader->initializeRootSignature(m_d3dDevice);
-	m_oShader->initializeShader();
-	m_oMesh->buildBoxGeometry();
-	m_oShader->initializePipelineState(m_d3dDevice);
+	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
+		oManager->m_vMesh[i]->buildPyramidGeometry(m_d3dDevice, m_cCommandList);
+		
+	}
 
 	m_cCommandList->Close();
 	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
-	m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);*/
+	m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
 
 	// Wait until initialization is complete.
 	flushCommandQueue();
@@ -66,9 +74,16 @@ LRESULT CALLBACK
 MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg) {
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
+		case WM_DESTROY:
+		
+			PostQuitMessage(0);
+			return 0;
+		case WM_CLOSE:
+			PostQuitMessage(0);
+			return 0;
+
+		
+		
 	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
@@ -213,6 +228,15 @@ void Graphics::createSwapChain() {
 	//note pour plus tard peut etre problème avec throwiffailed
 }
 
+void Graphics::createHeapDescriptor() {
+	D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
+	cbvHeapDesc.NumDescriptors = 1;
+	cbvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	cbvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	cbvHeapDesc.NodeMask = 0;
+	HRESULT m_hHresult = m_d3dDevice->CreateDescriptorHeap(&cbvHeapDesc, IID_PPV_ARGS(&m_dConstantBufferViewHeapDescriptor));
+}
+
 void Graphics::createRtvAndDsvDescriptorHeaps() {
 	D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc;
 	rtvHeapDesc.NumDescriptors = m_sSwapChainBufferCount;
@@ -240,8 +264,8 @@ void Graphics::onResize() {
 
 	// Release the previous resources we will be recreating.
 	for (int i = 0; i < m_sSwapChainBufferCount; ++i)
-		m_cSwapChainBuffer[i] = nullptr;
-	m_rDepthStencilBuffer = nullptr;
+		m_cSwapChainBuffer[i].Reset();
+	m_rDepthStencilBuffer.Reset();
 
 	// Resize the swap chain.
 	m_cSwapChain->ResizeBuffers(
@@ -255,7 +279,7 @@ void Graphics::onResize() {
 	for (UINT i = 0; i < m_sSwapChainBufferCount; i++)
 	{
 		m_cSwapChain->GetBuffer(i, IID_PPV_ARGS(&m_cSwapChainBuffer[i]));
-		m_d3dDevice->CreateRenderTargetView(m_cSwapChainBuffer[i], nullptr, rtvHeapHandle);
+		m_d3dDevice->CreateRenderTargetView(m_cSwapChainBuffer[i].Get(), nullptr, rtvHeapHandle);
 		rtvHeapHandle.Offset(1, m_iRtvDescriptorSize);
 	}
 
@@ -293,12 +317,12 @@ void Graphics::onResize() {
 	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
 	dsvDesc.Format = m_fDepthStencilFormat;
 	dsvDesc.Texture2D.MipSlice = 0;
-	m_d3dDevice->CreateDepthStencilView(m_rDepthStencilBuffer, &dsvDesc, depthStencilView());
+	m_d3dDevice->CreateDepthStencilView(m_rDepthStencilBuffer.Get(), &dsvDesc, depthStencilView());
 
 	// Transition the resource from its initial state to be used as a depth buffer.
 
 	CD3DX12_RESOURCE_BARRIER cTransitionBarrier = CD3DX12_RESOURCE_BARRIER::Transition(
-		m_rDepthStencilBuffer,
+		m_rDepthStencilBuffer.Get(),
 		D3D12_RESOURCE_STATE_COMMON,
 		D3D12_RESOURCE_STATE_DEPTH_WRITE
 	);
@@ -321,7 +345,17 @@ void Graphics::onResize() {
 	m_vScreenViewport.MaxDepth = 1.0f;
 
 	m_rScissorRect = { 0, 0, m_iClientWidth, m_iClientHeight };
+
+	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, aspectRatio(), 1.0f, 1000.0f);
+	XMStoreFloat4x4(&m_fProj, P);
+	
 }
+
+float Graphics::aspectRatio()const
+{
+	return static_cast<float>(m_iClientWidth) / m_iClientHeight;
+}
+
 
 
 void Graphics::flushCommandQueue()
@@ -349,28 +383,54 @@ void Graphics::flushCommandQueue()
 }
 
 
-void Graphics::update() {
+void Graphics::update(Manager* oManager) {
+	
+	//Convert Spherical to Cartesian coordinates.
+	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
+	float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
+	float y = m_fRadius * cosf(m_fPhi);
+
+	// Build the view matrix.
+	XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
+	XMVECTOR target = XMVectorZero();
+	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+
+	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
+	XMStoreFloat4x4(&m_fView, view);
+
+	XMMATRIX world = XMLoadFloat4x4(&m_fWorld);
+	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
+	XMMATRIX worldViewProj = world * view * proj;
+
+	// Update the constant buffer with the latest worldViewProj matrix.
+	ObjectConstants objConstants;
+	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
+
+	for (int i = 0; i < oManager->m_vShader.size(); i++) {
+		oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
+	}
+	onResize();
 	
 	
 }
 
-void Graphics::render() {
+void Graphics::render(Manager* oManager) {
 	m_cDirectCmdListAlloc->Reset();
 
 	// A command list can be reset after it has been added to the command queue via ExecuteCommandList.
 	// Reusing the command list reuses memory. m_oShader->m_d3dPipelineState
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 
+
+	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.
+	m_cCommandList->RSSetViewports(1, &m_vScreenViewport);
+	m_cCommandList->RSSetScissorRects(1, &m_rScissorRect);
 	
 	
 
 	// Indicate a state transition on the resource usage.
 	CD3DX12_RESOURCE_BARRIER rIntermediate = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
 	m_cCommandList->ResourceBarrier(1, &rIntermediate);
-
-	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.
-	m_cCommandList->RSSetViewports(1, &m_vScreenViewport);
-	m_cCommandList->RSSetScissorRects(1, &m_rScissorRect);
 
 	// Clear the back buffer and depth buffer.
 	
@@ -385,25 +445,33 @@ void Graphics::render() {
 	m_cCommandList->OMSetRenderTargets(1, &CurrentBBView, true, &DSview);
 
 
-
-
 	//on dessinne ici le cube
-	/*ID3D12DescriptorHeap* descriptorHeaps[] = {mCbvHeap.Get()};
+	ID3D12DescriptorHeap* descriptorHeaps[] = {m_dConstantBufferViewHeapDescriptor};
 	m_cCommandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
 
-	m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
 
-	m_cCommandList->IASetVertexBuffers(0, 1,  m_oMesh->m_mMesh);
-	m_cCommandList->IASetIndexBuffer(&mBoxGeo->IndexBufferView());
+	// PER OBJECT
+	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
+		oManager->m_vEntity[i]->render(this);
+	}
+	/*Entity* oEntity2 = new Entity();
+	MeshRenderer* oMeshRenderer = new MeshRenderer();
+	oMeshRenderer->SetMeshRenderer(oEntity2, m_d3dDevice, m_oShader, m_oMesh);
+	m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
+	oMeshRenderer->render(this);*/
+	/*m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
+
+	D3D12_VERTEX_BUFFER_VIEW meshVertexBufferView = m_oMesh->m_mMesh.VertexBufferView();
+	m_cCommandList->IASetVertexBuffers(0, 1, &meshVertexBufferView);
+	D3D12_INDEX_BUFFER_VIEW meshIndexBufferView = m_oMesh->m_mMesh.IndexBufferView();
+	m_cCommandList->IASetIndexBuffer(&meshIndexBufferView);
 	m_cCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	m_cCommandList->SetGraphicsRootDescriptorTable(0, mCbvHeap->GetGPUDescriptorHandleForHeapStart());
+	m_cCommandList->SetGraphicsRootConstantBufferView(0, m_oShader->m_uObjectCB->Resource()->GetGPUVirtualAddress());
 
-	m_cCommandList->DrawIndexedInstanced(
-		mBoxGeo->DrawArgs["box"].IndexCount,
-		1, 0, 0, 0);*/
 
-	////
+	m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(),1,0,0,0);*/
+	// PER OBJECT
 
 
 
@@ -439,7 +507,7 @@ D3D12_CPU_DESCRIPTOR_HANDLE Graphics::currentBackBufferView()const
 
 ID3D12Resource* Graphics::currentBackBuffer()const
 {
-	return m_cSwapChainBuffer[m_iCurrBackBuffer];
+	return m_cSwapChainBuffer[m_iCurrBackBuffer].Get();
 }
 
 D3D12_CPU_DESCRIPTOR_HANDLE Graphics::depthStencilView()const
