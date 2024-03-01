@@ -349,12 +349,41 @@ void Graphics::flushCommandQueue()
 }
 
 
-void Graphics::update() {
+void Graphics::update(Manager* oManager) {
+	
+	//Convert Spherical to Cartesian coordinates.
+	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
+	float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
+	float y = m_fRadius * cosf(m_fPhi);
+
+	// Build the view matrix.
+	XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
+	XMVECTOR target = XMVectorZero();
+	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+
+	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
+	XMStoreFloat4x4(&m_fView, view);
+
+	XMMATRIX world = XMLoadFloat4x4(&m_fWorld);
+	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
+		world *= XMLoadFloat4x4(&oManager->m_vEntity[0]->m_tTranform->m_mTransform);;
+	}
+	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
+	XMMATRIX worldViewProj = world * view * proj;
+
+	// Update the constant buffer with the latest worldViewProj matrix.
+	ObjectConstants objConstants;
+	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
+
+	for (int i = 0; i < oManager->m_vShader.size(); i++) {
+		oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
+	}
+	onResize();
 	
 	
 }
 
-void Graphics::render() {
+void Graphics::render(Manager* oManager) {
 	m_cDirectCmdListAlloc->Reset();
 
 	// A command list can be reset after it has been added to the command queue via ExecuteCommandList.

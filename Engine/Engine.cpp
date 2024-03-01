@@ -33,8 +33,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     Manager* oManager = new Manager();
     oManager->initManager();
-
-
+  
     Entity* oEntity = new Entity();
     oEntity->initEntity();
     oManager->addEntity(oEntity);

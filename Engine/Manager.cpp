@@ -39,6 +39,7 @@ void Manager::update() {
 	for (int i = 0; i < m_vMesh.size(); i++) {
 		m_vMesh[i]->update();
 	}
+	m_oGraphics->update(this);
 }
 
 void Manager::render() {
