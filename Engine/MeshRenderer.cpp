@@ -23,7 +23,7 @@ void MeshRenderer::update() {
 	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
 	XMStoreFloat4x4(&m_fView, view);
 	
-	XMMATRIX world = XMLoadFloat4x4(&m_oEntity.getTransform().m_mTransform);
+	XMMATRIX world = XMLoadFloat4x4(&m_fWorld);
 	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
 	XMMATRIX worldViewProj = world * view * proj;
 
@@ -31,6 +31,9 @@ void MeshRenderer::update() {
 	ObjectConstants objConstants;
 	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
 	m_uObjectCB->CopyData(0, objConstants);
+
+	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, static_cast<float>(800) / 600, 1.0f, 1000.0f);
+	XMStoreFloat4x4(&m_fProj, P);
 }
 
 
