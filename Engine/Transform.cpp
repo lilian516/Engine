@@ -1,9 +1,9 @@
 #include "Transform.h"
 
-Transform::Transform(){}
-Transform::~Transform(){}
+Transform::Transform() {}
+Transform::~Transform() {}
 
-void Transform::Identify() {
+void Transform::identify() {
 	//-- SCALING --//
 	m_vScaling = { 1.f,1.f,1.f,0.0f };
 	m_mScaling = {
@@ -28,11 +28,11 @@ void Transform::Identify() {
 
 	//-- POSITION --//
 	m_vPosition = { 0.0f,0.0f,0.0f,0.0f };
-	m_mPosition = { 
+	m_mPosition = {
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f 
+		0.0f, 0.0f, 0.0f, 1.0f
 	};
 
 	//-- TRANSFORM MATRIX --//
@@ -45,7 +45,7 @@ void Transform::Identify() {
 	};
 }
 
-void Transform::Rotate(float pitch, float roll, float yaw) {
+void Transform::rotate(float pitch, float roll, float yaw) {
 	XMVECTOR vQuaternion;
 
 	XMVECTOR vDirection = XMLoadFloat4(&m_vDirection);
@@ -54,12 +54,12 @@ void Transform::Rotate(float pitch, float roll, float yaw) {
 	XMVECTOR vQuaternionRotation = XMLoadFloat4(&m_qRotation);
 
 	vQuaternion = XMQuaternionRotationAxis(vDirection, roll);
-	vQuaternion *= XMQuaternionRotationAxis(vRight, pitch);
-	vQuaternion *= XMQuaternionRotationAxis(vUp, yaw);
-	vQuaternionRotation *= vQuaternion;
+	vQuaternion = XMQuaternionMultiply(XMQuaternionRotationAxis(vRight, pitch), vQuaternion);
+	vQuaternion = XMQuaternionMultiply(XMQuaternionRotationAxis(vUp, yaw), vQuaternion);
+	vQuaternionRotation = XMQuaternionMultiply(vQuaternion, vQuaternionRotation);
 
 	XMStoreFloat4(&m_qRotation, vQuaternionRotation);
-	
+
 
 	XMMATRIX mRotation = XMMatrixRotationQuaternion(vQuaternionRotation);
 	XMStoreFloat4x4(&m_mRotation, mRotation);
@@ -77,7 +77,7 @@ void Transform::Rotate(float pitch, float roll, float yaw) {
 	m_bUpdate = true;
 }
 
-void Transform::Scale(XMFLOAT4 ratio) {
+void Transform::scale(XMFLOAT3 ratio) {
 	XMVECTOR vDirection = XMLoadFloat4(&m_vDirection);
 	XMVECTOR vRight = XMLoadFloat4(&m_vRight);
 	XMVECTOR vUp = XMLoadFloat4(&m_vUp);
@@ -91,19 +91,23 @@ void Transform::Scale(XMFLOAT4 ratio) {
 	mScaling.r[0] = vScalingRight;
 	mScaling.r[1] = vScalingUp;
 	mScaling.r[2] = vScalingDirection;
-	
+
 	mScaled *= mScaling;
 	XMStoreFloat4x4(&m_mScaling, mScaled);
 
 	m_bUpdate = true;
 }
 
-void Transform::setPosition(float x, float y, float z) {
-	m_vPosition = { x,y,z,0.0f };
-	m_mPosition._11 = x;
-	m_mPosition._22 = y;
-	m_mPosition._33 = z;
+void Transform::translation(XMFLOAT4 fDirection) {
+	XMVECTOR vPosition = XMLoadFloat4(&m_vPosition);
+	XMVECTOR vDirection = XMLoadFloat4(&fDirection);
 
+	vPosition += vDirection;
+	XMStoreFloat4(&m_vPosition, vPosition);
+
+	m_mPosition._41 = m_vPosition.x;
+	m_mPosition._42 = m_vPosition.y;
+	m_mPosition._43 = m_vPosition.z;
 	m_bUpdate = true;
 }
 
@@ -119,4 +123,3 @@ void Transform::updateTransform() {
 		m_bUpdate = false;
 	}
 }
-
