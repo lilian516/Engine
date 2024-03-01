@@ -20,9 +20,9 @@ void Camera::update() {
     m_pitch += m_fMouseY * m_fRotationSpeed;
 
     // Update the view matrix
-    m_tTranform->rotate(m_pitch, 0.0f, m_yaw);
-    m_tTranform->updateTransform();
-    XMMATRIX rotation = XMLoadFloat4x4(&m_tTranform->m_mRotation);
+    m_tTranform.rotate(m_pitch, 0.0f, m_yaw);
+    m_tTranform.updateTransform();
+    XMMATRIX rotation = XMLoadFloat4x4(&m_tTranform.m_mRotation);
     XMVECTOR position = XMVectorSet(m_fPosition.x, m_fPosition.y, m_fPosition.z, 0.0f);
     XMVECTOR direction = XMVector3TransformCoord(XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), rotation);
     XMVECTOR up = XMVector3TransformCoord(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), rotation);
