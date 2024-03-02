@@ -6,7 +6,7 @@
 #include "framework.h"
 #include "Game.h"
 
-#include "pch.h"
+
 
 
 #pragma comment(lib, "../EngineLib/EngineLib.lib")
