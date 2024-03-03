@@ -1,8 +1,6 @@
 // Game.cpp : Définit le point d'entrée de l'application.
 //
 
-
-
 #include <iostream>
 
 
@@ -13,7 +11,7 @@
 #include "pch.h"
 #pragma comment(lib, "EngineLib.lib")
 
-
+#include "GameManager.h"
 
 #define MAX_LOADSTRING 100
 
@@ -37,34 +35,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Placez le code ici.
-    Manager* oManager = new Manager();
-    Mesh* oMesh = new Mesh();
-    Shader* oShader = new Shader();
-    
-    MeshRenderer* oMeshRenderer = new MeshRenderer();
-    oManager->m_vMesh.push_back(oMesh);
-    
-    oManager->m_vShader.push_back(oShader);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer);
 
-
-    Entity* oEntity = new Entity();
-    oEntity->initEntity();
-
-    
-    oManager->initManager();
-    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh);
-
-    oEntity->AddComponents(oMeshRenderer);
-
-    
-
-    oManager->addEntity(oEntity);
-    
-
-
-    oManager->runWindow(hInstance);
-
-
+    GameManager oGameManager;
+    oGameManager.initGame();
+    oGameManager.mainLoop(hInstance);
 }
 
