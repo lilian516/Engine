@@ -26,7 +26,7 @@ int Manager::runWindow(HINSTANCE hInstance) {
 	MSG msg;
 
 	// Boucle de messages principale :
-	while (GetMessage(&msg, nullptr, 0, 0))
+	/*while (GetMessage(&msg, nullptr, 0, 0))
 	{
 		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
 		{
@@ -37,9 +37,12 @@ int Manager::runWindow(HINSTANCE hInstance) {
 		mainLoop();
 
 
-	}
+	}*/
+	
+	mainLoop();
+	
 
-	return (int)msg.wParam;
+	return 0;
 }
 
 void Manager::mainLoop() {

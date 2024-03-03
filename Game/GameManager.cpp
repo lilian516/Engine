@@ -31,7 +31,13 @@ void GameManager::initGame() {
 }
 
 void GameManager::mainLoop(HINSTANCE hInstance) {
+    while (true) {
+        if (m_oManager->m_oInputManager->isKey(65) == true) {
+            int a = 1;
+        }
+        m_oManager->runWindow(hInstance);
+        int b = 5;
+    }
     
-    m_oManager->runWindow(hInstance);
     
 }
