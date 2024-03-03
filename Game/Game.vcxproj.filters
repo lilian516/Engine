@@ -46,4 +46,14 @@
       <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="EngineLib.lib">
+      <Filter>Fichiers sources</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader.hlsl">
+      <Filter>Fichiers sources</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>

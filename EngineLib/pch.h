@@ -21,5 +21,5 @@
 #include "Timer.h"
 #include "Transform.h"
 #include "UploadBuffer.h"
-
+#include "MeshRenderer.h"
 #endif //PCH_H 

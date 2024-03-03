@@ -36,10 +36,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Manager* oManager = new Manager();
     Mesh* oMesh = new Mesh();
     Shader* oShader = new Shader();
-    Mesh* oMesh2 = new Mesh();
+   
     MeshRenderer* oMeshRenderer = new MeshRenderer();
     oManager->m_vMesh.push_back(oMesh);
-    oManager->m_vMesh.push_back(oMesh2);
+    
     oManager->m_vShader.push_back(oShader);
     oManager->m_vMeshRenderer.push_back(oMeshRenderer);
     
