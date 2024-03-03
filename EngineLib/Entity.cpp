@@ -13,7 +13,7 @@ void Entity::initEntity() {
 
 }
 
-void Entity::AddComponents(Component* cComponent) {
+void Entity::addComponent(Component* cComponent) {
 	m_vComponents.push_back(cComponent);
 }
 

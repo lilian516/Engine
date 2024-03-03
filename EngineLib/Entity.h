@@ -34,7 +34,7 @@ public :
 	Transform m_tTransform;
 	Entity();
 	void initEntity();
-	void AddComponents(Component* cComponent);
+	void addComponent(Component* cComponent);
 	Transform& getTransform();
 	vector<Component*> GetVectorComponents();
 	void SRT();

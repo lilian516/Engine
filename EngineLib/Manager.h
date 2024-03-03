@@ -23,7 +23,7 @@ public :
 	void update();
 	void render();
 	void addEntity(Entity* oEntity);
-	int runWindow(HINSTANCE hInstance);
+	void runWindow(HINSTANCE hInstance);
 	
 	~Manager();
 
