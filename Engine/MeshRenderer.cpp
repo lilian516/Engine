@@ -2,12 +2,9 @@
 #include "Transform.h"
 
 MeshRenderer::MeshRenderer() {
-
-
 }
 
 MeshRenderer::~MeshRenderer() {
-
 }
 void MeshRenderer::update() {
 	
@@ -70,6 +67,4 @@ void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader
 void MeshRenderer::buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHeap* dCbvHeap)
 {
 	m_uObjectCB = std::make_unique<UploadBuffer<ObjectConstants>>(device, 1, true);
-
-
 }

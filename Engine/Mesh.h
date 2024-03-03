@@ -34,8 +34,7 @@ public:
 	Mesh();
 	~Mesh();
 	void update();
-	void buildBoxGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
-	void buildPyramidGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
+	virtual void buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
 	void uploadMeshToBuffers(MeshData mesh, ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
 	ID3D12Resource* CreateDefaultBuffer(ID3D12Device* device, ID3D12GraphicsCommandList* cmdList, const void* initData, UINT64 byteSize, ID3D12Resource*& uploadBuffer);
 	

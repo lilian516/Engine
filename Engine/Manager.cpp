@@ -12,10 +12,6 @@ void Manager::initManager() {
 	m_oInputManager->init();
 	m_oTimer = new Timer();
 	m_oTimer->start();
-
-	
-	
-	
 }
 
 int Manager::runWindow(HINSTANCE hInstance) {

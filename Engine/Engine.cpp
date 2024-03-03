@@ -9,6 +9,9 @@
 #include "Entity.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "BoxMesh.h"
+#include "PyramidMesh.h"
+#include "PenMesh.h"
 
 #define MAX_LOADSTRING 100
 
@@ -34,33 +37,54 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Placez le code ici.
 
     Manager* oManager = new Manager();
-    Mesh* oMesh = new Mesh();
+    BoxMesh boxMesh;
+    PyramidMesh pyramidMesh;
+    PenMesh penMesh;
+    Mesh* oBoxMesh = &boxMesh;
     Shader* oShader = new Shader();
-    Mesh* oMesh2 = new Mesh();
+    Mesh* oPyramidMesh = &pyramidMesh;
+    Mesh* oPenMesh = &penMesh;
     MeshRenderer* oMeshRenderer = new MeshRenderer();
-    oManager->m_vMesh.push_back(oMesh);
-    oManager->m_vMesh.push_back(oMesh2);
+    MeshRenderer* oMeshRenderer2 = new MeshRenderer();
+    MeshRenderer* oMeshRenderer3 = new MeshRenderer();
+    oManager->m_vMesh.push_back(oBoxMesh);
+    oManager->m_vMesh.push_back(oPyramidMesh);
+    oManager->m_vMesh.push_back(oPenMesh);
     oManager->m_vShader.push_back(oShader);
     oManager->m_vMeshRenderer.push_back(oMeshRenderer);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);
     
   
     Entity* oEntity = new Entity();
     oEntity->initEntity();
+    oEntity->m_tTransform.translation(XMFLOAT4(1.5f,0,0,0));
+    oEntity->m_tTransform.updateTransform();
     
     //oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
     oManager->initManager();
-    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh);
+    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oBoxMesh);
     
     oEntity->AddComponents(oMeshRenderer);
 
-   /* Entity* oEntity2 = new Entity();
+    Entity* oEntity2 = new Entity();
     oEntity2->initEntity();
-    MeshRenderer* oMeshRenderer2 = new MeshRenderer();
-    oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh2);
-    oEntity2->AddComponents(oMeshRenderer2);*/
+    oEntity2->m_tTransform.translation(XMFLOAT4(-1.5, 0, 0, 0));
+    oEntity2->m_tTransform.updateTransform();
+
+    oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oPyramidMesh);
+    oEntity2->AddComponents(oMeshRenderer2);
+
+    Entity* oEntity3 = new Entity();
+    oEntity3->initEntity();
+
+    oMeshRenderer3->SetMeshRenderer(oEntity3, oManager->m_oGraphics->m_d3dDevice, oShader, oPenMesh);
+    oEntity2->AddComponents(oMeshRenderer3);
     
     oManager->addEntity(oEntity);
-    //oManager->addEntity(oEntity2);
+    oManager->addEntity(oEntity2);
+    oManager->addEntity(oEntity3);
+
     
     
     oManager->runWindow(hInstance);
