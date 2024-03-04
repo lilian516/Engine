@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Engine\Component.h" />
+    <ClInclude Include="BoxMesh.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="d3dx12.h" />
@@ -155,6 +156,8 @@
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="ObjectConstants.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PyramidMesh.h" />
+    <ClInclude Include="RectangleMesh.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Script.h" />
     <ClInclude Include="Timer.h" />
@@ -162,6 +165,7 @@
     <ClInclude Include="UploadBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoxMesh.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -182,6 +186,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PyramidMesh.cpp" />
+    <ClCompile Include="RectangleMesh.cpp" />
     <ClCompile Include="Script.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Timer.cpp" />

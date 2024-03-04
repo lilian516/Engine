@@ -23,4 +23,7 @@
 #include "UploadBuffer.h"
 #include "MeshRenderer.h"
 #include "Script.h"
+#include "BoxMesh.h"
+#include "PyramidMesh.h"
+#include "RectangleMesh.h"
 #endif //PCH_H 

@@ -61,7 +61,7 @@ bool Graphics::initGraphics(Manager* oManager) {
 	}
 
 	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
-		oManager->m_vMesh[i]->buildPyramidGeometry(m_d3dDevice, m_cCommandList);
+		oManager->m_vMesh[i]->buildGeometry(m_d3dDevice, m_cCommandList);
 		
 	}
 
@@ -425,10 +425,8 @@ void Graphics::update(Manager* oManager) {
 		//oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
 	
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		for (int j = 0; j < oManager->m_vEntity[i]->m_vComponents.size(); j++) {
-			oManager->m_vEntity[i]->m_vComponents[j]->update();
-			
-		}
+		oManager->m_vEntity[i]->update();
+		
 		
 	}
 	onResize();
