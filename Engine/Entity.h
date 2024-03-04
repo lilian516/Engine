@@ -27,6 +27,8 @@ class Entity
 private :
 	Transform *m_tTranform;
 public :
+	vector<Component*> m_vComponents;
+
 	Entity();
 	void initEntity();
 	void AddComponents(Component* cComponent);
@@ -37,4 +39,3 @@ public :
 	virtual void render(Graphics* oGraphics);
 	vector<Component*> m_vComponents;
 };
-

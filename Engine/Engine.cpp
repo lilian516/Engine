@@ -51,6 +51,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oManager->m_vMesh.push_back(oPyramidMesh);
     oManager->m_vMesh.push_back(oPenMesh);
     oManager->m_vMesh.push_back(oTestSprite);
+    oManager->m_vMesh.push_back(oMesh2);
     oManager->m_vShader.push_back(oShader);
     oManager->m_vMeshRenderer.push_back(oMeshRenderer);
     oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
