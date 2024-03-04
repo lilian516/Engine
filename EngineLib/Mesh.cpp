@@ -116,7 +116,7 @@ ID3D12Resource* Mesh::CreateDefaultBuffer(ID3D12Device* device,ID3D12GraphicsCom
 	return defaultBuffer;
 }
 
-void Mesh::buildBoxGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
+void Mesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
 		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.0f), XMFLOAT4(Colors::White) }),//0
