@@ -48,6 +48,7 @@ void GameManager::mainLoop(HINSTANCE hInstance) {
             
         }
         m_oManager->runWindow(hInstance);
+       
         
     }
     
