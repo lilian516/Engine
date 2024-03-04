@@ -7,7 +7,7 @@ Component::Component() {
 
 void Component::initComponent(int iId, Entity *oEntity) {
 	m_iId = iId;
-	m_oEntity = *oEntity;
+	m_oEntity = oEntity;
 
 }
 

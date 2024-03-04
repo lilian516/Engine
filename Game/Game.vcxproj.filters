@@ -63,9 +63,4 @@
       <Filter>Fichiers sources</Filter>
     </FxCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Library Include="EngineLib.lib">
-      <Filter>Fichiers sources</Filter>
-    </Library>
-  </ItemGroup>
 </Project>

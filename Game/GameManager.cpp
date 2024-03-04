@@ -42,7 +42,9 @@ void GameManager::mainLoop(HINSTANCE hInstance) {
             Entity* oEntity2 = new Entity();
             oEntity2->initEntity();
             oEntity2->addComponent(m_oManager->m_vMeshRenderer[0]);
-            
+            Move* move = new Move();
+            move->setScript(oEntity2);
+            oEntity2->addComponent(move);
             m_oManager->addEntity(oEntity2);
             
 
