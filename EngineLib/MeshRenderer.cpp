@@ -11,6 +11,7 @@ MeshRenderer::~MeshRenderer() {
 
 }
 void MeshRenderer::update() {
+	
 
 	
 	

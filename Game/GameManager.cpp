@@ -19,6 +19,11 @@ void GameManager::initGame() {
     Entity* oEntity = new Entity();
     oEntity->initEntity();
 
+    
+    oEntity->addComponent(m_oManager->m_vMeshRenderer[0]);
+    Move* move = new Move();
+    move->setScript(oEntity);
+    oEntity->addComponent(move);
 
     m_oManager->initManager();
     oMeshRenderer->SetMeshRenderer(oEntity, m_oManager->m_oGraphics->m_d3dDevice, oShader, oMesh);
@@ -39,13 +44,19 @@ void GameManager::mainLoop(HINSTANCE hInstance) {
         }
         else if (m_oManager->m_oInputManager->isKeyDown(1) == true) {
             
-            Entity* oEntity2 = new Entity();
+           /* Entity* oEntity2 = new Entity();
             oEntity2->initEntity();
-            oEntity2->addComponent(m_oManager->m_vMeshRenderer[0]);
+
+            MeshRenderer* oMeshRenderer = new MeshRenderer();
+            m_oManager->m_vMeshRenderer.push_back(oMeshRenderer);
+            oMeshRenderer->SetMeshRenderer(oEntity2, m_oManager->m_oGraphics->m_d3dDevice, m_oManager->m_vShader[0], m_oManager->m_vMesh[0]);
+            oEntity2->addComponent(oMeshRenderer);
+
+
             Move* move = new Move();
             move->setScript(oEntity2);
             oEntity2->addComponent(move);
-            m_oManager->addEntity(oEntity2);
+            m_oManager->addEntity(oEntity2);*/
             
 
             
