@@ -13,5 +13,6 @@ void Projectile::initProjectile(Manager* oManager, Shader* oShader, Mesh* oMesh)
 	Move* oMove = new Move();
 	oMove->setScript(this);
 	addComponent(oMove);
-	oManager->m_vEntity.push_back(this);
+	
+	oManager->addEntity(this);
 }
