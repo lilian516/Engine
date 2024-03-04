@@ -14,7 +14,7 @@ void Component::update() {
 
 }
 
-void Component::render(Graphics* oGraphics) {
+void Component::render(Graphics* oGraphics, XMMATRIX mWorldViewProj) {
 
 }
 

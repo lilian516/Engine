@@ -56,12 +56,14 @@ void Manager::update() {
 }
 
 void Manager::render() {
+	
 	m_oGraphics->render(this);
 }
 
 void Manager::addEntity(Entity* oEntity) {
 	m_vEntity.push_back(oEntity);
 }
+
 
 
 

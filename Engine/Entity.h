@@ -12,7 +12,7 @@
 #include "Transform.h"
 
 #include "d3dx12.h"
-
+#include "ObjectConstants.h"
 
 class Component;
 class Graphics;
@@ -39,6 +39,35 @@ public :
 	vector<Component*> GetVectorComponents();
 	void SRT();
 	virtual void update();
-	virtual void render(Graphics* oGraphics);
+	virtual void render(Graphics* oGraphics, XMMATRIX mWorldViewProj);
+
 	
+
+	// à enlever en deuxieme
+	void temporaire();
+	float m_fRadius = 5.0f;
+	float m_fTheta = 1.5f * XM_PI;
+	float m_fPhi = XM_PIDIV4;
+	XMFLOAT4X4 m_fWorld = {
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	};
+	XMMATRIX m_mWorldViewProj;
+	XMMATRIX getWorldViewProj();
+	
+	// à enlever en premier
+	XMFLOAT4X4 m_fView = {
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	};
+	XMFLOAT4X4 m_fProj = {
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	};
 };

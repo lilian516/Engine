@@ -18,6 +18,7 @@ private:
 	float m_fRotationSpeed;
 
 	XMFLOAT4X4 m_mViewMatrix;
+	XMFLOAT4X4 m_mProjMatrix;
 
 	float m_fMouseX;
 	float m_fMouseY;

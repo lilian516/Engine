@@ -471,7 +471,7 @@ void Graphics::render(Manager* oManager) {
 
 	// PER OBJECT
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		oManager->m_vEntity[i]->render(this);
+		oManager->m_vEntity[i]->render(this, oManager->m_vEntity[i]->getWorldViewProj());
 
 	}
 
