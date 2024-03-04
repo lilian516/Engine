@@ -9,6 +9,10 @@
 #include "Entity.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "BoxMesh.h"
+#include "PyramidMesh.h"
+#include "PenMesh.h"
+#include "Sprite.h"
 
 #define MAX_LOADSTRING 100
 
@@ -34,21 +38,65 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Placez le code ici.
 
     Manager* oManager = new Manager();
-    Mesh* oMesh = new Mesh();
     Shader* oShader = new Shader();
-    oManager->m_vMesh.push_back(oMesh);
-    oManager->m_vShader.push_back(oShader);
-    oManager->initManager();
-    Entity* oEntity = new Entity();
-    oEntity->initEntity();
+    BoxMesh* oBoxMesh = new BoxMesh();
+    PyramidMesh* oPyramidMesh =new PyramidMesh();
+    PenMesh* oPenMesh = new PenMesh();
+    Sprite* oTestSprite = new Sprite();
     MeshRenderer* oMeshRenderer = new MeshRenderer();
-    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oMesh);
-    oEntity->AddComponents(oMeshRenderer);
+    MeshRenderer* oMeshRenderer2 = new MeshRenderer();
+    MeshRenderer* oMeshRenderer3 = new MeshRenderer();
+    MeshRenderer* oMeshRenderer4 = new MeshRenderer();
+    oManager->m_vMesh.push_back(oBoxMesh);
+    oManager->m_vMesh.push_back(oPyramidMesh);
+    oManager->m_vMesh.push_back(oPenMesh);
+    oManager->m_vMesh.push_back(oTestSprite);
+    oManager->m_vShader.push_back(oShader);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer4);
     
-    oManager->addEntity(oEntity);
+  
+    //Entity* oEntity = new Entity();
+    //oEntity->initEntity();
+    //oEntity->m_tTransform.translation(XMFLOAT4(1.5f,0,0,0));
+    //oEntity->m_tTransform.updateTransform();
+    //
+    ////oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
+    oManager->initManager();
+    //oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oBoxMesh);
+    //
+    //oEntity->AddComponents(oMeshRenderer);
+
+    //Entity* oEntity2 = new Entity();
+    //oEntity2->initEntity();
+    //oEntity2->m_tTransform.translation(XMFLOAT4(-1.5, 0, 0, 0));
+    //oEntity2->m_tTransform.updateTransform();
+
+    //oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oPyramidMesh);
+    //oEntity2->AddComponents(oMeshRenderer2);
+
+    //Entity* oEntity3 = new Entity();
+    //oEntity3->initEntity();
+
+    //oMeshRenderer3->SetMeshRenderer(oEntity3, oManager->m_oGraphics->m_d3dDevice, oShader, oPenMesh);
+    //oEntity3->AddComponents(oMeshRenderer3);
+
+    Entity* oEntity4 = new Entity();
+    oEntity4->initEntity();
+
+    oMeshRenderer4->SetMeshRenderer(oEntity4, oManager->m_oGraphics->m_d3dDevice, oShader, oTestSprite);
+    oEntity4->AddComponents(oMeshRenderer4);
     
+    /*oManager->addEntity(oEntity);
+    oManager->addEntity(oEntity2);
+    oManager->addEntity(oEntity3);*/
+    oManager->addEntity(oEntity4);
 
     
+    
+    oManager->runWindow(hInstance);
     ////Camera* oCamera = new Camera();
     ////oCamera->initCamera(800,600, oEntity);
 
@@ -69,110 +117,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //    return FALSE;
     //}
 
-    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
+    //HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
 
-    MSG msg;
-    
-    // Boucle de messages principale :
-    while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-        
-        oManager->mainLoop();
-        //oCamera->update();
-        
-    }
+    //MSG msg;
+    //
+    //// Boucle de messages principale :
+    //while (GetMessage(&msg, nullptr, 0, 0))
+    //{
+    //    if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+    //    {
+    //        TranslateMessage(&msg);
+    //        DispatchMessage(&msg);
+    //    }
+    //    
+    //    oManager->mainLoop();
+    //    
+    //    
+    //}
 
-    return (int) msg.wParam;
+    //return (int) msg.wParam;
 }
 
 
-
-//
-//  FONCTION : MyRegisterClass()
-//
-//  OBJECTIF : Inscrit la classe de fenêtre.
-
-
-//
-//   FONCTION : InitInstance(HINSTANCE, int)
-//
-//   OBJECTIF : enregistre le handle d'instance et crée une fenêtre principale
-//
-//   COMMENTAIRES :
-//
-//        Dans cette fonction, nous enregistrons le handle de l'instance dans une variable globale, puis
-//        nous créons et affichons la fenêtre principale du programme.
-
-
-//
-//  FONCTION : WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  OBJECTIF : Traite les messages pour la fenêtre principale.
-//
-//  WM_COMMAND  - traite le menu de l'application
-//  WM_PAINT    - Dessine la fenêtre principale
-//  WM_DESTROY  - génère un message d'arrêt et retourne
-//
-//
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
-    case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
-            // Analyse les sélections de menu :
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
-        break;
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Ajoutez ici le code de dessin qui utilise hdc...
-            EndPaint(hWnd, &ps);
-        }
-        break;
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
-}
-
-// Gestionnaire de messages pour la boîte de dialogue À propos de.
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
-}
