@@ -1,5 +1,5 @@
 #include "GameManager.h"
-
+#include "Move.h"
 GameManager::GameManager() {
 
 }
@@ -42,6 +42,7 @@ void GameManager::mainLoop(HINSTANCE hInstance) {
             Entity* oEntity2 = new Entity();
             oEntity2->initEntity();
             oEntity2->addComponent(m_oManager->m_vMeshRenderer[0]);
+            
             m_oManager->addEntity(oEntity2);
             
 

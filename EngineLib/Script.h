@@ -6,6 +6,7 @@ public:
 	Script();
 	~Script();
 	void setScript(Entity *oEntity);
+	virtual void update()override;
 private:
 
 protected:

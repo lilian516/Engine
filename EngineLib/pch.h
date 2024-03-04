@@ -22,4 +22,5 @@
 #include "Transform.h"
 #include "UploadBuffer.h"
 #include "MeshRenderer.h"
+#include "Script.h"
 #endif //PCH_H 

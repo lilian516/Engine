@@ -13,7 +13,7 @@ Collider::~Collider() {
 }
 
 void Collider::setCollider(Entity* oEntity) {
-	initComponent(1,*oEntity);
+	initComponent(1,oEntity);
 	m_cCollision = NoCollision;
 }
 

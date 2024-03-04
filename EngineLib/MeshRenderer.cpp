@@ -11,6 +11,8 @@ MeshRenderer::~MeshRenderer() {
 
 }
 void MeshRenderer::update() {
+
+	
 	
 	//Convert Spherical to Cartesian coordinates.
 	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
@@ -24,9 +26,13 @@ void MeshRenderer::update() {
 
 	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
 	XMStoreFloat4x4(&m_fView, view);
+
+	
+	
 	
 	XMMATRIX world = XMLoadFloat4x4(&m_oEntity.m_tTransform.m_mTransform);
 	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
+	
 	XMMATRIX worldViewProj = world * view * proj;
 
 	// Update the constant buffer with the latest worldViewProj matrix.
@@ -62,7 +68,7 @@ void MeshRenderer::render(Graphics *oGraphics) {
 }
 
 void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh) {
-	initComponent(3, *oEntity);
+	initComponent(3, oEntity);
 	m_oMesh = oMesh;
 	m_oShader = oShader;
 	
