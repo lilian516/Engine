@@ -8,7 +8,7 @@
 #include "Game.h"
 
 
-#include "pch.h"
+
 #pragma comment(lib, "EngineLib.lib")
 
 #include "GameManager.h"
