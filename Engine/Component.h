@@ -5,7 +5,7 @@
 
 #include "ObjectConstants.h"
 
-class Component : public Entity
+class Component
 {
 private :
 	int m_iId;
