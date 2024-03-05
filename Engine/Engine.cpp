@@ -53,8 +53,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oManager->m_vMesh.push_back(oPenMesh);
     oManager->m_vShader.push_back(oShader);
     oManager->m_vMeshRenderer.push_back(oMeshRenderer);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);
+    /*oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);*/
+    
     
   
     Entity* oEntity = new Entity();
@@ -65,10 +66,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
     oManager->initManager();
     oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oBoxMesh);
+
     
     oEntity->AddComponents(oMeshRenderer);
 
-    Entity* oEntity2 = new Entity();
+    /*Entity* oEntity2 = new Entity();
     oEntity2->initEntity();
     oEntity2->m_tTransform.translation(XMFLOAT4(-1.5, 0, 0, 0));
     oEntity2->m_tTransform.updateTransform();
@@ -80,7 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oEntity3->initEntity();
 
     oMeshRenderer3->SetMeshRenderer(oEntity3, oManager->m_oGraphics->m_d3dDevice, oShader, oPenMesh);
-    oEntity3->AddComponents(oMeshRenderer3);
+    oEntity3->AddComponents(oMeshRenderer3);*/
     
     
 
@@ -88,12 +90,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oEntity4->initEntity();
 
     
-    oCamera->initCamera(oEntity4);
+    oCamera->initCamera(oEntity4, &oManager->m_oGraphics->m_hMainWindow);
     oEntity4->AddComponents(oCamera);
 
     oManager->addEntity(oEntity);
-    oManager->addEntity(oEntity2);
-    oManager->addEntity(oEntity3);
+    /*oManager->addEntity(oEntity2);
+    oManager->addEntity(oEntity3);*/
     oManager->addEntity(oEntity4);
 
     oManager->runWindow(hInstance);

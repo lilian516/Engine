@@ -5,7 +5,7 @@
 
 #include "ObjectConstants.h"
 
-class Component : public Entity
+class Component 
 {
 private :
 	int m_iId;
@@ -15,7 +15,7 @@ public :
 	Component();
 	void initComponent(int iId, Entity *oEntity);
 	virtual void update();
-	virtual void render(Graphics* oGraphics, XMMATRIX mWorldViewProj);
+	virtual void render(Graphics* oGraphics, XMMATRIX *mWorldViewProj);
 	int getId();
 	
 };

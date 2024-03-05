@@ -39,7 +39,7 @@ public :
 	vector<Component*> GetVectorComponents();
 	void SRT();
 	virtual void update();
-	virtual void render(Graphics* oGraphics, XMMATRIX mWorldViewProj);
+	virtual void render(Graphics* oGraphics, XMMATRIX* mWorldViewProj);
 
 	
 

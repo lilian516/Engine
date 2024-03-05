@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Graphics.h"
 #include "Transform.h"
+#include "Camera.h"
 Entity::Entity() {
 
 }
@@ -32,7 +33,7 @@ void Entity::update() {
 	
 }
 
-void Entity::render(Graphics* oGraphics, XMMATRIX mWorldViewProj) {
+void Entity::render(Graphics* oGraphics, XMMATRIX* mWorldViewProj) {
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		m_vComponents[i]->render(oGraphics, mWorldViewProj);
 
@@ -54,9 +55,14 @@ void Entity::temporaire() {
 	XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
 	XMVECTOR target = XMVectorZero();
 	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	XMMATRIX view;
 
-	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
-	XMStoreFloat4x4(&m_fView, view);
+	for (int i = 0; i < m_vComponents.size(); i++) {
+		if (dynamic_cast<Camera*>(m_vComponents[i])) {
+			Camera* camera = dynamic_cast<Camera*>(m_vComponents[i]);
+			view = XMLoadFloat4x4(camera->getViewMatrix()) ;
+		}
+	}
 
 	XMMATRIX world = XMLoadFloat4x4(&m_tTransform.m_mTransform);
 	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);

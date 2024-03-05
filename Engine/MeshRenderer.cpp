@@ -12,9 +12,9 @@ void MeshRenderer::update() {
 
 
 
-void MeshRenderer::render(Graphics *oGraphics, XMMATRIX mWorldViewProj) {
+void MeshRenderer::render(Graphics *oGraphics, XMMATRIX *mWorldViewProj) {
 
-	XMStoreFloat4x4(&m_oObjectConstants.WorldViewProj, XMMatrixTranspose(mWorldViewProj));
+	XMStoreFloat4x4(&m_oObjectConstants.WorldViewProj, XMMatrixTranspose(*mWorldViewProj));
 	m_uObjectCB->CopyData(0, m_oObjectConstants);
 	
 	//root signature

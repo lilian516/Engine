@@ -78,18 +78,6 @@ bool Graphics::initGraphics(Manager* oManager) {
 LRESULT CALLBACK
 MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	switch (msg) {
-	case WM_DESTROY:
-
-		PostQuitMessage(0);
-		return 0;
-	case WM_CLOSE:
-		PostQuitMessage(0);
-		return 0;
-
-
-
-	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
@@ -423,11 +411,8 @@ void Graphics::update(Manager* oManager) {
 		//oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
 
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		for (int j = 0; j < oManager->m_vEntity[i]->m_vComponents.size(); j++) {
-			oManager->m_vEntity[i]->m_vComponents[j]->update();
-
-		}
-
+		oManager->m_vEntity[i]->update();
+		
 	}
 	onResize();
 
@@ -472,7 +457,8 @@ void Graphics::render(Manager* oManager) {
 
 	// PER OBJECT
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		oManager->m_vEntity[i]->render(this, oManager->m_vEntity[i]->getWorldViewProj());
+		XMMATRIX WorldViewProj = oManager->m_vEntity[i]->getWorldViewProj();
+		oManager->m_vEntity[i]->render(this,&WorldViewProj);
 
 	}
 
