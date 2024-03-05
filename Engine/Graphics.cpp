@@ -27,7 +27,7 @@ Graphics::Graphics() {
 	m_fDxgiFactory = nullptr;
 	m_fFence = nullptr;
 	m_cCommandQueue = nullptr;
-	
+
 	m_cDirectCmdListAlloc = nullptr;
 	m_cCommandList = nullptr;
 	m_cSwapChain = nullptr;
@@ -48,21 +48,22 @@ bool Graphics::initGraphics(Manager* oManager) {
 	createHeapDescriptor();
 	for (int i = 0; i < oManager->m_vMeshRenderer.size(); i++) {
 		oManager->m_vMeshRenderer[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
-		
+
 	}
-	
+
 	for (int i = 0; i < oManager->m_vShader.size(); i++) {
-		
+
 		oManager->m_vShader[i]->initializeRootSignature(m_d3dDevice);
 		oManager->m_vShader[i]->initializeShader();
 		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);
 	}
 
-	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
-		oManager->m_vMesh[i]->buildGeometry(m_d3dDevice, m_cCommandList);
-	}
+	/*for (int i = 0; i < oManager->m_vMesh.size(); i++) {
+		oManager->m_vMesh[i]->buildPyramidGeometry(m_d3dDevice, m_cCommandList);
 
-	
+	}*/
+
+
 
 	m_cCommandList->Close();
 	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
@@ -78,16 +79,16 @@ LRESULT CALLBACK
 MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg) {
-		case WM_DESTROY:
-		
-			PostQuitMessage(0);
-			return 0;
-		case WM_CLOSE:
-			PostQuitMessage(0);
-			return 0;
+	case WM_DESTROY:
 
-		
-		
+		PostQuitMessage(0);
+		return 0;
+	case WM_CLOSE:
+		PostQuitMessage(0);
+		return 0;
+
+
+
 	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
@@ -95,7 +96,7 @@ MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 bool Graphics::initMainWindow()
 {
-	
+
 	WNDCLASS wc;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = MainWndProc;
@@ -107,8 +108,8 @@ bool Graphics::initMainWindow()
 	wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
 	wc.lpszMenuName = 0;
 	wc.lpszClassName = L"MainWnd";
-	
-	
+
+
 
 	if (!RegisterClass(&wc))
 	{
@@ -141,53 +142,53 @@ bool Graphics::initDirectX() {
 #if defined(DEBUG) || defined(_DEBUG) 
 	// Enable the D3D12 debug layer.
 	{
-		ID3D12Debug *dDebugController;
+		ID3D12Debug* dDebugController;
 		D3D12GetDebugInterface(IID_PPV_ARGS(&dDebugController));
 		dDebugController->EnableDebugLayer();
 	}
 #endif
 
-	CreateDXGIFactory1(IID_PPV_ARGS(&m_fDxgiFactory));
-	// Try to create hardware device.
-	HRESULT hHardwareResult = D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice));
+CreateDXGIFactory1(IID_PPV_ARGS(&m_fDxgiFactory));
+// Try to create hardware device.
+HRESULT hHardwareResult = D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice));
 
-	if (FAILED(hHardwareResult))
-	{
-		IDXGIAdapter *aWarpAdapter;
-		m_fDxgiFactory->EnumWarpAdapter(IID_PPV_ARGS(&aWarpAdapter));
+if (FAILED(hHardwareResult))
+{
+	IDXGIAdapter* aWarpAdapter;
+	m_fDxgiFactory->EnumWarpAdapter(IID_PPV_ARGS(&aWarpAdapter));
 
-		if (FAILED(D3D12CreateDevice(aWarpAdapter, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice)))) {
-			deleteDirectX();
-			return false;
+	if (FAILED(D3D12CreateDevice(aWarpAdapter, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice)))) {
+		deleteDirectX();
+		return false;
 
-		}	
 	}
+}
 
-	m_d3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_fFence));
+m_d3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_fFence));
 
 
-	m_iRtvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-	m_iDsvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
-	m_iCbvSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+m_iRtvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+m_iDsvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
+m_iCbvSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-	D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS dQualityLevels;
-	dQualityLevels.Format = m_fBackBufferFormat;
-	dQualityLevels.SampleCount = 4;
-	dQualityLevels.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
-	dQualityLevels.NumQualityLevels = 0;
-	m_d3dDevice->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &dQualityLevels, sizeof(dQualityLevels));
-	m_i4xMsaaQuality = dQualityLevels.NumQualityLevels;
-	assert(m_i4xMsaaQuality > 0 && "Unexpected MSAA quality level.");
+D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS dQualityLevels;
+dQualityLevels.Format = m_fBackBufferFormat;
+dQualityLevels.SampleCount = 4;
+dQualityLevels.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
+dQualityLevels.NumQualityLevels = 0;
+m_d3dDevice->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &dQualityLevels, sizeof(dQualityLevels));
+m_i4xMsaaQuality = dQualityLevels.NumQualityLevels;
+assert(m_i4xMsaaQuality > 0 && "Unexpected MSAA quality level.");
 
 #ifdef _DEBUG
-	logAdapters();
+logAdapters();
 #endif
 
-	createCommandListQueue();
-	createSwapChain();
-	createRtvAndDsvDescriptorHeaps();
+createCommandListQueue();
+createSwapChain();
+createRtvAndDsvDescriptorHeaps();
 
-	return true;
+return true;
 }
 
 void Graphics::createCommandListQueue() {
@@ -199,7 +200,7 @@ void Graphics::createCommandListQueue() {
 
 	m_d3dDevice->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&m_cDirectCmdListAlloc));
 
-	m_d3dDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT,m_cDirectCmdListAlloc, nullptr,IID_PPV_ARGS(&m_cCommandList));
+	m_d3dDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, m_cDirectCmdListAlloc, nullptr, IID_PPV_ARGS(&m_cCommandList));
 
 
 	//Commencez dans un état fermé. C'est parce que la première fois que nous faisons référence
@@ -352,7 +353,7 @@ void Graphics::onResize() {
 
 	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, aspectRatio(), 1.0f, 1000.0f);
 	XMStoreFloat4x4(&m_fProj, P);
-	
+
 }
 
 float Graphics::aspectRatio()const
@@ -388,7 +389,7 @@ void Graphics::flushCommandQueue()
 
 
 void Graphics::update(Manager* oManager) {
-	
+
 	////Convert Spherical to Cartesian coordinates.
 	//float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
 	//float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
@@ -420,17 +421,17 @@ void Graphics::update(Manager* oManager) {
 	//}
 
 		//oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
-	
+
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
 		for (int j = 0; j < oManager->m_vEntity[i]->m_vComponents.size(); j++) {
 			oManager->m_vEntity[i]->m_vComponents[j]->update();
-			
+
 		}
-		
+
 	}
 	onResize();
-	
-	
+
+
 }
 
 void Graphics::render(Manager* oManager) {
@@ -444,15 +445,15 @@ void Graphics::render(Manager* oManager) {
 	// Set the viewport and scissor rect.  This needs to be reset whenever the command list is reset.
 	m_cCommandList->RSSetViewports(1, &m_vScreenViewport);
 	m_cCommandList->RSSetScissorRects(1, &m_rScissorRect);
-	
-	
+
+
 
 	// Indicate a state transition on the resource usage.
 	CD3DX12_RESOURCE_BARRIER rIntermediate = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
 	m_cCommandList->ResourceBarrier(1, &rIntermediate);
 
 	// Clear the back buffer and depth buffer.
-	
+
 	m_cCommandList->ClearRenderTargetView(currentBackBufferView(), m_vColor, 0, nullptr);
 	m_cCommandList->ClearDepthStencilView(depthStencilView(), D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, nullptr);
 
@@ -465,7 +466,7 @@ void Graphics::render(Manager* oManager) {
 
 
 	//on dessinne ici le cube
-	ID3D12DescriptorHeap* descriptorHeaps[] = {m_dConstantBufferViewHeapDescriptor};
+	ID3D12DescriptorHeap* descriptorHeaps[] = { m_dConstantBufferViewHeapDescriptor };
 	m_cCommandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
 
 

@@ -47,6 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MeshRenderer* oMeshRenderer = new MeshRenderer();
     MeshRenderer* oMeshRenderer2 = new MeshRenderer();
     MeshRenderer* oMeshRenderer3 = new MeshRenderer();
+    Camera* oCamera = new Camera();
     oManager->m_vMesh.push_back(oBoxMesh);
     oManager->m_vMesh.push_back(oPyramidMesh);
     oManager->m_vMesh.push_back(oPenMesh);
@@ -79,18 +80,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oEntity3->initEntity();
 
     oMeshRenderer3->SetMeshRenderer(oEntity3, oManager->m_oGraphics->m_d3dDevice, oShader, oPenMesh);
-    oEntity2->AddComponents(oMeshRenderer3);
+    oEntity3->AddComponents(oMeshRenderer3);
     
+    
+
+    Entity* oEntity4 = new Entity();
+    oEntity4->initEntity();
+
+    
+    oCamera->initCamera(oEntity4);
+    oEntity4->AddComponents(oCamera);
+
     oManager->addEntity(oEntity);
     oManager->addEntity(oEntity2);
     oManager->addEntity(oEntity3);
+    oManager->addEntity(oEntity4);
 
-    
-    
     oManager->runWindow(hInstance);
-    ////Camera* oCamera = new Camera();
-    ////oCamera->initCamera(800,600, oEntity);
-
+    
+    
     //MeshRenderer* oMeshRenderer = new MeshRenderer();
     //oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
     //oEntity->AddComponents(oMeshRenderer);

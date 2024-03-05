@@ -11,7 +11,7 @@ Collider::~Collider() {
 }
 
 void Collider::setCollider(Entity* oEntity) {
-	initComponent(1,*oEntity);
+	initComponent(1,oEntity);
 	m_cCollision = NoCollision;
 }
 
@@ -51,7 +51,7 @@ void Collider::exitCollision() {
 
 void Collider::noCollision() {
 	for (Entity* entity : m_vColliderEntity) {
-		if (distanceCalcul(m_oEntity.getTransform().m_vPosition, entity->getTransform().m_vPosition) < 0) {
+		if (distanceCalcul(m_oEntity->getTransform().m_vPosition, entity->getTransform().m_vPosition) < 0) {
 			m_cCollision = FirstCollision;
 		}
 	}

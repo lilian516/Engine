@@ -37,7 +37,7 @@ void MeshRenderer::render(Graphics *oGraphics, XMMATRIX mWorldViewProj) {
 }
 
 void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh) {
-	initComponent(3, *oEntity);
+	initComponent(3, oEntity);
 	m_oMesh = oMesh;
 	m_oShader = oShader;
 	

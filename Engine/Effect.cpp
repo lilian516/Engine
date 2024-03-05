@@ -9,5 +9,5 @@ Effect::~Effect() {
 }
 
 void Effect::setEffect(Entity *oEntity) {
-	initComponent(2,*oEntity);
+	initComponent(2,oEntity);
 }

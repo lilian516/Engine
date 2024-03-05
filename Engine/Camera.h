@@ -14,7 +14,6 @@ private:
 	float m_yaw;
 	float m_pitch;
 
-	float m_fMoveSpeed;
 	float m_fRotationSpeed;
 
 	XMFLOAT4X4 m_mViewMatrix;
