@@ -9,9 +9,9 @@
 #include "Entity.h"
 #include "Mesh.h"
 #include "Shader.h"
-#include "BoxMesh.h"
-#include "PyramidMesh.h"
-#include "PenMesh.h"
+//#include "BoxMesh.h"
+//#include "PyramidMesh.h"
+//#include "PenMesh.h"
 #include "Sprite.h"
 
 #define MAX_LOADSTRING 100
@@ -39,23 +39,23 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     Manager* oManager = new Manager();
     Shader* oShader = new Shader();
-    BoxMesh* oBoxMesh = new BoxMesh();
+    /*BoxMesh* oBoxMesh = new BoxMesh();
     PyramidMesh* oPyramidMesh =new PyramidMesh();
-    PenMesh* oPenMesh = new PenMesh();
+    PenMesh* oPenMesh = new PenMesh();*/
     Sprite* oTestSprite = new Sprite();
     MeshRenderer* oMeshRenderer = new MeshRenderer();
     MeshRenderer* oMeshRenderer2 = new MeshRenderer();
     MeshRenderer* oMeshRenderer3 = new MeshRenderer();
     MeshRenderer* oMeshRenderer4 = new MeshRenderer();
-    oManager->m_vMesh.push_back(oBoxMesh);
+    /*oManager->m_vMesh.push_back(oBoxMesh);
     oManager->m_vMesh.push_back(oPyramidMesh);
-    oManager->m_vMesh.push_back(oPenMesh);
+    oManager->m_vMesh.push_back(oPenMesh);*/
     oManager->m_vMesh.push_back(oTestSprite);
-    oManager->m_vMesh.push_back(oMesh2);
+    //oManager->m_vMesh.push_back(oMesh2);
     oManager->m_vShader.push_back(oShader);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer);
+   /* oManager->m_vMeshRenderer.push_back(oMeshRenderer);
     oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);*/
     oManager->m_vMeshRenderer.push_back(oMeshRenderer4);
     
   

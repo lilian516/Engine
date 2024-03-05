@@ -5,8 +5,11 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <unordered_map>
 
 #include "Shader.h"
+#include "Material.h"
+#include "Texture.h"
 #include "Mesh.h"
 #include "Manager.h"
 
@@ -27,13 +30,16 @@ Graphics::Graphics() {
 	m_fDxgiFactory = nullptr;
 	m_fFence = nullptr;
 	m_cCommandQueue = nullptr;
-	
+
 	m_cDirectCmdListAlloc = nullptr;
 	m_cCommandList = nullptr;
 	m_cSwapChain = nullptr;
 	m_dRtvHeap = nullptr;
 	m_dDsvHeap = nullptr;
 	m_rDepthStencilBuffer = nullptr;
+	std::unordered_map<std::string, std::unique_ptr<Mesh>> mGeometries;
+	std::unordered_map<std::string, std::unique_ptr<Material>> mMaterials;
+	std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
 }
 
 bool Graphics::initGraphics(Manager* oManager) {
