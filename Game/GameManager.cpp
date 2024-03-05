@@ -29,8 +29,11 @@ void GameManager::initGame() {
 
     Entity* oButton = new Entity();
     oButton->initEntity();
+    XMFLOAT3 oui(100.0f, 100.0f, 100.0f);
+    oButton->m_tTransform.scale(oui);
+    oButton->m_tTransform.updateTransform();
     oButton->addComponent(oMeshRenderer);
-
+    
     oMeshRenderer->buildConstantBuffers(m_oManager->m_oGraphics->m_d3dDevice, m_oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
     oMeshRenderer->SetMeshRenderer(oButton, m_oManager->m_oGraphics->m_d3dDevice, oShader, oButtonMesh);
 
@@ -55,8 +58,18 @@ void GameManager::mainLoop(HINSTANCE hInstance) {
                 
                 if (m_oManager->m_oInputManager->isKeyDown(1) == true) {
                     if (m_oManager->m_vEntity.size() > 0) {
-                        m_oManager->m_vEntity.pop_back();
-                        game = Play;
+                        POINT pt;
+                        GetCursorPos(&pt);
+
+                        HDC dc = GetDC(NULL);
+                        COLORREF pix = GetPixel(dc, pt.x, pt.y);
+                        if (GetRValue(pix) == 255) {
+                            m_oManager->m_vEntity.pop_back();
+                            ReleaseDC(NULL, dc);
+                            game = Play;
+                        }
+                        
+                        
                         
                     }
                 }

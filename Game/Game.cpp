@@ -1,15 +1,10 @@
 // Game.cpp : Définit le point d'entrée de l'application.
 //
-
-#include <iostream>
-
-
-#include "framework.h"
-#include "Game.h"
-
-
 #include "pch.h"
 
+#include <iostream>
+#include "framework.h"
+#include "Game.h"
 
 #include "GameManager.h"
 

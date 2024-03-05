@@ -16,10 +16,7 @@ void RectangleMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandLis
         Vertex({ XMFLOAT3(1.0f, 1.0f, 0.0f), XMFLOAT4(Colors::Red) }),//1
         Vertex({ XMFLOAT3(1.0f, -1.0f, 0.0f), XMFLOAT4(Colors::Red) }),//2
         Vertex({ XMFLOAT3(-1.0f, -1.0f, 0.0f), XMFLOAT4(Colors::Red) }),//3
-        //Vertex({ XMFLOAT3(-0.5, 0.5f, 1.0f), XMFLOAT4(Colors::White) }),//4
-        //Vertex({ XMFLOAT3(0.5, 0.5f, 1.0f), XMFLOAT4(Colors::White) }),//5
-        //Vertex({ XMFLOAT3(0.5, -0.5f, 1.0f), XMFLOAT4(Colors::Black) }),//6
-        //Vertex({ XMFLOAT3(-0.5, -0.5, 1.0f), XMFLOAT4(Colors::Black) }),//7
+       
 
     };
     m_mMesh.vertices = std::move(vertices);
