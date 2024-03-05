@@ -8,7 +8,7 @@ Camera::~Camera() {
 }
 
 void Camera::initCamera(Entity *oEntity) {
-    initComponent(0, *oEntity);
+    initComponent(0, oEntity);
     XMVECTOR position = XMVectorSet(m_fPosition.x, m_fPosition.y, m_fPosition.z, 0.0f);
     XMVECTOR lookAt = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
     XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);

@@ -28,6 +28,7 @@ public :
 	Graphics *m_oGraphics;
 	Timer* m_oTimer;
 	InputManager *m_oInputManager;
+	vector<Entity*> m_vCollideEntity;
 	vector<Entity*> m_vEntity;
 	vector<Shader*> m_vShader;
 	vector<Mesh*> m_vMesh;

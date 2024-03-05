@@ -11,7 +11,7 @@ private:
 public:
 	Collider();
 	~Collider();
-	void setCollider(Entity *oEntity);
+	void setCollider(Entity* oEntity, vector<Entity*> vColliderEntity);
 	void update()override;
 
 	void enterCollision();

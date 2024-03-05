@@ -11,17 +11,19 @@ PenMesh::~PenMesh() {
 void PenMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
-		 Vertex({ XMFLOAT3(-0.5, 0.5f, 0.0f), XMFLOAT4(Colors::White) }),//0
-		Vertex({ XMFLOAT3(0.5, 0.5f, 0.0f), XMFLOAT4(Colors::White) }),//1
-		Vertex({ XMFLOAT3(0.5, -0.5f, 0.0f), XMFLOAT4(Colors::Black) }),//2
-		Vertex({ XMFLOAT3(-0.5, -0.5, 0.0f), XMFLOAT4(Colors::Black) }),//3
-		Vertex({ XMFLOAT3(-0.5, 0.5f, 1.0f), XMFLOAT4(Colors::White) }),//4
-		Vertex({ XMFLOAT3(0.5, 0.5f, 1.0f), XMFLOAT4(Colors::White) }),//5
-		Vertex({ XMFLOAT3(0.5, -0.5f, 1.0f), XMFLOAT4(Colors::Black) }),//6
-		Vertex({ XMFLOAT3(-0.5, -0.5, 1.0f), XMFLOAT4(Colors::Black) }),//7
-		Vertex({ XMFLOAT3(0.0, 1.5f, 0.5f), XMFLOAT4(Colors::Blue) }),//8
+		 Vertex({ XMFLOAT3(-0.5, 0.0f, -0.5f), XMFLOAT4(Colors::White) }),//0
+		Vertex({ XMFLOAT3(0.5, 0.0f, -0.5f), XMFLOAT4(Colors::White) }),//1
+		Vertex({ XMFLOAT3(0.5, -1.0f, -0.5f), XMFLOAT4(Colors::Black) }),//2
+		Vertex({ XMFLOAT3(-0.5, -1.0f, -0.5f), XMFLOAT4(Colors::Black) }),//3
+		Vertex({ XMFLOAT3(-0.5, 0.0f, 0.5f), XMFLOAT4(Colors::White) }),//4
+		Vertex({ XMFLOAT3(0.5, 0.0f, 0.5f), XMFLOAT4(Colors::White) }),//5
+		Vertex({ XMFLOAT3(0.5, -1.0f, 0.5f), XMFLOAT4(Colors::Black) }),//6
+		Vertex({ XMFLOAT3(-0.5, -1.0f, 0.5f), XMFLOAT4(Colors::Black) }),//7
+		Vertex({ XMFLOAT3(0.0, 1.0f, 0.0f), XMFLOAT4(Colors::Blue) }),//8
 
 	};
+    m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f,0.0f };
+    m_mMesh.oBox.vRadius = { 0.5f,1.0f,0.5f,0.0f };
 	m_mMesh.vertices = std::move(vertices);
 
 	std::vector<std::uint16_t> indices =

@@ -12,6 +12,7 @@
 #include "BoxMesh.h"
 #include "PyramidMesh.h"
 #include "PenMesh.h"
+#include "Collider.h"
 
 #define MAX_LOADSTRING 100
 
@@ -61,16 +62,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oEntity->m_tTransform.translation(XMFLOAT4(1.5f,0,0,0));
     oEntity->m_tTransform.updateTransform();
     
+    oManager->m_vCollideEntity.push_back(oEntity);
+    Collider* collider = new Collider();
+    collider->setCollider(oEntity, oManager->m_vCollideEntity);
+    oEntity->AddComponents(collider);
+    
     //oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
     oManager->initManager();
     oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oBoxMesh);
     
     oEntity->AddComponents(oMeshRenderer);
 
-    Entity* oEntity2 = new Entity();
+   Entity* oEntity2 = new Entity();
     oEntity2->initEntity();
-    oEntity2->m_tTransform.translation(XMFLOAT4(-1.5, 0, 0, 0));
+    oEntity2->m_tTransform.translation(XMFLOAT4(1.5, 0, 0, 0));
     oEntity2->m_tTransform.updateTransform();
+
+    oManager->m_vCollideEntity.push_back(oEntity2);
+    Collider* collider2 = new Collider();
+    collider2->setCollider(oEntity2, oManager->m_vCollideEntity);
+    oEntity->AddComponents(collider2);
 
     oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oPyramidMesh);
     oEntity2->AddComponents(oMeshRenderer2);

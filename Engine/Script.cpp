@@ -10,5 +10,5 @@ Script::~Script() {
 }
 
 void Script::setScript(Entity *oEntity) {
-	initComponent(4, *oEntity);
+	initComponent(4, oEntity);
 }

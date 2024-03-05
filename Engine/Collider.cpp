@@ -10,9 +10,10 @@ Collider::~Collider() {
 
 }
 
-void Collider::setCollider(Entity* oEntity) {
-	initComponent(1,*oEntity);
+void Collider::setCollider(Entity* oEntity, vector<Entity*> vColliderEntity) {
+	initComponent(1,oEntity);
 	m_cCollision = NoCollision;
+	m_vColliderEntity = vColliderEntity;
 }
 
 void Collider::update() {
@@ -51,8 +52,10 @@ void Collider::exitCollision() {
 
 void Collider::noCollision() {
 	for (Entity* entity : m_vColliderEntity) {
-		if (distanceCalcul(m_oEntity.getTransform().m_vPosition, entity->getTransform().m_vPosition) < 0) {
-			m_cCollision = FirstCollision;
+		if (entity != m_oEntity){
+			if (distanceCalcul(m_oEntity->getTransform().m_vPosition, entity->getTransform().m_vPosition) < 0) {
+				m_cCollision = FirstCollision;
+			}
 		}
 	}
 }

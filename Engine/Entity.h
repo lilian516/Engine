@@ -10,6 +10,7 @@
 #include <DirectXCollision.h>
 #include <vector>
 #include "Transform.h"
+#include "AABB.h"
 
 #include "d3dx12.h"
 
@@ -32,6 +33,7 @@ public :
 	
 	vector<Component*> m_vComponents;
 	Transform m_tTransform;
+	AABB m_aBox;
 	Entity();
 	void initEntity();
 	void AddComponents(Component* cComponent);
