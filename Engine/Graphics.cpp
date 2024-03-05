@@ -10,6 +10,7 @@
 #include "Mesh.h"
 #include "Manager.h"
 #include "Texture.h"
+#include "FrameResource.h"
 
 
 using Microsoft::WRL::ComPtr;
@@ -35,9 +36,6 @@ Graphics::Graphics() {
 	m_dRtvHeap = nullptr;
 	m_dDsvHeap = nullptr;
 	m_rDepthStencilBuffer = nullptr;
-	std::unordered_map<std::string, std::unique_ptr<Mesh>> mGeometries;
-	std::unordered_map<std::string, std::unique_ptr<Material>> mMaterials;
-	std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
 }
 
 bool Graphics::initGraphics(Manager* oManager) {
@@ -619,10 +617,31 @@ void Graphics::logOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format)
 
 void Graphics::drawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems) {
 	UINT objCBByteSize = CalcConstantBufferByteSize(sizeof(ObjectConstants));
-	UINT matCBByteSize = CalcConstantBufferByteSize(sizeof(Material));
+	UINT matCBByteSize = CalcConstantBufferByteSize(sizeof(MaterialConstants));
 
 	auto objectCB = mCurrFrameResource->ObjectCB->Resource();
 	auto matCB = mCurrFrameResource->MaterialCB->Resource();
+
+	for (size_t i = 0; i < ritems.size(); ++i)
+	{
+		auto ri = ritems[i];
+
+		cmdList->IASetVertexBuffers(0, 1, &ri->Geo->m_mMesh.VertexBufferView());
+		cmdList->IASetIndexBuffer(&ri->Geo->m_mMesh.IndexBufferView());
+		cmdList->IASetPrimitiveTopology(ri->PrimitiveType);
+
+		CD3DX12_GPU_DESCRIPTOR_HANDLE tex(mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
+		tex.Offset(ri->Mat->DiffuseSrvHeapIndex, mCbvSrvDescriptorSize);
+
+		D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = objectCB->GetGPUVirtualAddress() + ri->ObjCBIndex * objCBByteSize;
+		D3D12_GPU_VIRTUAL_ADDRESS matCBAddress = matCB->GetGPUVirtualAddress() + ri->Mat->MatCBIndex * matCBByteSize;
+
+		cmdList->SetGraphicsRootDescriptorTable(0, tex);
+		cmdList->SetGraphicsRootConstantBufferView(1, objCBAddress);
+		cmdList->SetGraphicsRootConstantBufferView(3, matCBAddress);
+
+		cmdList->DrawIndexedInstanced(ri->IndexCount, 1, ri->StartIndexLocation, ri->BaseVertexLocation, 0);
+	}
 }
 
 

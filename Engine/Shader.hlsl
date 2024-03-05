@@ -7,12 +7,14 @@ struct VertexInput
 {
     float3 position : POSITION;
     float4 color : COLOR;
+    float2 TexC : TEXCOORD;
 };
 
 struct VertexOutput
 {
     float4 position : SV_POSITION;
     float4 color : COLOR;
+    float2 TexC : TEXCOORD;
 };
 
 VertexOutput vs_main(VertexInput input)
