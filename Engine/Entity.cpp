@@ -12,11 +12,11 @@ void Entity::initEntity() {
 
 }
 
-void Entity::AddComponents(Component* cComponent) {
+void Entity::addComponents(Component* cComponent) {
 	m_vComponents.push_back(cComponent);
 }
 
-vector<Component*> Entity::GetVectorComponents() {
+vector<Component*> Entity::getVectorComponents() {
 	return m_vComponents;
 }
 
@@ -24,11 +24,37 @@ void Entity::SRT() {
 	
 }
 
+void Entity::updateBox() {
+	m_aBox.pCenter = m_tTransform.m_vPosition;
+	XMVECTOR vRadius = XMLoadFloat4(&m_aBox.vRadius);
+	XMVECTOR vScaling = XMLoadFloat4(&m_tTransform.m_vScaling);
+	vRadius *= vScaling;
+	XMStoreFloat4(&m_aBox.vRadius,vRadius);
+}
+
 void Entity::update() {
+	updateBox();
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		m_vComponents[i]->update();
 	}
 	
+}
+
+void Entity::translate(XMFLOAT4 vTranslation) {
+	m_tTransform.translation(vTranslation);
+	m_aBox.pCenter = m_tTransform.m_vPosition;
+}
+
+void Entity::rotate(float pitch, float roll, float yaw){
+	m_tTransform.rotate(pitch, roll, yaw);
+}
+
+void Entity::scale(XMFLOAT3 ratio) {
+	m_tTransform.scale(ratio);
+	XMVECTOR vScale = XMLoadFloat4(&m_tTransform.m_vScaling);
+	XMVECTOR vRadius = XMLoadFloat4(&m_aBox.vRadius);
+	vRadius *= vScale;
+	XMStoreFloat4(&m_aBox.vRadius, vRadius);
 }
 
 void Entity::render(Graphics* oGraphics) {

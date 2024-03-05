@@ -53,9 +53,17 @@ void Collider::exitCollision() {
 void Collider::noCollision() {
 	for (Entity* entity : m_vColliderEntity) {
 		if (entity != m_oEntity){
-			if (distanceCalcul(m_oEntity->getTransform().m_vPosition, entity->getTransform().m_vPosition) < 0) {
-				m_cCollision = FirstCollision;
+			if (std::abs(entity->m_aBox.pCenter.x - m_oEntity->m_aBox.pCenter.x) > (entity->m_aBox.vRadius.x + m_oEntity->m_aBox.vRadius.x)) {
+				return;
 			}
+			if (std::abs(entity->m_aBox.pCenter.y - m_oEntity->m_aBox.pCenter.y) > (entity->m_aBox.vRadius.y + m_oEntity->m_aBox.vRadius.y)) {
+				return;
+			}
+			if (std::abs(entity->m_aBox.pCenter.z - m_oEntity->m_aBox.pCenter.z) > (entity->m_aBox.vRadius.z + m_oEntity->m_aBox.vRadius.z)) {
+				return;
+			}
+			m_cCollision = FirstCollision;
+			m_eCollidingEntity = entity;
 		}
 	}
 }

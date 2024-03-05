@@ -36,9 +36,13 @@ public :
 	AABB m_aBox;
 	Entity();
 	void initEntity();
-	void AddComponents(Component* cComponent);
+	void addComponents(Component* cComponent);
+	void updateBox();
+	void translate(XMFLOAT4 vTranslastion);
+	void rotate(float pitch, float roll, float yaw);
+	void scale(XMFLOAT3 ratio);
 	Transform& getTransform();
-	vector<Component*> GetVectorComponents();
+	vector<Component*> getVectorComponents();
 	void SRT();
 	virtual void update();
 	virtual void render(Graphics* oGraphics);
