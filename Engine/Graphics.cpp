@@ -9,6 +9,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Manager.h"
+#include "Texture.h"
 
 
 using Microsoft::WRL::ComPtr;
@@ -34,6 +35,9 @@ Graphics::Graphics() {
 	m_dRtvHeap = nullptr;
 	m_dDsvHeap = nullptr;
 	m_rDepthStencilBuffer = nullptr;
+	std::unordered_map<std::string, std::unique_ptr<Mesh>> mGeometries;
+	std::unordered_map<std::string, std::unique_ptr<Material>> mMaterials;
+	std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
 }
 
 bool Graphics::initGraphics(Manager* oManager) {
@@ -613,6 +617,13 @@ void Graphics::logOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format)
 	}
 }
 
+void Graphics::drawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems) {
+	UINT objCBByteSize = CalcConstantBufferByteSize(sizeof(ObjectConstants));
+	UINT matCBByteSize = CalcConstantBufferByteSize(sizeof(Material));
+
+	auto objectCB = mCurrFrameResource->ObjectCB->Resource();
+	auto matCB = mCurrFrameResource->MaterialCB->Resource();
+}
 
 
 bool Graphics::deleteDirectX() {
