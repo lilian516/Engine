@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Graphics.h"
 #include "Transform.h"
+#include "Camera.h"
 Entity::Entity() {
 
 }
@@ -38,6 +39,7 @@ void Entity::update() {
 		m_vComponents[i]->update();
 	}
 	
+	
 }
 
 void Entity::translate(XMFLOAT4 vTranslation) {
@@ -62,11 +64,48 @@ void Entity::scale(XMFLOAT3 ratio) {
 
 void Entity::render(Graphics* oGraphics) {
 	for (int i = 0; i < m_vComponents.size(); i++) {
-		m_vComponents[i]->render(oGraphics);
+		m_vComponents[i]->render(oGraphics, mWorldViewProj);
 
 	}
+	
 }
 
 Transform& Entity::getTransform() {
 	return m_tTransform;
+}
+
+void Entity::temporaire() {
+	//Convert Spherical to Cartesian coordinates.
+	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
+	float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
+	float y = m_fRadius * cosf(m_fPhi);
+
+	// Build the view matrix.
+	XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
+	XMVECTOR target = XMVectorZero();
+	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	XMMATRIX view;
+	XMFLOAT4X4 viewTemp = Identity4x4();
+	view = XMLoadFloat4x4(&viewTemp);
+
+	for (int i = 0; i < m_vComponents.size(); i++) {
+		if (dynamic_cast<Camera*>(m_vComponents[i])) {
+			Camera* camera = dynamic_cast<Camera*>(m_vComponents[i]);
+			view = XMLoadFloat4x4(camera->getViewMatrix()) ;
+		}
+	}
+
+	XMMATRIX world = XMLoadFloat4x4(&m_tTransform.m_mTransform);
+	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
+	XMMATRIX WorldViewProj = world * view * proj;
+	XMStoreFloat4x4(&m_mWorldViewProj, WorldViewProj);
+	
+	// Update the constant buffer with the latest worldViewProj matrix.
+
+	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, static_cast<float>(800) / 600, 1.0f, 1000.0f);
+	XMStoreFloat4x4(&m_fProj, P);
+}
+
+XMFLOAT4X4* Entity::getWorldViewProj() {
+	return &m_mWorldViewProj;
 }

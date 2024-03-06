@@ -5,9 +5,10 @@
 #include <vector>
 #include "Entity.h"
 #include <memory>
-#include "UploadBuffer.h"
 #include "Graphics.h"
 #include "ObjectConstants.h"
+
+#include "UploadBuffer.h"
 
 using namespace std;
 

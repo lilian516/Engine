@@ -8,36 +8,14 @@ MeshRenderer::~MeshRenderer() {
 }
 void MeshRenderer::update() {
 	
-	//Convert Spherical to Cartesian coordinates.
-	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
-	float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
-	float y = m_fRadius * cosf(m_fPhi);
-
-	// Build the view matrix.
-	XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
-	XMVECTOR target = XMVectorZero();
-	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-
-	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
-	XMStoreFloat4x4(&m_fView, view);
-	
-	XMMATRIX world = XMLoadFloat4x4(&m_oEntity->m_tTransform.m_mTransform);
-	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
-	XMMATRIX worldViewProj = world * view * proj;
-
-	// Update the constant buffer with the latest worldViewProj matrix.
-	ObjectConstants objConstants;
-	XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
-	m_uObjectCB->CopyData(0, objConstants);
-
-	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, static_cast<float>(800) / 600, 1.0f, 1000.0f);
-	XMStoreFloat4x4(&m_fProj, P);
 }
 
 
 
-void MeshRenderer::render(Graphics *oGraphics) {
-	
+void MeshRenderer::render(Graphics *oGraphics, XMFLOAT4X4* mWorldViewProj) {
+	m_oObjectConstants.WorldViewProj = *mWorldViewProj ;
+	m_uObjectCB->CopyData(0, m_oObjectConstants);
+
 	//root signature
 	oGraphics->m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
 	//pipeline state
@@ -69,3 +47,4 @@ void MeshRenderer::buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHe
 {
 	m_uObjectCB = std::make_unique<UploadBuffer<ObjectConstants>>(device, 1, true);
 }
+
