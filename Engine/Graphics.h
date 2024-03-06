@@ -9,8 +9,11 @@
 #include <string>
 
 
-
+#include "RenderItem.h"
 #include "ObjectConstants.h"
+#include "FrameResource.h"
+#include "Texture.h"
+#include <unordered_map>
 
 
 class Shader;
@@ -47,6 +50,9 @@ public :
 
 #pragma region Attribute
 	ID3D12DescriptorHeap* m_dConstantBufferViewHeapDescriptor = nullptr;
+	
+	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSrvDescriptorHeap = nullptr;
+	UINT mCbvSrvDescriptorSize = 0;
 
 	ID3D12Device *m_d3dDevice;
 	IDXGIFactory4 *m_fDxgiFactory;
@@ -61,6 +67,7 @@ public :
 	ID3D12CommandAllocator *m_cDirectCmdListAlloc;
 	ID3D12GraphicsCommandList *m_cCommandList;
 	IDXGISwapChain *m_cSwapChain;
+
 
 	static const int m_sSwapChainBufferCount = 2;
 	//ID3D12Resource *m_cSwapChainBuffer[m_sSwapChainBufferCount];

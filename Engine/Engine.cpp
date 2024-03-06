@@ -12,6 +12,8 @@
 #include "BoxMesh.h"
 #include "PyramidMesh.h"
 #include "PenMesh.h"
+#include "Sprite.h"
+#include "Texture.h"
 #include "Collider.h"
 
 #define MAX_LOADSTRING 100

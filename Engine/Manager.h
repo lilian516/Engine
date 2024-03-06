@@ -32,6 +32,7 @@ public :
 	vector<Entity*> m_vEntity;
 	vector<Shader*> m_vShader;
 	vector<Mesh*> m_vMesh;
+	vector<Texture*> m_vTexture;
 	vector<MeshRenderer*> m_vMeshRenderer;
 	Mesh m_oMesh;
 	Shader m_oShader;

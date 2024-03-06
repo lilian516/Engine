@@ -40,6 +40,7 @@ void MeshRenderer::render(Graphics* oGraphics) {
 
 	//root signature
 	oGraphics->m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
+
 	//pipeline state
 	oGraphics->m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
 	//vertex buffer
@@ -51,18 +52,22 @@ void MeshRenderer::render(Graphics* oGraphics) {
 
 	oGraphics->m_cCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	oGraphics->m_cCommandList->SetGraphicsRootConstantBufferView(0, m_uObjectCB->Resource()->GetGPUVirtualAddress());
+	oGraphics->m_cCommandList->SetGraphicsRootConstantBufferView(1, m_uObjectCB->Resource()->GetGPUVirtualAddress());
+
+	oGraphics->m_cCommandList->SetGraphicsRootDescriptorTable(0,m_oTexture->getGPUDesc());
 
 	//draw
 	oGraphics->m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(), 1, 0, 0, 0);
 }
 
-void MeshRenderer::SetMeshRenderer(Entity* oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh) {
-	initComponent(3, oEntity);
+void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh, Texture* oTexture) {
+	initComponent(3, *oEntity);
 	m_oMesh = oMesh;
 	m_oShader = oShader;
 	m_oEntity->m_aBox = m_oMesh->m_mMesh.oBox;
 
+	m_oTexture = oTexture;
+	
 }
 
 void MeshRenderer::buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHeap* dCbvHeap)
