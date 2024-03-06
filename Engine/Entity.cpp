@@ -62,7 +62,8 @@ void Entity::scale(XMFLOAT3 ratio) {
 	XMStoreFloat4(&m_aBox.vRadius, vRadius);
 }
 
-void Entity::render(Graphics* oGraphics) {
+void Entity::render(Graphics* oGraphics, XMFLOAT4X4* mWorldViewProj) {
+	temporaire();
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		m_vComponents[i]->render(oGraphics, mWorldViewProj);
 
