@@ -41,10 +41,10 @@ void MeshRenderer::update() {
 	m_uObjectCB->CopyData(0, objConstants);
 
 	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, static_cast<float>(800) / 600, 1.0f, 1000.0f);
-	//XMStoreFloat4x4(&m_fProj, P);
+	XMStoreFloat4x4(&m_fProj, P);
 
-	XMMATRIX p = XMMatrixOrthographicLH(800.0f, 600.0f, 1.0f, 1000.0f);
-	XMStoreFloat4x4(&m_fProj, p);
+	//XMMATRIX p = XMMatrixOrthographicLH(800.0f, 600.0f, 1.0f, 1000.0f);
+	//XMStoreFloat4x4(&m_fProj, p);
 }
 
 
