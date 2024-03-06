@@ -15,7 +15,7 @@ public :
 	Component();
 	void initComponent(int iId, Entity *oEntity);
 	virtual void update();
-	virtual void render(Graphics* oGraphics, XMMATRIX *mWorldViewProj);
+	virtual void render(Graphics* oGraphics, XMFLOAT4X4* mWorldViewProj);
 	int getId();
 	
 };

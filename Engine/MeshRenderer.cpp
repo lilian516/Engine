@@ -12,11 +12,10 @@ void MeshRenderer::update() {
 
 
 
-void MeshRenderer::render(Graphics *oGraphics, XMMATRIX *mWorldViewProj) {
-
-	XMStoreFloat4x4(&m_oObjectConstants.WorldViewProj, XMMatrixTranspose(*mWorldViewProj));
+void MeshRenderer::render(Graphics *oGraphics, XMFLOAT4X4* mWorldViewProj) {
+	m_oObjectConstants.WorldViewProj = *mWorldViewProj ;
 	m_uObjectCB->CopyData(0, m_oObjectConstants);
-	
+
 	//root signature
 	oGraphics->m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
 	//pipeline state

@@ -39,7 +39,7 @@ public :
 	vector<Component*> GetVectorComponents();
 	void SRT();
 	virtual void update();
-	virtual void render(Graphics* oGraphics, XMMATRIX* mWorldViewProj);
+	virtual void render(Graphics* oGraphics, XMFLOAT4X4* mWorldViewProj);
 
 	
 
@@ -54,8 +54,8 @@ public :
 		0.0f, 0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f
 	};
-	XMMATRIX m_mWorldViewProj;
-	XMMATRIX getWorldViewProj();
+	XMFLOAT4X4 m_mWorldViewProj;
+	XMFLOAT4X4* getWorldViewProj();
 	
 	// à enlever en premier
 	XMFLOAT4X4 m_fView = {

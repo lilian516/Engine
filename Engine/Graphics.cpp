@@ -457,8 +457,8 @@ void Graphics::render(Manager* oManager) {
 
 	// PER OBJECT
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		XMMATRIX WorldViewProj = oManager->m_vEntity[i]->getWorldViewProj();
-		oManager->m_vEntity[i]->render(this,&WorldViewProj);
+		XMFLOAT4X4* WorldViewProj = oManager->m_vEntity[i]->getWorldViewProj();
+		oManager->m_vEntity[i]->render(this,WorldViewProj);
 
 	}
 

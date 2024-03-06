@@ -33,12 +33,13 @@ void Entity::update() {
 	
 }
 
-void Entity::render(Graphics* oGraphics, XMMATRIX* mWorldViewProj) {
+void Entity::render(Graphics* oGraphics, XMFLOAT4X4* mWorldViewProj) {
+	temporaire();
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		m_vComponents[i]->render(oGraphics, mWorldViewProj);
 
 	}
-	temporaire();
+	
 }
 
 Transform& Entity::getTransform() {
@@ -56,6 +57,8 @@ void Entity::temporaire() {
 	XMVECTOR target = XMVectorZero();
 	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	XMMATRIX view;
+	XMFLOAT4X4 viewTemp = Identity4x4();
+	view = XMLoadFloat4x4(&viewTemp);
 
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		if (dynamic_cast<Camera*>(m_vComponents[i])) {
@@ -66,14 +69,15 @@ void Entity::temporaire() {
 
 	XMMATRIX world = XMLoadFloat4x4(&m_tTransform.m_mTransform);
 	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
-	m_mWorldViewProj = world * view * proj;
-
+	XMMATRIX WorldViewProj = world * view * proj;
+	XMStoreFloat4x4(&m_mWorldViewProj, WorldViewProj);
+	
 	// Update the constant buffer with the latest worldViewProj matrix.
 
 	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, static_cast<float>(800) / 600, 1.0f, 1000.0f);
 	XMStoreFloat4x4(&m_fProj, P);
 }
 
-XMMATRIX Entity::getWorldViewProj() {
-	return m_mWorldViewProj;
+XMFLOAT4X4* Entity::getWorldViewProj() {
+	return &m_mWorldViewProj;
 }
