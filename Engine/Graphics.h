@@ -21,6 +21,8 @@ class Manager;
 class Graphics
 {
 public :
+
+#pragma region Method
 	Graphics();
 	bool initGraphics(Manager* oManager);
 	bool initDirectX();
@@ -41,8 +43,10 @@ public :
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
 	ID3D12Resource* currentBackBuffer()const;
+#pragma endregion
+
+#pragma region Attribute
 	ID3D12DescriptorHeap* m_dConstantBufferViewHeapDescriptor = nullptr;
-	
 
 	ID3D12Device *m_d3dDevice;
 	IDXGIFactory4 *m_fDxgiFactory;
@@ -86,8 +90,7 @@ public :
 	XMFLOAT4X4 m_fView = Identity4x4();
 	XMFLOAT4X4 m_fProj = Identity4x4();
 	
+#pragma endregion
 	
-	
-
 };
 

@@ -609,8 +609,6 @@ void Graphics::logOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format)
 	}
 }
 
-
-
 bool Graphics::deleteDirectX() {
 	if (m_rDepthStencilBuffer)
 	{
