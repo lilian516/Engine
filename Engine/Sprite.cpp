@@ -14,10 +14,10 @@ Sprite::~Sprite() {
 void Sprite::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
-		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.0f), XMFLOAT4(Colors::White) }),//0
-		Vertex({ XMFLOAT3(0.5, 0.5f, 0.0f), XMFLOAT4(Colors::White) }),//1
-		Vertex({ XMFLOAT3(0.5, -0.5f, 0.0f), XMFLOAT4(Colors::Black) }),//2
-		Vertex({ XMFLOAT3(-0.5, -0.5, 0.0f), XMFLOAT4(Colors::Black) }),//3
+		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.0f), XMFLOAT4(Colors::White) ,XMFLOAT2(0,0)}),//0
+		Vertex({ XMFLOAT3(0.5, 0.5f, 0.0f), XMFLOAT4(Colors::White) ,XMFLOAT2(1,0)}),//1
+		Vertex({ XMFLOAT3(0.5, -0.5f, 0.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//2
+		Vertex({ XMFLOAT3(-0.5, -0.5, 0.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(0,1)}),//3
 	};
 		m_mMesh.vertices = std::move(vertices);
 

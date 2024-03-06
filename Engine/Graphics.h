@@ -15,10 +15,6 @@
 #include "Texture.h"
 #include <unordered_map>
 
-static UINT CalcConstantBufferByteSize(UINT byteSize)
-{
-	return (byteSize + 255) & ~255;
-}
 
 class Shader;
 class Mesh;
@@ -45,7 +41,6 @@ public :
 	void render(Manager* oManager);
 	void update(Manager* oManager);
 	float aspectRatio()const;
-	void drawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
 	ID3D12Resource* currentBackBuffer()const;

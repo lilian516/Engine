@@ -2,12 +2,13 @@
 #include "Component.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "Texture.h"
 class MeshRenderer :public Component
 {
 public:
 	MeshRenderer();
 	~MeshRenderer();
-	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader *oShader, Mesh *oMesh);
+	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader *oShader, Mesh *oMesh, Texture* oTexture);
 	void update()override;
 	void render(Graphics* oGraphics)override;
 	void buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHeap* dCbvHeap);
@@ -26,6 +27,7 @@ public:
 private:
 	Shader* m_oShader;
 	Mesh* m_oMesh;
+	Texture* m_oTexture;
 	
 
 protected:

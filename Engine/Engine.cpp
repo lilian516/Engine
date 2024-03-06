@@ -49,9 +49,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MeshRenderer* oMeshRenderer2 = new MeshRenderer();
     MeshRenderer* oMeshRenderer3 = new MeshRenderer();
     MeshRenderer* oMeshRenderer4 = new MeshRenderer();
-    oTexture1->loadTextureFromFile("test", L"../Texture/WoodCrate01.dds", oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_cCommandList);
-    oTexture1->buildSRVDescriptorHeap(oManager->m_oGraphics->m_d3dDevice, "test");
-    oShader->m_d3dRootSignature.
     oManager->m_vTexture.push_back(oTexture1);
     oManager->m_vMesh.push_back(oBoxMesh);
     oManager->m_vMesh.push_back(oPyramidMesh);
@@ -71,6 +68,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //
     ////oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
     oManager->initManager();
+    oTexture1->loadTextureFromFile("test", L"Texture/image.dds", oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics);
+    oTexture1->buildSRVDescriptorHeap(oManager->m_oGraphics->m_d3dDevice, "test",oManager->m_oGraphics);
     //oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oBoxMesh);
     //
     //oEntity->AddComponents(oMeshRenderer);
@@ -93,7 +92,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Entity* oEntity4 = new Entity();
     oEntity4->initEntity();
 
-    oMeshRenderer4->SetMeshRenderer(oEntity4, oManager->m_oGraphics->m_d3dDevice, oShader, oSprite);
+    oMeshRenderer4->SetMeshRenderer(oEntity4, oManager->m_oGraphics->m_d3dDevice, oShader, oSprite, oTexture1);
     oEntity4->AddComponents(oMeshRenderer4);
 
     //

@@ -236,7 +236,7 @@ void Graphics::createSwapChain() {
 
 void Graphics::createHeapDescriptor() {
 	D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
-	cbvHeapDesc.NumDescriptors = 1;
+	cbvHeapDesc.NumDescriptors = 100;
 	cbvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	cbvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	cbvHeapDesc.NodeMask = 0;
@@ -424,18 +424,23 @@ void Graphics::update(Manager* oManager) {
 		//oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
 	
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		for (int j = 0; j < oManager->m_vEntity[i]->m_vComponents.size(); j++) {
-			oManager->m_vEntity[i]->m_vComponents[j]->update();
+	
+		oManager->m_vEntity[i]->update();
 			
-		}
+		
 		
 	}
+	
+
 	onResize();
 	
 	
 }
 
 void Graphics::render(Manager* oManager) {
+	
+
+
 	m_cDirectCmdListAlloc->Reset();
 
 	// A command list can be reset after it has been added to the command queue via ExecuteCommandList.

@@ -52,16 +52,19 @@ void MeshRenderer::render(Graphics *oGraphics) {
 
 	oGraphics->m_cCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	oGraphics->m_cCommandList->SetGraphicsRootConstantBufferView(0, m_uObjectCB->Resource()->GetGPUVirtualAddress());
+	oGraphics->m_cCommandList->SetGraphicsRootConstantBufferView(1, m_uObjectCB->Resource()->GetGPUVirtualAddress());
+
+	oGraphics->m_cCommandList->SetGraphicsRootDescriptorTable(0,m_oTexture->getGPUDesc());
 
 	//draw
 	oGraphics->m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(), 1, 0, 0, 0);
 }
 
-void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh) {
+void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh, Texture* oTexture) {
 	initComponent(3, *oEntity);
 	m_oMesh = oMesh;
 	m_oShader = oShader;
+	m_oTexture = oTexture;
 	
 }
 

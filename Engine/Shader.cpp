@@ -59,12 +59,17 @@ void Shader::initializePipelineState(ID3D12Device* device) {
 
 void Shader::initializeRootSignature(ID3D12Device* device) {
 
-	CD3DX12_ROOT_PARAMETER rootParameters[1];
-	rootParameters[0].InitAsConstantBufferView(0);
-
-	CD3DX12_ROOT_SIGNATURE_DESC d3dRootSignatureDescriptor = CD3DX12_ROOT_SIGNATURE_DESC(1, rootParameters, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+	const int count = 2;
+	CD3DX12_DESCRIPTOR_RANGE descRange;
+	descRange.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+	CD3DX12_ROOT_PARAMETER rootParameters[count];
+	rootParameters[0].InitAsDescriptorTable(1 ,&descRange, D3D12_SHADER_VISIBILITY_PIXEL);
+	rootParameters[1].InitAsConstantBufferView(0);
 
 	auto staticSamplers = GetStaticSamplers();
+
+	CD3DX12_ROOT_SIGNATURE_DESC d3dRootSignatureDescriptor = CD3DX12_ROOT_SIGNATURE_DESC(count, rootParameters, 1, staticSamplers.data(), D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+
 
 	ID3DBlob* signature;
 	ID3DBlob* error;
@@ -97,8 +102,7 @@ void Shader::initializeShader() {
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 	};
 }
 vector<CD3DX12_STATIC_SAMPLER_DESC> Shader::GetStaticSamplers()
