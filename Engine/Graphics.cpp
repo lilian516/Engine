@@ -9,6 +9,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Manager.h"
+#include "Camera.h"
 
 
 using Microsoft::WRL::ComPtr;
@@ -58,10 +59,9 @@ bool Graphics::initGraphics(Manager* oManager) {
 		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);
 	}
 
-	/*for (int i = 0; i < oManager->m_vMesh.size(); i++) {
-		oManager->m_vMesh[i]->buildPyramidGeometry(m_d3dDevice, m_cCommandList);
-
-	}*/
+	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
+		oManager->m_vMesh[i]->buildGeometry(m_d3dDevice, m_cCommandList);
+	}
 
 
 
@@ -455,14 +455,47 @@ void Graphics::render(Manager* oManager) {
 	m_cCommandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
 
 
-	// PER OBJECT
-	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		XMFLOAT4X4* WorldViewProj = oManager->m_vEntity[i]->getWorldViewProj();
-		oManager->m_vEntity[i]->render(this,WorldViewProj);
+	
+	//Convert Spherical to Cartesian coordinates.
+	float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
+	float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
+	float y = m_fRadius * cosf(m_fPhi);
 
+	// Build the view matrix.
+	XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
+	XMVECTOR target = XMVectorZero();
+	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	XMMATRIX view;
+	XMFLOAT4X4 viewTemp = Identity4x4();
+	view = XMLoadFloat4x4(&viewTemp);
+	Camera* camera;
+	Entity* entity = oManager->m_vEntity[0];
+
+	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
+		
+		if (dynamic_cast<Camera*>(oManager->m_vEntity[i])) {
+			camera = dynamic_cast<Camera*>(oManager->m_vEntity[i]);
+			entity = (oManager->m_vEntity[i]);
+			view = XMLoadFloat4x4(camera->getViewMatrix());
+		}
 	}
 
+	XMMATRIX world = XMLoadFloat4x4(&entity->m_tTransform.m_mTransform);
+	XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
+	XMMATRIX WorldViewProj = world * view * proj;
+	XMStoreFloat4x4(&m_mWorldViewProj, WorldViewProj);
 
+	// Update the constant buffer with the latest worldViewProj matrix.
+
+	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, static_cast<float>(800) / 600, 1.0f, 1000.0f);
+	XMStoreFloat4x4(&m_mWorldViewProj, P);
+
+	// PER OBJECT
+	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
+		;
+		oManager->m_vEntity[i]->render(this, &m_mWorldViewProj);
+
+	}
 	/*Entity* oEntity2 = new Entity();
 	MeshRenderer* oMeshRenderer = new MeshRenderer();
 	oMeshRenderer->SetMeshRenderer(oEntity2, m_d3dDevice, m_oShader, m_oMesh);

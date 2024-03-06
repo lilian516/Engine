@@ -86,7 +86,9 @@ public :
 	XMFLOAT4X4 m_fView = Identity4x4();
 	XMFLOAT4X4 m_fProj = Identity4x4();
 	
+	void temporaire();
 	
+	XMFLOAT4X4 m_mWorldViewProj;
 	
 
 };

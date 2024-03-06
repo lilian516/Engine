@@ -58,12 +58,6 @@ public :
 	XMFLOAT4X4* getWorldViewProj();
 	
 	// à enlever en premier
-	XMFLOAT4X4 m_fView = {
-		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f
-	};
 	XMFLOAT4X4 m_fProj = {
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
