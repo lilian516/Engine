@@ -24,16 +24,7 @@ void Entity::SRT() {
 
 }
 
-void Entity::updateBox() {
-	m_aBox.pCenter = m_tTransform.m_vPosition;
-	XMVECTOR vRadius = XMLoadFloat4(&m_aBox.vRadius);
-	XMVECTOR vScaling = XMLoadFloat4(&m_tTransform.m_vScaling);
-	vRadius *= vScaling;
-	XMStoreFloat4(&m_aBox.vRadius, vRadius);
-}
-
 void Entity::update() {
-	updateBox();
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		m_vComponents[i]->update();
 	}

@@ -61,7 +61,7 @@ void MeshRenderer::render(Graphics* oGraphics) {
 }
 
 void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh, Texture* oTexture) {
-	initComponent(3, *oEntity);
+	initComponent(3, oEntity);
 	m_oMesh = oMesh;
 	m_oShader = oShader;
 	m_oEntity->m_aBox = m_oMesh->m_mMesh.oBox;

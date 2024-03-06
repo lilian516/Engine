@@ -47,32 +47,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Placez le code ici.
 
     Manager oManager;
-    BoxMesh boxMesh;
-    PyramidMesh pyramidMesh;
-    PenMesh penMesh;
+    Sprite boxMesh;
+    
     
     Shader oShader;
-    
-    
     MeshRenderer oMeshRenderer;
-    MeshRenderer oMeshRenderer2;
-    MeshRenderer oMeshRenderer3;
+    Texture oTexture;
+    
     oManager.m_vMesh.push_back(&boxMesh);
-    oManager.m_vMesh.push_back(&pyramidMesh);
-    oManager.m_vMesh.push_back(&penMesh);
     oManager.m_vShader.push_back(&oShader);
-    oManager.m_vMeshRenderer.push_back(&oMeshRenderer);
-    oManager.m_vMeshRenderer.push_back(&oMeshRenderer2);
-    oManager.m_vMeshRenderer.push_back(&oMeshRenderer3);
+    
+    //oManager.m_vMeshRenderer.push_back(&oMeshRenderer);
+    
+    
 
 
     Entity* oEntity = new Entity();
     oEntity->initEntity();
 
-    //oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
+    
     oManager.initManager();
-    oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh);
-    oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
+    oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
+    oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
+    oMeshRenderer.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
+    oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);
+    
+    //oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
 
     oManager.m_vCollideEntity.push_back(oEntity);
     Collider* collider = new Collider();
@@ -81,31 +81,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     oEntity->addComponents(&oMeshRenderer);
 
-    Entity* oEntity2 = new Entity();
-    oEntity2->initEntity();
-
-    oMeshRenderer2.SetMeshRenderer(oEntity2, oManager.m_oGraphics.m_d3dDevice, &oShader, &pyramidMesh);
-    oEntity2->addComponents(&oMeshRenderer2);
-    oEntity2->translate(XMFLOAT4(-1.5f, 0, 0, 0));
-
-    oManager.m_vCollideEntity.push_back(oEntity2);
-    Collider* collider2 = new Collider();
-    collider2->setCollider(oEntity2, oManager.m_vCollideEntity);
-    oEntity->addComponents(collider2);
-
-    Entity* oEntity3 = new Entity();
-    oEntity3->initEntity();
-
-    oMeshRenderer3.SetMeshRenderer(oEntity3, oManager.m_oGraphics.m_d3dDevice, &oShader, &penMesh);
-    oEntity2->addComponents(&oMeshRenderer3);
+    
 
     oManager.addEntity(oEntity);
-    oManager.addEntity(oEntity2);
-    oManager.addEntity(oEntity3);
+    
 
 
 
-    //oManager.runWindow(hInstance);
+    oManager.runWindow(hInstance);
     ////Camera* oCamera = new Camera();
     ////oCamera->initCamera(800,600, oEntity);
 

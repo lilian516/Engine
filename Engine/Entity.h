@@ -37,7 +37,6 @@ public:
 	Entity();
 	void initEntity();
 	void addComponents(Component* cComponent);
-	void updateBox();
 	void translate(XMFLOAT4 vTranslastion);
 	void rotate(float pitch, float roll, float yaw);
 	void scale(XMFLOAT3 ratio);
