@@ -11,6 +11,9 @@
 
 #include "RenderItem.h"
 #include "ObjectConstants.h"
+#include "FrameResource.h"
+#include "Texture.h"
+#include <unordered_map>
 
 static UINT CalcConstantBufferByteSize(UINT byteSize)
 {
@@ -48,7 +51,7 @@ public :
 	ID3D12Resource* currentBackBuffer()const;
 	ID3D12DescriptorHeap* m_dConstantBufferViewHeapDescriptor = nullptr;
 	
-	ComPtr<ID3D12DescriptorHeap> mSrvDescriptorHeap = nullptr;
+	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSrvDescriptorHeap = nullptr;
 	UINT mCbvSrvDescriptorSize = 0;
 
 	ID3D12Device *m_d3dDevice;
@@ -65,12 +68,6 @@ public :
 	ID3D12GraphicsCommandList *m_cCommandList;
 	IDXGISwapChain *m_cSwapChain;
 
-	std::unordered_map<std::string, std::unique_ptr<Mesh>> mGeometries;
-	std::unordered_map<std::string, std::unique_ptr<Material>> mMaterials;
-	std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
-	std::vector<std::unique_ptr<FrameResource>> mFrameResources;
-	FrameResource* mCurrFrameResource = nullptr;
-	int mCurrFrameResourceIndex = 0;
 
 	static const int m_sSwapChainBufferCount = 2;
 	//ID3D12Resource *m_cSwapChainBuffer[m_sSwapChainBufferCount];

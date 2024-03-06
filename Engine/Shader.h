@@ -24,7 +24,7 @@ public:
 	void initializeRootSignature(ID3D12Device* device);
 	void buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHeap* dCbvHeap);
 	void initializeShader();
-	std::array<CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
+	vector<CD3DX12_STATIC_SAMPLER_DESC> GetStaticSamplers();
 	HRESULT compileShader(const WCHAR* filename, const char* entrypoint, const char* profile, ID3DBlob** out_code);
 	ID3D12PipelineState* m_d3dPipelineState;
 	ID3D12RootSignature* m_d3dRootSignature;

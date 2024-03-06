@@ -40,6 +40,7 @@ void MeshRenderer::render(Graphics *oGraphics) {
 	
 	//root signature
 	oGraphics->m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
+
 	//pipeline state
 	oGraphics->m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
 	//vertex buffer

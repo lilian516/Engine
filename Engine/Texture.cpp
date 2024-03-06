@@ -21,7 +21,7 @@ void Texture::loadTextureFromFile(string name,wstring filename, ID3D12Device* de
 	CheckSucceded(DirectX::CreateDDSTextureFromFile12(device,commandList, createText->m_Filename.c_str(), m_rResource, m_rUploadHeap));
 }
 
-void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures) {
+void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name) {
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
 	srvHeapDesc.NumDescriptors = 1;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
@@ -29,7 +29,7 @@ void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, std::uno
 	CheckSucceded(device->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&m_dSrvHeapDesc)));
 	CD3DX12_CPU_DESCRIPTOR_HANDLE hDescriptor(m_dSrvHeapDesc->GetCPUDescriptorHandleForHeapStart());
 
-	auto CreateText = mTextures[name]->m_rResource;
+	auto CreateText = m_sTextures[name]->m_rResource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
@@ -40,4 +40,16 @@ void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, std::uno
 	srvDesc.Texture2D.ResourceMinLODClamp = 0.0f;
 
 	device->CreateShaderResourceView(CreateText.Get(), &srvDesc, hDescriptor);
+}
+
+ID3D12DescriptorHeap* Texture::getDescriptorHeap() {
+	return m_dSrvHeapDesc ;
+}
+
+UINT Texture::getDescriptorSize() {
+	return m_uCbvSrvDescriptorSize;
+}
+
+CD3DX12_CPU_DESCRIPTOR_HANDLE Texture::getDescriptorHandle() {
+	return m_dDescriptorHandle;
 }

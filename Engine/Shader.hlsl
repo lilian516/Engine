@@ -1,3 +1,7 @@
+Texture2D gTex : register(t0);
+SamplerState gSampler : register(s0);
+
+
 cbuffer ConstantBuffer : register(b0)
 {
     matrix WorldViewProjection;
@@ -27,5 +31,5 @@ VertexOutput vs_main(VertexInput input)
 
 float4 ps_main(VertexOutput input) : SV_TARGET
 {
-    return input.color;
+    return gTex.Sample(gSampler, input.TexC);
 }

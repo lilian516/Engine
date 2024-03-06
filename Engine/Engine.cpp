@@ -13,6 +13,7 @@
 #include "PyramidMesh.h"
 #include "PenMesh.h"
 #include "Sprite.h"
+#include "Texture.h"
 
 #define MAX_LOADSTRING 100
 
@@ -38,6 +39,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Placez le code ici.
 
     Manager* oManager = new Manager();
+    Texture* oTexture1 = new Texture();
     Shader* oShader = new Shader();
     BoxMesh* oBoxMesh = new BoxMesh();
     PyramidMesh* oPyramidMesh =new PyramidMesh();
@@ -47,6 +49,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MeshRenderer* oMeshRenderer2 = new MeshRenderer();
     MeshRenderer* oMeshRenderer3 = new MeshRenderer();
     MeshRenderer* oMeshRenderer4 = new MeshRenderer();
+    oTexture1->loadTextureFromFile("test", L"../Texture/WoodCrate01.dds", oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_cCommandList);
+    oTexture1->buildSRVDescriptorHeap(oManager->m_oGraphics->m_d3dDevice, "test");
+    oShader->m_d3dRootSignature.
+    oManager->m_vTexture.push_back(oTexture1);
     oManager->m_vMesh.push_back(oBoxMesh);
     oManager->m_vMesh.push_back(oPyramidMesh);
     oManager->m_vMesh.push_back(oPenMesh);

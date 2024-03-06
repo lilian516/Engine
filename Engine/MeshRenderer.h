@@ -11,6 +11,7 @@ public:
 	void update()override;
 	void render(Graphics* oGraphics)override;
 	void buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHeap* dCbvHeap);
+	void setTextureResources(Graphics* oGraphics, Texture* texture);
 	
 	std::unique_ptr<UploadBuffer<ObjectConstants>> m_uObjectCB;
 
