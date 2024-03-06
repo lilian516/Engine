@@ -14,9 +14,9 @@ public:
 	void setCollider(Entity* oEntity, vector<Entity*> vColliderEntity);
 	void update()override;
 
-	void virtual enterCollision();
-	void virtual stayCollision();
-	void virtual exitCollision();
+	void enterCollision();
+	void stayCollision();
+	void exitCollision();
 	void noCollision();
 
 	CollisionState m_cCollision;
