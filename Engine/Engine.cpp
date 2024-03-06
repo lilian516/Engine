@@ -28,9 +28,9 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+    _In_opt_ HINSTANCE hPrevInstance,
+    _In_ LPWSTR    lpCmdLine,
+    _In_ int       nCmdShow)
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -48,66 +48,63 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MeshRenderer* oMeshRenderer = new MeshRenderer();
     MeshRenderer* oMeshRenderer2 = new MeshRenderer();
     MeshRenderer* oMeshRenderer3 = new MeshRenderer();
-    Camera* oCamera = new Camera();
     oManager->m_vMesh.push_back(oBoxMesh);
     oManager->m_vMesh.push_back(oPyramidMesh);
     oManager->m_vMesh.push_back(oPenMesh);
     oManager->m_vShader.push_back(oShader);
     oManager->m_vMeshRenderer.push_back(oMeshRenderer);
-    /*oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);*/
-    
-    
-  
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
+    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);
+
+
     Entity* oEntity = new Entity();
     oEntity->initEntity();
-    oEntity->translate(XMFLOAT4(1.5f,0,0,0));
-    oEntity->m_tTransform.updateTransform();
-    
+
+    //oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
+    oManager->initManager();
+    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oBoxMesh);
+    oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
+
     oManager->m_vCollideEntity.push_back(oEntity);
     Collider* collider = new Collider();
     collider->setCollider(oEntity, oManager->m_vCollideEntity);
     oEntity->addComponents(collider);
-    
-    //oMeshRenderer->buildConstantBuffers(oManager->m_oGraphics->m_d3dDevice, oManager->m_oGraphics->m_dConstantBufferViewHeapDescriptor);
-    oManager->initManager();
-    oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice, oShader, oBoxMesh);
-    
+
     oEntity->addComponents(oMeshRenderer);
 
-   Entity* oEntity2 = new Entity();
+    Entity* oEntity2 = new Entity();
     oEntity2->initEntity();
-    oEntity2->translate(XMFLOAT4(-1.5, 0, 0, 0));
-    oEntity2->m_tTransform.updateTransform();
+
+    oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oPyramidMesh);
+    oEntity2->addComponents(oMeshRenderer2);
+    oEntity2->translate(XMFLOAT4(-1.5f, 0, 0, 0));
 
     oManager->m_vCollideEntity.push_back(oEntity2);
     Collider* collider2 = new Collider();
     collider2->setCollider(oEntity2, oManager->m_vCollideEntity);
     oEntity->addComponents(collider2);
 
-    oMeshRenderer2->SetMeshRenderer(oEntity2, oManager->m_oGraphics->m_d3dDevice, oShader, oPyramidMesh);
-    oEntity2->addComponents(oMeshRenderer2);
-
     Entity* oEntity3 = new Entity();
     oEntity3->initEntity();
 
     oMeshRenderer3->SetMeshRenderer(oEntity3, oManager->m_oGraphics->m_d3dDevice, oShader, oPenMesh);
     oEntity2->addComponents(oMeshRenderer3);
-    
+
     oManager->addEntity(oEntity);
     oManager->addEntity(oEntity2);
     oManager->addEntity(oEntity3);
 
-    
-    
+
+
     oManager->runWindow(hInstance);
-    
-    
+    ////Camera* oCamera = new Camera();
+    ////oCamera->initCamera(800,600, oEntity);
+
     //MeshRenderer* oMeshRenderer = new MeshRenderer();
     //oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
     //oEntity->AddComponents(oMeshRenderer);
 
-    
+
 
     //// Initialise les chaînes globales
     //LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -140,5 +137,4 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //return (int) msg.wParam;
 }
-
 

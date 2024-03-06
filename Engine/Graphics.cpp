@@ -58,10 +58,9 @@ bool Graphics::initGraphics(Manager* oManager) {
 		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);
 	}
 
-	/*for (int i = 0; i < oManager->m_vMesh.size(); i++) {
-		oManager->m_vMesh[i]->buildPyramidGeometry(m_d3dDevice, m_cCommandList);
-
-	}*/
+	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
+		oManager->m_vMesh[i]->buildGeometry(m_d3dDevice, m_cCommandList);
+	}
 
 
 
@@ -78,6 +77,18 @@ bool Graphics::initGraphics(Manager* oManager) {
 LRESULT CALLBACK
 MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	switch (msg) {
+	case WM_DESTROY:
+
+		PostQuitMessage(0);
+		return 0;
+	case WM_CLOSE:
+		PostQuitMessage(0);
+		return 0;
+
+
+
+	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
@@ -191,8 +202,8 @@ void Graphics::createCommandListQueue() {
 	m_d3dDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, m_cDirectCmdListAlloc, nullptr, IID_PPV_ARGS(&m_cCommandList));
 
 
-	//Commencez dans un état fermé. C'est parce que la première fois que nous faisons référence
-	// à la liste des commandes, nous allons la réinitialiser, et elle doit être fermée avant
+	//Commencez dans un ?tat ferm?. C'est parce que la premi?re fois que nous faisons r?f?rence
+	// ? la liste des commandes, nous allons la r?initialiser, et elle doit ?tre ferm?e avant
 	// appelant Reset.
 	m_cCommandList->Close();
 }
@@ -216,9 +227,9 @@ void Graphics::createSwapChain() {
 	sSwapChainDescription.Windowed = true;
 	sSwapChainDescription.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	sSwapChainDescription.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
-	// Note: La chaîne d'échange utilise la file d'attente pour effectuer le vidage.
+	// Note: La cha?ne d'?change utilise la file d'attente pour effectuer le vidage.
 	m_fDxgiFactory->CreateSwapChain(m_cCommandQueue, &sSwapChainDescription, &m_cSwapChain);
-	//note pour plus tard peut etre problème avec throwiffailed
+	//note pour plus tard peut etre probl?me avec throwiffailed
 }
 
 void Graphics::createHeapDescriptor() {
@@ -456,8 +467,7 @@ void Graphics::render(Manager* oManager) {
 
 	// PER OBJECT
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		XMFLOAT4X4* WorldViewProj = oManager->m_vEntity[i]->getWorldViewProj();
-		oManager->m_vEntity[i]->render(this,WorldViewProj);
+		oManager->m_vEntity[i]->render(this);
 
 	}
 

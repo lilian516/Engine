@@ -5,18 +5,17 @@
 
 #include "ObjectConstants.h"
 
-class Component 
+class Component : public Entity
 {
-private :
+private:
 	int m_iId;
-public :
+public:
 	Entity* m_oEntity;
 
 	Component();
 	void initComponent(int iId, Entity* oEntity);
 	virtual void update();
-	virtual void render(Graphics* oGraphics, XMFLOAT4X4* mWorldViewProj);
+	virtual void render(Graphics* oGraphics);
 	int getId();
-	
-};
 
+};

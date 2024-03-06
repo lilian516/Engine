@@ -14,12 +14,11 @@ void Component::update() {
 
 }
 
-void Component::render(Graphics* oGraphics, XMFLOAT4X4* mWorldViewProj) {
+void Component::render(Graphics* oGraphics) {
 
 }
 
 int Component::getId() {
 	return m_iId;
 }
-
 
