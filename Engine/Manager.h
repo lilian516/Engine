@@ -25,16 +25,16 @@ public :
 	
 	~Manager();
 
-	Graphics *m_oGraphics;
-	Timer* m_oTimer;
-	InputManager *m_oInputManager;
+	Graphics m_oGraphics;
+	Timer m_oTimer;
+	InputManager m_oInputManager;
 	vector<Entity*> m_vCollideEntity;
 	vector<Entity*> m_vEntity;
 	vector<Shader*> m_vShader;
 	vector<Mesh*> m_vMesh;
 	vector<MeshRenderer*> m_vMeshRenderer;
-	Mesh* m_oMesh;
-	Shader* m_oShader;
+	Mesh m_oMesh;
+	Shader m_oShader;
 	
 };
 
