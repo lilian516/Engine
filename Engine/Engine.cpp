@@ -15,6 +15,7 @@
 #include "Sprite.h"
 #include "Texture.h"
 #include "Collider.h"
+#include "Camera.h"
 #include "ParticleSystem.h"
 
 #define MAX_LOADSTRING 100
@@ -55,13 +56,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MeshRenderer oMeshRenderer;
 	MeshRenderer oMeshRenderer2;
     Texture oTexture;
+    Camera ocCamera;
     
     oManager.m_vMesh.push_back(&boxMesh);
     oManager.m_vShader.push_back(&oShader);
     
-    //oManager.m_vMeshRenderer.push_back(&oMeshRenderer);
     
     
+    Entity* oCamera = new Entity();
+    oCamera->initEntity();
 
 
     Entity* oEntity = new Entity();
@@ -76,10 +79,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     //oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
 
-    oManager.m_vCollideEntity.push_back(oEntity);
-    Collider* collider = new Collider();
-    collider->setCollider(oEntity, oManager.m_vCollideEntity);
-    oEntity->addComponents(collider);
+    ocCamera.initCamera(oCamera, &oManager.m_oGraphics.m_hMainWindow);
+
+    
 
     oEntity->addComponents(&oMeshRenderer);
 
@@ -92,8 +94,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	oMeshRenderer2.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
 	oMeshRenderer2.SetMeshRenderer(oEntity2, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);
 	oEntity2->addComponents(&oMeshRenderer2);
+    oCamera->addComponents(&ocCamera);
 
     oManager.addEntity(oEntity);
+    
+    oManager.addEntity(oCamera);
 	oManager.addEntity(oEntity2);
 
 
