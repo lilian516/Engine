@@ -22,8 +22,8 @@ void PenMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* com
 		Vertex({ XMFLOAT3(0.0, 1.0f, 0.0f), XMFLOAT4(Colors::Blue) }),//8
 
 	};
-    m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f,0.0f };
-    m_mMesh.oBox.vRadius = { 0.5f,1.0f,0.5f,0.0f };
+    m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f };
+    m_mMesh.oBox.vRadius = { 0.5f,1.0f,0.5f };
 	m_mMesh.vertices = std::move(vertices);
 
 	std::vector<std::uint16_t> indices =

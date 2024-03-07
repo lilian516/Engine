@@ -21,8 +21,8 @@ void BoxMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* com
 		Vertex({ XMFLOAT3(-0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) }),//7
 
 	};
-	m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f,0.0f };
-	m_mMesh.oBox.vRadius = { 0.5f,0.5f,0.5f,0.0f };
+	m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f };
+	m_mMesh.oBox.vRadius = { 0.5f,0.5f,0.5f };
 	m_mMesh.vertices = std::move(vertices);
 
 	std::vector<std::uint16_t> indices =

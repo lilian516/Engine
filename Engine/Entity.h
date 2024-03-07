@@ -34,10 +34,11 @@ public:
 	vector<Component*> m_vComponents;
 	Transform m_tTransform;
 	AABB m_aBox;
+
 	Entity();
 	void initEntity();
 	void addComponents(Component* cComponent);
-	void translate(XMFLOAT4 vTranslastion);
+	void translate(XMFLOAT3 vTranslastion);
 	void rotate(float pitch, float roll, float yaw);
 	void scale(XMFLOAT3 ratio);
 	Transform& getTransform();

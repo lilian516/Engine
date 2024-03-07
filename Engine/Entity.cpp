@@ -31,7 +31,7 @@ void Entity::update() {
 
 }
 
-void Entity::translate(XMFLOAT4 vTranslation) {
+void Entity::translate(XMFLOAT3 vTranslation) {
 	m_tTransform.translation(vTranslation);
 	m_tTransform.updateTransform();
 	m_aBox.pCenter = m_tTransform.m_vPosition;
@@ -45,10 +45,10 @@ void Entity::rotate(float pitch, float roll, float yaw) {
 void Entity::scale(XMFLOAT3 ratio) {
 	m_tTransform.scale(ratio);
 	m_tTransform.updateTransform();
-	XMVECTOR vScale = XMLoadFloat4(&m_tTransform.m_vScaling);
-	XMVECTOR vRadius = XMLoadFloat4(&m_aBox.vRadius);
+	XMVECTOR vScale = XMLoadFloat3(&m_tTransform.m_vScaling);
+	XMVECTOR vRadius = XMLoadFloat3(&m_aBox.vRadius);
 	vRadius *= vScale;
-	XMStoreFloat4(&m_aBox.vRadius, vRadius);
+	XMStoreFloat3(&m_aBox.vRadius, vRadius);
 }
 
 void Entity::render(Graphics* oGraphics) {

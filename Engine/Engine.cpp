@@ -15,6 +15,7 @@
 #include "Sprite.h"
 #include "Texture.h"
 #include "Collider.h"
+#include "ParticleSystem.h"
 
 #define MAX_LOADSTRING 100
 #ifdef _DEBUG
@@ -52,6 +53,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     Shader oShader;
     MeshRenderer oMeshRenderer;
+	MeshRenderer oMeshRenderer2;
     Texture oTexture;
     
     oManager.m_vMesh.push_back(&boxMesh);
@@ -81,10 +83,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     oEntity->addComponents(&oMeshRenderer);
 
-    
+
+	Entity* oEntity2 = new Entity();
+    oEntity2->initEntity();
+    ParticleSystem* particle = new ParticleSystem();
+    particle->setParticleSystem(10, 100, {0,0,0});
+    oEntity2->addComponents(particle);
+	oMeshRenderer2.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
+	oMeshRenderer2.SetMeshRenderer(oEntity2, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);
+	oEntity2->addComponents(&oMeshRenderer2);
 
     oManager.addEntity(oEntity);
-    
+	oManager.addEntity(oEntity2);
 
 
 
