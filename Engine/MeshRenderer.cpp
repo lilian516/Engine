@@ -7,7 +7,17 @@ MeshRenderer::MeshRenderer() {
 MeshRenderer::~MeshRenderer() {
 }
 
+void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Mesh* oMesh, Texture* oTexture) {
+	buildConstantBuffers(device);
+	initComponent(3, oEntity);
+	m_oMesh = oMesh;
+	m_oShader = new Shader();
+	m_oShader->init(device);
+	m_oEntity->m_aBox = m_oMesh->m_mMesh.oBox;
 
+	m_oTexture = oTexture;
+	
+}
 
 void MeshRenderer::update() {
 
@@ -63,22 +73,10 @@ void MeshRenderer::render(Graphics* oGraphics) {
 	oGraphics->m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(), 1, 0, 0, 0);
 }
 
-void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Mesh* oMesh, Texture* oTexture) {
-	buildConstantBuffers(device);
-	initComponent(3, oEntity);
-	m_oMesh = oMesh;
-	m_oShader = new Shader();
-	m_oShader->init(device);
-	m_oEntity->m_aBox = m_oMesh->m_mMesh.oBox;
-
-	m_oTexture = oTexture;
-	
-}
 
 void MeshRenderer::buildConstantBuffers(ID3D12Device* device)
 {
 	m_uObjectCB = std::make_unique<UploadBuffer<ObjectConstants>>(device, 1, true);
-	
 }
 
 void MeshRenderer::updateConstantBuffer(XMMATRIX worldViewProjMatrix) {

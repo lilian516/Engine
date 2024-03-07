@@ -45,20 +45,16 @@ bool Graphics::initGraphics(Manager* oManager) {
 	if (initDirectX() == false) {
 		return false;
 	}
+	Entity* oCamera = new Entity();
+	oCamera->initEntity();
+
+	m_ocCamera.initCamera(oCamera, &m_hMainWindow);
+	oCamera->addComponents(&m_ocCamera);
 	onResize();
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 	createHeapDescriptor();
-	/*for (int i = 0; i < oManager->m_vMeshRenderer.size(); i++) {
-		oManager->m_vMeshRenderer[i]->buildConstantBuffers(m_d3dDevice);
 
-	}*/
 
-	for (int i = 0; i < oManager->m_vShader.size(); i++) {
-
-		oManager->m_vShader[i]->initializeRootSignature(m_d3dDevice);
-		oManager->m_vShader[i]->initializeShader();
-		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);
-	}
 
 	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
 		oManager->m_vMesh[i]->buildGeometry(m_d3dDevice, m_cCommandList);

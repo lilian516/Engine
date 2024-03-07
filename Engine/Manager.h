@@ -30,7 +30,6 @@ public :
 	InputManager m_oInputManager;
 	vector<Entity*> m_vCollideEntity;
 	vector<Entity*> m_vEntity;
-	vector<Shader*> m_vShader;
 	vector<Mesh*> m_vMesh;
 	vector<Texture*> m_vTexture;
 	vector<MeshRenderer*> m_vMeshRenderer;

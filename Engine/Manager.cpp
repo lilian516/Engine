@@ -43,10 +43,6 @@ void Manager::update() {
 	m_oGraphics.update(this);
 	m_oInputManager.update();
 	m_oTimer.update();
-	
-	for (int i = 0; i < m_vShader.size(); i++) {
-		m_vShader[i]->update();
-	}
 	for (int i = 0; i < m_vMesh.size(); i++) {
 		m_vMesh[i]->update();
 	}
@@ -67,9 +63,6 @@ void Manager::addEntity(Entity* oEntity) {
 Manager::~Manager() {
 	while (m_vEntity.size() != 0) {
 		delete m_vEntity[0];
-	}
-	while (m_vShader.size() != 0) {
-		delete m_vShader[0];
 	}
 	while (m_vMesh.size() != 0) {
 		delete m_vMesh[0];

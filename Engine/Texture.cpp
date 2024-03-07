@@ -7,12 +7,8 @@
 #define CheckSucceded(hresult) \
 	Check(SUCCEEDED(hresult))
 
-Texture::Texture() {
-
-}
-Texture::~Texture() {
-	
-}
+Texture::Texture() {}
+Texture::~Texture() {}
 
 void Texture::loadTextureFromFile(std::string name, wstring filename, ID3D12Device* device, Graphics* oGraphics) {
 	oGraphics->m_cDirectCmdListAlloc->Reset();
@@ -26,14 +22,10 @@ void Texture::loadTextureFromFile(std::string name, wstring filename, ID3D12Devi
 
 void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics* oGraphics) {
 	
-	
 	m_dDescriptorHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetCPUDescriptorHandleForHeapStart());
 	//hDescriptor.Offset(itex, )
 
-	
 	auto CreateText = m_sTextures[name]->m_rResource;
-
-	
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;

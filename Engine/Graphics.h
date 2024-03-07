@@ -6,6 +6,7 @@
 #pragma comment(lib, "dxgi.lib")
 
 #include "Entity.h"
+#include "Camera.h"
 #include <string>
 
 
@@ -54,7 +55,7 @@ public :
 	
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSrvDescriptorHeap = nullptr;
 	UINT mCbvSrvDescriptorSize = 0;
-
+	Camera m_ocCamera;
 	ID3D12Device *m_d3dDevice;
 	IDXGIFactory4 *m_fDxgiFactory;
 	ID3D12Fence *m_fFence;
@@ -98,7 +99,7 @@ public :
 	XMFLOAT4X4 m_fView = Identity4x4();
 	XMFLOAT4X4 m_fProj = Identity4x4();
 	
-#pragma endregion
 	
 };
+#pragma endregion
 

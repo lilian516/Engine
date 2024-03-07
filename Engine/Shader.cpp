@@ -17,9 +17,7 @@ Shader::Shader() {
 Shader::~Shader() {
 
 }
-void Shader::update() {
-
-}
+void Shader::update() {}
 
 void Shader::init(ID3D12Device* device) {
 	initializeRootSignature(device);
