@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "ObjectConstants.h"
 class Camera :public Component
 {
 public:
@@ -18,7 +19,7 @@ private:
 	float m_fRotationSpeed;
 
 	XMFLOAT4X4 m_mViewMatrix;
-	XMFLOAT4X4 m_mProjMatrix;
+	XMFLOAT4X4 m_mProjMatrix = Identity4x4();
 
 	float m_fMouseX;
 	float m_fMouseY;

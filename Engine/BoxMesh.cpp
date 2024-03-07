@@ -11,14 +11,14 @@ BoxMesh::~BoxMesh() {
 void BoxMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
-		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White) }),//0
-		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White) }),//1
-		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black) }),//2
-		Vertex({ XMFLOAT3(-0.5, -0.5, -0.5f), XMFLOAT4(Colors::Black) }),//3
-		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White) }),//4
-		Vertex({ XMFLOAT3(0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White) }),//5
-		Vertex({ XMFLOAT3(0.5, -0.5f, 0.5f), XMFLOAT4(Colors::Black) }),//6
-		Vertex({ XMFLOAT3(-0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) }),//7
+		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//0
+		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//1
+		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//2
+		Vertex({ XMFLOAT3(-0.5, -0.5, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//3
+		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//4
+		Vertex({ XMFLOAT3(0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//5
+		Vertex({ XMFLOAT3(0.5, -0.5f, 0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//6
+		Vertex({ XMFLOAT3(-0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(0,0)}),//7
 
 	};
 	m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f,0.0f };
@@ -32,8 +32,8 @@ void BoxMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* com
 		2, 3, 0,
 
 		//// back face
-		4, 5, 6,
-		6, 7, 4,
+		6, 5, 4,
+		4, 7, 6,
 
 		//// left face
 		4, 0, 3,
@@ -48,8 +48,8 @@ void BoxMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* com
 		1, 0, 4,
 
 		//////// bottom face
-		7, 6, 2,
-		2, 3, 7,
+		2, 6, 7,
+		7, 3, 2,
 	};
 	m_mMesh.indices = std::move(indices);
 	uploadMeshToBuffers(m_mMesh, device, commandList);

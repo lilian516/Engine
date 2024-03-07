@@ -34,6 +34,10 @@ void Mesh::update() {
 
 }
 
+void Mesh::init(ID3D12Device* device) {
+
+}
+
 void Mesh::uploadMeshToBuffers(MeshData mesh, ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 
 	

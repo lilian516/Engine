@@ -9,18 +9,18 @@ Camera::~Camera() {
 
 void Camera::initCamera(Entity *oEntity, HWND *hWnd) {
     initComponent(0, oEntity);
-    //XMVECTOR position = XMVectorSet(m_fPosition.x, m_fPosition.y, m_fPosition.z, 0.0f);
-    //XMVECTOR lookAt = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
-    //XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-    //XMStoreFloat4x4(&m_mViewMatrix, XMMatrixLookAtLH(position, lookAt, up));
-    //m_fRotationSpeed = 0.1f;
-    //m_hWnd = hWnd;
-    //RECT rClientRect;
-    //if (GetClientRect(*m_hWnd, &rClientRect)) {
-    //    // Calculate the center of the client area
-    //    m_pCenter.x = rClientRect.left + (rClientRect.right - rClientRect.left) / 2;
-    //    m_pCenter.y = rClientRect.top + (rClientRect.bottom - rClientRect.top) / 2;
-    //}
+    XMVECTOR position = XMVectorSet(m_fPosition.x, m_fPosition.y, m_fPosition.z, 0.0f);
+    XMVECTOR lookAt = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+    XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+    XMStoreFloat4x4(&m_mViewMatrix, XMMatrixLookAtLH(position, lookAt, up));
+    m_fRotationSpeed = 0.1f;
+    m_hWnd = hWnd;
+    RECT rClientRect;
+    if (GetClientRect(*m_hWnd, &rClientRect)) {
+        // Calculate the center of the client area
+        m_pCenter.x = rClientRect.left + (rClientRect.right - rClientRect.left) / 2;
+        m_pCenter.y = rClientRect.top + (rClientRect.bottom - rClientRect.top) / 2;
+    }
 }
 
 void Camera::update() {

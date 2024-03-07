@@ -48,10 +48,10 @@ bool Graphics::initGraphics(Manager* oManager) {
 	onResize();
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 	createHeapDescriptor();
-	for (int i = 0; i < oManager->m_vMeshRenderer.size(); i++) {
-		oManager->m_vMeshRenderer[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
+	/*for (int i = 0; i < oManager->m_vMeshRenderer.size(); i++) {
+		oManager->m_vMeshRenderer[i]->buildConstantBuffers(m_d3dDevice);
 
-	}
+	}*/
 
 	for (int i = 0; i < oManager->m_vShader.size(); i++) {
 
@@ -612,6 +612,10 @@ void Graphics::logOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format)
 
 		::OutputDebugString(text.c_str());
 	}
+}
+
+void Graphics::updateCam(Entity* oEntity) {
+
 }
 
 bool Graphics::deleteDirectX() {

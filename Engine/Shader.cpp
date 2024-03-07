@@ -21,6 +21,12 @@ void Shader::update() {
 
 }
 
+void Shader::init(ID3D12Device* device) {
+	initializeRootSignature(device);
+	initializeShader();
+	initializePipelineState(device);
+}
+
 void Shader::initializePipelineState(ID3D12Device* device) {
 
 	m_d3dPipelineStateObjectDescriptor = {};

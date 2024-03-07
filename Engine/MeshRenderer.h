@@ -8,12 +8,12 @@ class MeshRenderer :public Component
 public:
 	MeshRenderer();
 	~MeshRenderer();
-	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader *oShader, Mesh *oMesh, Texture* oTexture);
+	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Mesh *oMesh, Texture* oTexture);
 	void update()override;
 	void render(Graphics* oGraphics)override;
-	void buildConstantBuffers(ID3D12Device* device, ID3D12DescriptorHeap* dCbvHeap);
-	void setTextureResources(Graphics* oGraphics, Texture* texture);
-	
+	void buildConstantBuffers(ID3D12Device* device);
+	void updateConstantBuffer(XMMATRIX worldViewProjMatrix);
+
 	std::unique_ptr<UploadBuffer<ObjectConstants>> m_uObjectCB;
 
 	float m_fRadius = 5.0f;

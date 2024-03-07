@@ -37,6 +37,7 @@ public:
 
 	Mesh();
 	~Mesh();
+	void init(ID3D12Device* device);
 	void update();
 	virtual void buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
 	void uploadMeshToBuffers(MeshData mesh, ID3D12Device* device, ID3D12GraphicsCommandList* commandList);

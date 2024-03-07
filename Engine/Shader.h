@@ -20,6 +20,7 @@ public:
 	
 	Shader();
 	~Shader();
+	void init(ID3D12Device* device);
 	void update();
 	void initializePipelineState(ID3D12Device* device);
 	void initializeRootSignature(ID3D12Device* device);

@@ -42,6 +42,7 @@ public :
 	bool initMainWindow();
 	void render(Manager* oManager);
 	void update(Manager* oManager);
+	void updateCam(Entity* oEntity);
 	float aspectRatio()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
