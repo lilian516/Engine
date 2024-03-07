@@ -22,6 +22,8 @@ public :
 	void render();
 	void addEntity(Entity* oEntity);
 	int runWindow(HINSTANCE hInstance);
+	Entity* createEntity();
+	void createShader();
 	
 	~Manager();
 

@@ -12,30 +12,18 @@ void Manager::initManager() {
 }
 
 int Manager::runWindow(HINSTANCE hInstance) {
-	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
-
-	MSG msg;
-
-	// Boucle de messages principale :
-	while (GetMessage(&msg, nullptr, 0, 0))
-	{
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
+	while (true) {
 		mainLoop();
-
-
 	}
-
-	return (int)msg.wParam;
+	return 0;
 }
 
 void Manager::mainLoop() {
-	update();
-	render();
+	while (true) {
+		update();
+		render();
+	}
+	
 	
 }
 
@@ -61,11 +49,20 @@ void Manager::addEntity(Entity* oEntity) {
 	m_vEntity.push_back(oEntity);
 }
 
+Entity* Manager::createEntity() {
+	Entity* oEntity = new Entity();
+	oEntity->initEntity();
+	m_vEntity.push_back(oEntity);
+	return oEntity;
+}
 
-
+void Manager::createShader() {
+	Shader* oShader = new Shader();	
+	m_vShader.push_back(oShader);
+}
 
 Manager::~Manager() {
-	while (m_vEntity.size() != 0) {
+	/*while (m_vEntity.size() != 0) {
 		delete m_vEntity[0];
 	}
 	while (m_vShader.size() != 0) {
@@ -79,7 +76,7 @@ Manager::~Manager() {
 	}
 	while (m_vCollideEntity.size() != 0) {
 		delete m_vCollideEntity[0];
-	}
+	}*/
 }
 
 
