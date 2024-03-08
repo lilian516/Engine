@@ -67,15 +67,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oCamera->initEntity();
 
 
-    Entity* oEntity = new Entity();
-    oEntity->initEntity();
+   /* Entity* oEntity = new Entity();
+    oEntity->initEntity();*/
 
     
     oManager.initManager();
-    oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
+   /* oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
     oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
     oMeshRenderer.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
-    oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);
+    oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);*/
     
     //oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
 
@@ -83,7 +83,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     
 
-    oEntity->addComponents(&oMeshRenderer);
+    //oEntity->addComponents(&oMeshRenderer);
 
 
 	Entity* oEntity2 = new Entity();
@@ -95,7 +95,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     oCamera->addComponents(&ocCamera);
 
-    oManager.addEntity(oEntity);
+    //oManager.addEntity(oEntity);
     
     oManager.addEntity(oCamera);
 	oManager.addEntity(oEntity2);

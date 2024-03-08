@@ -11,6 +11,9 @@ void ParticleSystem::setParticleSystem(Entity* oEntity, int iNbParticle, float f
 	m_iNbParticle = iNbParticle;
 	m_fScaleParticle = fScaleParticle;
 	m_fPosition = fPosition;
+	m_sShader = sShader;
+	m_mMesh = mMesh;
+	createParticle();
 }
 
 void ParticleSystem::createParticle(){
@@ -20,14 +23,14 @@ void ParticleSystem::createParticle(){
 	XMFLOAT3 fDirection;
 	XMVECTOR vDirection;
 	for (int i = 0 ; i < m_iNbParticle ; i++){
-		Particle particle;
-		fScale = rand() % 1 / 100 + 1 / 1000;
+		Particle* particle = new Particle();
+		fScale =  1 / static_cast<float>(rand() % 90 + 10) ;
 		fLifeTime = rand() % 1 / 2 + 2;
-		fVelocity = rand() % 1 / 100 + 1 / 1000;
+		fVelocity = 1 / static_cast<float>(rand() % 90 + 10);
 		vDirection = { static_cast<float>(rand() % (-1) + 1), static_cast<float>(rand() % (-1) + 1) , static_cast<float>(rand() % (-1) + 1) };
 		XMStoreFloat3(&fDirection,XMVector3Normalize(vDirection));
-		particle.initParticle(fScale, fLifeTime, fVelocity, fDirection,m_fPosition);
-		m_vParticle.push_back(&particle);
+		particle->initParticle(fScale, fLifeTime, fVelocity, fDirection,m_fPosition);
+		m_vParticle.push_back(particle);
 	}
 }
 
@@ -57,10 +60,10 @@ void ParticleSystem::render(Graphics* oGraphics) {
 void ParticleSystem::update() {
 
 	for (int i = 0; i < m_vParticle.size(); i++) {
-		m_vParticle[i]->update(2.f);
+		m_vParticle[i]->update(0.0000001f);
 
 		if (m_vParticle[i]->m_fLifeTime <= 0) {
-			delete m_vParticle[i];
+			//delete m_vParticle[i];
 			m_vParticle.erase(m_vParticle.begin() + i);
 		}
 		//Convert Spherical to Cartesian coordinates.

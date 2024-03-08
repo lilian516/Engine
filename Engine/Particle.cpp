@@ -8,6 +8,7 @@ Particle::~Particle() {
 }
 
 void Particle::initParticle(float fScale, float fLifeTime, float fVelocity, XMFLOAT3 vDirection, XMFLOAT3 vPosition) {
+    m_tTransform.identify();
     XMFLOAT3 scale = { fScale,fScale,fScale };
     m_tTransform.scale(scale);
     m_tTransform.translation(vPosition);
