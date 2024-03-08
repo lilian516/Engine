@@ -50,7 +50,8 @@ void MeshRenderer::update() {
 
 
 void MeshRenderer::render(Graphics* oGraphics) {
-
+	oGraphics->updateCam(this);
+	updateConstantBuffer(oGraphics->m_worldViewProj);
 	//root signature
 	oGraphics->m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
 

@@ -1,36 +1,42 @@
 #pragma once
-#include "Component.h"
 #include "ObjectConstants.h"
+class Component;
+
 class Camera :public Component
 {
 public:
 
 	Camera();
 	~Camera();
-	void initCamera(Entity *oEntity,HWND* hWnd);
+	void initCamera(Entity *oEntity, float aspectRatio);
 	void updateMatrix();
-	void update()override;
+	void update();
+	void change();
+	void changePos();
 	XMFLOAT4X4* getViewMatrix();
+	XMFLOAT4X4* getProjMatrix();
 
 private:
-	XMFLOAT3 m_fPosition = { 1.0f,0.0f,0.0f };
-	float m_yaw;
-	float m_pitch;
 	float m_fRotationSpeed;
 
 	float m_AspectRatio;
 	float m_FovAngleY;
 	float m_NearZ;
 	float m_FarZ;
-	XMFLOAT3 m_forward;
-	XMFLOAT4X4 m_mViewMatrix;
-	XMFLOAT4X4 m_mProjMatrix = Identity4x4();
 
-	float m_fMouseX;
-	float m_fMouseY;
+	XMVECTOR m_vPosition;
+	XMVECTOR m_vForward;
 
-	POINT m_pCenter;
-	HWND* m_hWnd;
+	XMMATRIX m_mViewMatrix;
+	XMFLOAT4X4 m_mMatrixView = Identity4x4();
+
+	XMMATRIX m_mProjMatrix;
+	XMFLOAT4X4 m_mMatrixProj = Identity4x4();
+
+	XMVECTOR m_vUp;
+	XMVECTOR m_vTarget;
+
+	Transform* camTransform;
 protected:
 
 };

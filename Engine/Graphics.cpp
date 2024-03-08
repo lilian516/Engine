@@ -45,11 +45,7 @@ bool Graphics::initGraphics(Manager* oManager) {
 	if (initDirectX() == false) {
 		return false;
 	}
-	Entity* oCamera = new Entity();
-	oCamera->initEntity();
-
-	m_ocCamera.initCamera(oCamera, &m_hMainWindow);
-	oCamera->addComponents(&m_ocCamera);
+	
 	onResize();
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 	createHeapDescriptor();
@@ -349,7 +345,7 @@ void Graphics::onResize() {
 	m_rScissorRect = { 0, 0, m_iClientWidth, m_iClientHeight };
 
 	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, aspectRatio(), 1.0f, 1000.0f);
-	XMStoreFloat4x4(&m_fProj, P);
+	XMStoreFloat4x4(m_ocCamera.getProjMatrix(), P);
 
 }
 
@@ -611,7 +607,20 @@ void Graphics::logOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format)
 }
 
 void Graphics::updateCam(Entity* oEntity) {
+	XMMATRIX world = XMLoadFloat4x4(&oEntity->m_tTransform.m_mTransform);
+	XMMATRIX proj = XMLoadFloat4x4(m_ocCamera.getProjMatrix());
+	XMMATRIX view = XMLoadFloat4x4(m_ocCamera.getViewMatrix());
 
+	m_worldViewProj = world * view * proj;
+}
+
+void Graphics::createCam() {
+	Entity* oCamera = new Entity();
+	oCamera->initEntity();
+
+	oCamera->addComponents(&m_ocCamera);
+	m_ocCamera.initCamera(oCamera, aspectRatio());
+	oCamera->m_tTransform.translation({ 0.f, 3.f, -10.f,0.f });
 }
 
 bool Graphics::deleteDirectX() {

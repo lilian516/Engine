@@ -44,6 +44,7 @@ public :
 	void render(Manager* oManager);
 	void update(Manager* oManager);
 	void updateCam(Entity* oEntity);
+	void createCam();
 	float aspectRatio()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE currentBackBufferView()const;
@@ -91,13 +92,7 @@ public :
 	XMVECTORF32 m_vColor = Colors::LightSkyBlue;
 
 
-	float m_fRadius = 5.0f;
-	float m_fTheta = 1.5f * XM_PI;
-	float m_fPhi = XM_PIDIV4;
-
-	XMFLOAT4X4 m_fWorld = Identity4x4();
-	XMFLOAT4X4 m_fView = Identity4x4();
-	XMFLOAT4X4 m_fProj = Identity4x4();
+	XMMATRIX m_worldViewProj;
 	
 	
 };
