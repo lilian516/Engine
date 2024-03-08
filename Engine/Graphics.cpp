@@ -48,24 +48,6 @@ bool Graphics::initGraphics(Manager* oManager) {
 	onResize();
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 	createHeapDescriptor();
-	for (int i = 0; i < oManager->m_vMeshRenderer.size(); i++) {
-		oManager->m_vMeshRenderer[i]->buildConstantBuffers(m_d3dDevice, m_dConstantBufferViewHeapDescriptor);
-
-	}
-
-	for (int i = 0; i < oManager->m_vShader.size(); i++) {
-
-		oManager->m_vShader[i]->initializeRootSignature(m_d3dDevice);
-		oManager->m_vShader[i]->initializeShader();
-		oManager->m_vShader[i]->initializePipelineState(m_d3dDevice);
-	}
-
-	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
-		oManager->m_vMesh[i]->buildGeometry(m_d3dDevice, m_cCommandList);
-	}
-
-
-
 	m_cCommandList->Close();
 	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
 	m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
@@ -149,47 +131,47 @@ bool Graphics::initDirectX() {
 	}
 #endif
 
-CreateDXGIFactory1(IID_PPV_ARGS(&m_fDxgiFactory));
-// Try to create hardware device.
-HRESULT hHardwareResult = D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice));
+	CreateDXGIFactory1(IID_PPV_ARGS(&m_fDxgiFactory));
+	// Try to create hardware device.
+	HRESULT hHardwareResult = D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice));
 
-if (FAILED(hHardwareResult))
-{
-	IDXGIAdapter* aWarpAdapter;
-	m_fDxgiFactory->EnumWarpAdapter(IID_PPV_ARGS(&aWarpAdapter));
+	if (FAILED(hHardwareResult))
+	{
+		IDXGIAdapter* aWarpAdapter;
+		m_fDxgiFactory->EnumWarpAdapter(IID_PPV_ARGS(&aWarpAdapter));
 
-	if (FAILED(D3D12CreateDevice(aWarpAdapter, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice)))) {
-		deleteDirectX();
-		return false;
+		if (FAILED(D3D12CreateDevice(aWarpAdapter, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice)))) {
+			deleteDirectX();
+			return false;
 
+		}
 	}
-}
 
-m_d3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_fFence));
+	m_d3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_fFence));
 
 
-m_iRtvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-m_iDsvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
-m_iCbvSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	m_iRtvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	m_iDsvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
+	m_iCbvSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS dQualityLevels;
-dQualityLevels.Format = m_fBackBufferFormat;
-dQualityLevels.SampleCount = 4;
-dQualityLevels.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
-dQualityLevels.NumQualityLevels = 0;
-m_d3dDevice->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &dQualityLevels, sizeof(dQualityLevels));
-m_i4xMsaaQuality = dQualityLevels.NumQualityLevels;
-assert(m_i4xMsaaQuality > 0 && "Unexpected MSAA quality level.");
+	D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS dQualityLevels;
+	dQualityLevels.Format = m_fBackBufferFormat;
+	dQualityLevels.SampleCount = 4;
+	dQualityLevels.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
+	dQualityLevels.NumQualityLevels = 0;
+	m_d3dDevice->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &dQualityLevels, sizeof(dQualityLevels));
+	m_i4xMsaaQuality = dQualityLevels.NumQualityLevels;
+	assert(m_i4xMsaaQuality > 0 && "Unexpected MSAA quality level.");
 
-#ifdef _DEBUG
-logAdapters();
-#endif
+	#ifdef _DEBUG
+	logAdapters();
+	#endif
 
-createCommandListQueue();
-createSwapChain();
-createRtvAndDsvDescriptorHeaps();
+	createCommandListQueue();
+	createSwapChain();
+	createRtvAndDsvDescriptorHeaps();
 
-return true;
+	return true;
 }
 
 void Graphics::createCommandListQueue() {

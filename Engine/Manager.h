@@ -8,6 +8,7 @@
 #include "Timer.h"
 #include <vector>
 #include <iostream>
+#include "framework.h"
 
 using namespace std;
 
@@ -23,7 +24,9 @@ public :
 	void addEntity(Entity* oEntity);
 	int runWindow(HINSTANCE hInstance);
 	Entity* createEntity();
-	void createShader();
+	Shader* createShader();
+	Texture* createTexture(std::string name, wstring filename);
+	Mesh* createMesh(std::string name);
 	
 	~Manager();
 
@@ -35,9 +38,8 @@ public :
 	vector<Shader*> m_vShader;
 	vector<Mesh*> m_vMesh;
 	vector<Texture*> m_vTexture;
-	vector<MeshRenderer*> m_vMeshRenderer;
-	Mesh m_oMesh;
-	Shader m_oShader;
+	
+	
 	
 };
 

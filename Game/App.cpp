@@ -21,6 +21,7 @@ void App::initApp() {
 
 	Entity* pEntity = m_oManager.createEntity();
 	ScriptGame* pScript = pEntity->addComponent<ScriptGame>();
+	pScript->initGame(pEntity);
 	//template<typename T>
 	//test(T a);
 	//pEntity->ChangeCurrentScript(pScript);

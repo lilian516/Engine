@@ -36,5 +36,6 @@ struct Transform
 	void scale(XMFLOAT3 ratio);
 	void translation(XMFLOAT4 vDirection);
 	void updateTransform();
+	void move(float fDeltaTime, float fSpeed);
 };
 

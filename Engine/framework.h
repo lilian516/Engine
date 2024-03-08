@@ -29,3 +29,4 @@
 #include "BoxMesh.h"
 #include "PyramidMesh.h"
 #include "Sprite.h"
+#include "PenMesh.h"
