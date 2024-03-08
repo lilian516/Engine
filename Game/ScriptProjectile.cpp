@@ -17,5 +17,5 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 }
 
 void ScriptProjectile::update() {
-
+	m_oEntity->m_tTransform.move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 1);
 }

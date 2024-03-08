@@ -132,5 +132,8 @@ void Transform::move(float fDeltaTime, float fSpeed) {
 	float fSpeedTime = fDeltaTime * fSpeed;
 	XMVECTOR vDirection = XMLoadFloat4(&m_vDirection);
 	vDirection = vDirection * fSpeedTime;
-	//translation();
+	XMFLOAT4 fDirection;
+	XMStoreFloat4(&fDirection, vDirection);
+
+	translation(fDirection);
 }
