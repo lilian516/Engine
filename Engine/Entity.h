@@ -35,6 +35,7 @@ public:
 	Transform m_tTransform;
 	AABB m_aBox;
 	Entity();
+	~Entity();
 	void initEntity();
 	void addComponents(Component* cComponent);
 	

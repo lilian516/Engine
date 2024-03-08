@@ -17,5 +17,20 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 }
 
 void ScriptProjectile::update() {
-	m_oEntity->m_tTransform.move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 1);
+	m_oEntity->m_tTransform.move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2);
+	if (m_oEntity->m_tTransform.m_vPosition.z > 10) {
+		for (auto it = App::Get()->m_oManager.m_vEntity.begin(); it != App::Get()->m_oManager.m_vEntity.end();) {
+			// Vérifiez si l'élément actuel correspond à celui que vous recherchez
+			if (*it == m_oEntity) {
+				// Suppression de l'élément du vecteur et mise à jour de l'itérateur
+				it = App::Get()->m_oManager.m_vEntity.erase(it);
+				delete this;
+			}
+			else {
+				// Déplacez-vous vers l'élément suivant dans le vecteur
+				++it;
+			}
+			
+		}
+	}
 }

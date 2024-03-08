@@ -66,3 +66,7 @@ void Entity::render(Graphics* oGraphics) {
 Transform& Entity::getTransform() {
 	return m_tTransform;
 }
+
+Entity::~Entity() {
+
+}
