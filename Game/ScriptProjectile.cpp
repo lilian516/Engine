@@ -2,7 +2,7 @@
 #include "App.h"
 
 ScriptProjectile::ScriptProjectile() {
-
+	m_oEntity = nullptr;
 }
 
 void ScriptProjectile::initProjectile(Entity* oEntity) {
