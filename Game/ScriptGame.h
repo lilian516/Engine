@@ -7,5 +7,6 @@ public :
 	void initGame(Entity* oEntity);
 	void update()override;
 	void createProjectile();
+	void createEnemy();
 };
 

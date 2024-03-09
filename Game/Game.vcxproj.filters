@@ -36,6 +36,9 @@
     <ClInclude Include="ScriptProjectile.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="ScriptEnemy.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -48,6 +51,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="ScriptProjectile.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptEnemy.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
