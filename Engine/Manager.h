@@ -22,11 +22,12 @@ public :
 	void update();
 	void render();
 	void addEntity(Entity* oEntity);
-	int runWindow(HINSTANCE hInstance);
+	
 	Entity* createEntity();
 	Shader* createShader();
 	Texture* createTexture(std::string name, wstring filename);
-	Mesh* createMesh(std::string name);
+	
+	template<typename T>T* createMesh();
 	
 	~Manager();
 
@@ -42,4 +43,21 @@ public :
 	
 	
 };
+
+template<typename T>
+T* Manager::createMesh() {
+	m_oGraphics.m_cCommandList->Reset(m_oGraphics.m_cDirectCmdListAlloc, nullptr);
+	T* mesh = new T();
+	mesh->buildGeometry(m_oGraphics.m_d3dDevice, m_oGraphics.m_cCommandList);
+	m_vMesh.push_back(mesh);
+
+	m_oGraphics.m_cCommandList->Close();
+	ID3D12CommandList* cmdsLists[] = { m_oGraphics.m_cCommandList };
+	m_oGraphics.m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
+
+	// Wait until initialization is complete.
+	m_oGraphics.flushCommandQueue();
+	return mesh;
+	
+}
 

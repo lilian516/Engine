@@ -457,29 +457,6 @@ void Graphics::render(Manager* oManager) {
 		oManager->m_vEntity[i]->render(this);
 
 	}
-
-
-	/*Entity* oEntity2 = new Entity();
-	MeshRenderer* oMeshRenderer = new MeshRenderer();
-	oMeshRenderer->SetMeshRenderer(oEntity2, m_d3dDevice, m_oShader, m_oMesh);
-	m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
-	oMeshRenderer->render(this);*/
-	/*m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
-
-	D3D12_VERTEX_BUFFER_VIEW meshVertexBufferView = m_oMesh->m_mMesh.VertexBufferView();
-	m_cCommandList->IASetVertexBuffers(0, 1, &meshVertexBufferView);
-	D3D12_INDEX_BUFFER_VIEW meshIndexBufferView = m_oMesh->m_mMesh.IndexBufferView();
-	m_cCommandList->IASetIndexBuffer(&meshIndexBufferView);
-	m_cCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	m_cCommandList->SetGraphicsRootConstantBufferView(0, m_oShader->m_uObjectCB->Resource()->GetGPUVirtualAddress());
-
-
-	m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(),1,0,0,0);*/
-	// PER OBJECT
-
-
-
 	// Indicate a state transition on the resource usage.
 	CD3DX12_RESOURCE_BARRIER rValue = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 	m_cCommandList->ResourceBarrier(1, &rValue);
@@ -643,4 +620,9 @@ bool Graphics::deleteDirectX() {
 		m_fDxgiFactory = nullptr;
 	}
 	return true;
+}
+
+Graphics::~Graphics() {
+	delete m_d3dDevice;
+
 }

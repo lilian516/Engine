@@ -47,50 +47,50 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Placez le code ici.
 
-    Manager oManager;
-    Sprite boxMesh;
-    
-    
-    Shader oShader;
-    MeshRenderer oMeshRenderer;
-    Texture oTexture;
-    Camera ocCamera;
-    
-    oManager.m_vMesh.push_back(&boxMesh);
-    oManager.m_vShader.push_back(&oShader);
-    
-    
-    
-    Entity* oCamera = new Entity();
-    oCamera->initEntity();
+    //Manager oManager;
+    //Sprite boxMesh;
+    //
+    //
+    //Shader oShader;
+    //MeshRenderer oMeshRenderer;
+    //Texture oTexture;
+    //Camera ocCamera;
+    //
+    //oManager.m_vMesh.push_back(&boxMesh);
+    //oManager.m_vShader.push_back(&oShader);
+    //
+    //
+    //
+    //Entity* oCamera = new Entity();
+    //oCamera->initEntity();
 
 
-    Entity* oEntity = new Entity();
-    oEntity->initEntity();
+    //Entity* oEntity = new Entity();
+    //oEntity->initEntity();
 
-    
-    oManager.initManager();
-    oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
-    oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
-    oMeshRenderer.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
-    oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);
-    
-    //oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
+    //
+    //oManager.initManager();
+    //oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
+    //oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
+    //oMeshRenderer.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
+    //oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);
+    //
+    ////oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
 
-    ocCamera.initCamera(oCamera, &oManager.m_oGraphics.m_hMainWindow);
+    //ocCamera.initCamera(oCamera, &oManager.m_oGraphics.m_hMainWindow);
 
-    
+    //
 
-    oEntity->addComponents(&oMeshRenderer);
+    //oEntity->addComponents(&oMeshRenderer);
 
-    oCamera->addComponents(&ocCamera);
+    //oCamera->addComponents(&ocCamera);
 
-    oManager.addEntity(oEntity);
-    
-    oManager.addEntity(oCamera);
+    //oManager.addEntity(oEntity);
+    //
+    //oManager.addEntity(oCamera);
 
 
-    oManager.runWindow(hInstance);
+    //oManager.runWindow(hInstance);
     ////Camera* oCamera = new Camera();
     ////oCamera->initCamera(800,600, oEntity);
 

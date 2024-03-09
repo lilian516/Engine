@@ -1,5 +1,9 @@
 // Game.cpp : Définit le point d'entrée de l'application.
 //
+#ifdef _DEBUG
+#include <crtdbg.h>
+#endif
+
 
 #include "framework.h"
 #include "Game.h"
@@ -24,8 +28,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
+
+#ifdef _DEBUG
+    _CrtMemState memStateInit;
+    _CrtMemCheckpoint(&memStateInit);
+#endif
 
     // TODO: Placez le code ici.
     
@@ -34,7 +41,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     App::Get()->runApp();
     
     
-    
+#ifdef _DEBUG
+    _CrtMemState memStateEnd, memStateDiff;
+    _CrtMemCheckpoint(&memStateEnd);
+    if (_CrtMemDifference(&memStateDiff, &memStateInit, &memStateEnd))
+    {
+        MessageBoxA(NULL, "MEMORY LEAKS", "DISCLAIMER", 0);
+    }
+#endif 
     
 }
 

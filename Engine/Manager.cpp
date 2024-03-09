@@ -11,12 +11,7 @@ void Manager::initManager() {
 	m_oTimer.start();
 }
 
-int Manager::runWindow(HINSTANCE hInstance) {
-	while (true) {
-		mainLoop();
-	}
-	return 0;
-}
+
 
 void Manager::mainLoop() {
 	while (true) {
@@ -73,82 +68,26 @@ Texture* Manager::createTexture(std::string name, wstring filename) {
 	return oTexture;
 }
 
-Mesh* Manager::createMesh(std::string name) {
-	m_oGraphics.m_cCommandList->Reset(m_oGraphics.m_cDirectCmdListAlloc, nullptr);
-	if (name == "box") {
-		BoxMesh* pMesh = new BoxMesh();
-		pMesh->buildGeometry(m_oGraphics.m_d3dDevice,m_oGraphics.m_cCommandList);
-		m_vMesh.push_back(pMesh);
 
-		m_oGraphics.m_cCommandList->Close();
-		ID3D12CommandList* cmdsLists[] = { m_oGraphics.m_cCommandList };
-		m_oGraphics.m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
-
-		// Wait until initialization is complete.
-		m_oGraphics.flushCommandQueue();
-		return pMesh;
-	}
-	else if (name == "pyramid") {
-		PyramidMesh* pMesh = new PyramidMesh();
-		pMesh->buildGeometry(m_oGraphics.m_d3dDevice, m_oGraphics.m_cCommandList);
-		m_vMesh.push_back(pMesh);
-
-		m_oGraphics.m_cCommandList->Close();
-		ID3D12CommandList* cmdsLists[] = { m_oGraphics.m_cCommandList };
-		m_oGraphics.m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
-
-		// Wait until initialization is complete.
-		m_oGraphics.flushCommandQueue();
-		return pMesh;
-	}
-	else if (name == "pen") {
-		PenMesh* pMesh = new PenMesh();
-		pMesh->buildGeometry(m_oGraphics.m_d3dDevice, m_oGraphics.m_cCommandList);
-		m_vMesh.push_back(pMesh);
-
-		m_oGraphics.m_cCommandList->Close();
-		ID3D12CommandList* cmdsLists[] = { m_oGraphics.m_cCommandList };
-		m_oGraphics.m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
-
-		// Wait until initialization is complete.
-		m_oGraphics.flushCommandQueue();
-		return pMesh;
-	}
-	else {
-		BoxMesh* pMesh = new BoxMesh();
-		pMesh->buildGeometry(m_oGraphics.m_d3dDevice, m_oGraphics.m_cCommandList);
-		m_vMesh.push_back(pMesh);
-
-		m_oGraphics.m_cCommandList->Close();
-		ID3D12CommandList* cmdsLists[] = { m_oGraphics.m_cCommandList };
-		m_oGraphics.m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
-
-		// Wait until initialization is complete.
-		m_oGraphics.flushCommandQueue();
-		return pMesh;
-	}
-	
-
-
-	
-}
 
 Manager::~Manager() {
-	/*while (m_vEntity.size() != 0) {
-		delete m_vEntity[0];
+	for (Entity* ptr : m_vEntity) {
+		delete ptr;
 	}
-	while (m_vShader.size() != 0) {
-		delete m_vShader[0];
+	m_vEntity.clear();
+	for (Shader* ptr : m_vShader) {
+		delete ptr;
 	}
-	while (m_vMesh.size() != 0) {
-		delete m_vMesh[0];
+	m_vShader.clear();
+	for (Mesh* ptr : m_vMesh) {
+		delete ptr;
 	}
-	while (m_vMeshRenderer.size() != 0) {
-		delete m_vMeshRenderer[0];
+	m_vMesh.clear();
+	for (Entity* ptr : m_vCollideEntity) {
+		delete ptr;
 	}
-	while (m_vCollideEntity.size() != 0) {
-		delete m_vCollideEntity[0];
-	}*/
+	m_vCollideEntity.clear();
+	
 }
 
 

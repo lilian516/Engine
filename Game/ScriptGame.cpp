@@ -11,8 +11,8 @@ void ScriptGame::initGame(Entity* oEntity) {
 	Entity* pCube = App::Get()->m_oManager.createEntity();
 	Shader* pShader = App::Get()->m_oManager.createShader();
 	Texture* pTexture = App::Get()->m_oManager.createTexture("test",L"Texture/image.dds");
-	Mesh* pMesh = App::Get()->m_oManager.createMesh("box");
-	Mesh* pPyramid = App::Get()->m_oManager.createMesh("pyramid");
+	Sprite* pMesh = App::Get()->m_oManager.createMesh<Sprite>();
+	PyramidMesh* pPyramid = App::Get()->m_oManager.createMesh<PyramidMesh>();
 	MeshRenderer* pMeshRenderer = pCube->addComponent<MeshRenderer>();
 	pMeshRenderer->SetMeshRenderer(pCube, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMesh, pTexture);
 	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice, App::Get()->m_oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
@@ -33,8 +33,4 @@ void ScriptGame::createProjectile() {
 
 	ScriptProjectile* pScript = pProjectile->addComponent<ScriptProjectile>();
 	pScript->initProjectile(pProjectile);
-
-
-	
-	
 }

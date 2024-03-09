@@ -68,5 +68,11 @@ Transform& Entity::getTransform() {
 }
 
 Entity::~Entity() {
+	for (Component* ptr : m_vComponents) {
+		// Libérer la mémoire allouée pour chaque pointeur
+		delete ptr;
+	}
 
+	// Effacer tous les éléments du vecteur
+	m_vComponents.clear();
 }
