@@ -612,6 +612,7 @@ void Graphics::updateCam(Entity* oEntity) {
 }
 
 void Graphics::createCam() {
+	m_ocCamera = new Camera();
 	m_oCamEntity = new Entity();
 	m_oCamEntity->initEntity();
 

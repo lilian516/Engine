@@ -76,7 +76,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     oManager.addEntity(oEntity2);
 
-
+    oManager.m_oGraphics.createCam();
     oManager.runWindow(hInstance);
 
 

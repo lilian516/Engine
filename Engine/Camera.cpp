@@ -7,8 +7,8 @@ Camera::~Camera() {
 
 }
 
-void Camera::initCamera(Entity *oEntity,float aspectRatio) {
-    initComponent(0, oEntity);
+void Camera::initCamera(Entity* oEntity,float aspectRatio) {
+    initComponent(9, oEntity);
     camTransform = &oEntity->m_tTransform;
     m_vUp = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
     m_fRotationSpeed = 0.1f;
