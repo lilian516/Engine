@@ -68,6 +68,10 @@ Texture* Manager::createTexture(std::string name, wstring filename) {
 	return oTexture;
 }
 
+void Manager::addCollideEntity(Entity* oEntity) {
+	m_vCollideEntity.push_back(oEntity);
+}
+
 
 
 Manager::~Manager() {

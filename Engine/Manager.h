@@ -26,6 +26,7 @@ public :
 	Entity* createEntity();
 	Shader* createShader();
 	Texture* createTexture(std::string name, wstring filename);
+	void addCollideEntity(Entity* oEntity);
 	
 	template<typename T>T* createMesh();
 	

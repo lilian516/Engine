@@ -30,3 +30,4 @@
 #include "PyramidMesh.h"
 #include "Sprite.h"
 #include "PenMesh.h"
+#include "Collider.h"
