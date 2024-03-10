@@ -6,6 +6,13 @@ Entity::Entity() {
 
 }
 
+Entity::~Entity() {
+	while (m_vComponents.size() != 0) {
+		delete m_vComponents.back();
+		m_vComponents.pop_back();
+	}
+}
+
 void Entity::initEntity() {
 	//m_tTranform = new Transform();
 	m_tTransform.identify();

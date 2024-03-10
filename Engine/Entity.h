@@ -36,6 +36,7 @@ public:
 	AABB m_aBox;
 
 	Entity();
+	~Entity();
 	void initEntity();
 	void addComponents(Component* cComponent);
 	void translate(XMFLOAT3 vTranslastion);

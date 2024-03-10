@@ -48,18 +48,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Placez le code ici.
 
-    Manager oManager;
-    Sprite boxMesh;
+    Manager* oManager = new Manager;
+    Sprite* boxMesh = new Sprite;
     
     
-    Shader oShader;
-    MeshRenderer oMeshRenderer;
-	MeshRenderer oMeshRenderer2;
-    Texture oTexture;
-    Camera ocCamera;
+    Shader* oShader = new Shader;
+    MeshRenderer* oMeshRenderer = new MeshRenderer;
+	MeshRenderer* oMeshRenderer2 = new MeshRenderer;
+    Texture* oTexture = new Texture;
+    Camera* ocCamera = new Camera;
     
-    oManager.m_vMesh.push_back(&boxMesh);
-    oManager.m_vShader.push_back(&oShader);
+    oManager->m_vMesh.push_back(boxMesh);
+    oManager->m_vShader.push_back(oShader);
     
     
     
@@ -71,7 +71,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oEntity->initEntity();*/
 
     
-    oManager.initManager();
+    oManager->initManager();
    /* oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
     oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
     oMeshRenderer.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
@@ -79,7 +79,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     //oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
 
-    ocCamera.initCamera(oCamera, &oManager.m_oGraphics.m_hMainWindow);
+    ocCamera->initCamera(oCamera, &oManager->m_oGraphics.m_hMainWindow);
 
     
 
@@ -89,20 +89,20 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Entity* oEntity2 = new Entity();
     oEntity2->initEntity();
     ParticleSystem* particle = new ParticleSystem();
-    particle->setParticleSystem(oEntity2,10, 100, {0,0,0}, &oShader, &boxMesh);
-    particle->setConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
+    particle->setParticleSystem(oEntity2,10, 100, {0,0,0}, oShader, boxMesh);
+    particle->setConstantBuffers(oManager->m_oGraphics.m_d3dDevice, oManager->m_oGraphics.m_dConstantBufferViewHeapDescriptor);
     oEntity2->addComponents(particle);
 
-    oCamera->addComponents(&ocCamera);
+    oCamera->addComponents(ocCamera);
 
     //oManager.addEntity(oEntity);
     
-    oManager.addEntity(oCamera);
-	oManager.addEntity(oEntity2);
+    oManager->addEntity(oCamera);
+	oManager->addEntity(oEntity2);
 
 
 
-    oManager.runWindow(hInstance);
+    oManager->runWindow(hInstance);
     ////Camera* oCamera = new Camera();
     ////oCamera->initCamera(800,600, oEntity);
 
@@ -142,6 +142,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //}
 
     //return (int) msg.wParam;
+    delete oManager;
 #ifdef _DEBUG
     _CrtMemState memStateEnd, memStateDiff;
     _CrtMemCheckpoint(&memStateEnd);
