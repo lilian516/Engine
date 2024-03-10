@@ -7,10 +7,10 @@
 #include <string>
 
 #include "Shader.h"
+#include "Camera.h"
 #include "Mesh.h"
 #include "Manager.h"
 #include "Texture.h"
-#include "FrameResource.h"
 
 
 using Microsoft::WRL::ComPtr;
@@ -344,9 +344,6 @@ void Graphics::onResize() {
 
 	m_rScissorRect = { 0, 0, m_iClientWidth, m_iClientHeight };
 
-	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, aspectRatio(), 1.0f, 1000.0f);
-	XMStoreFloat4x4(m_ocCamera.getProjMatrix(), P);
-
 }
 
 float Graphics::aspectRatio()const
@@ -607,20 +604,23 @@ void Graphics::logOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format)
 }
 
 void Graphics::updateCam(Entity* oEntity) {
-	XMMATRIX world = XMLoadFloat4x4(&oEntity->m_tTransform.m_mTransform);
-	XMMATRIX proj = XMLoadFloat4x4(m_ocCamera.getProjMatrix());
-	XMMATRIX view = XMLoadFloat4x4(m_ocCamera.getViewMatrix());
+	XMMATRIX world = XMLoadFloat4x4(&oEntity->getTransform().m_mTransform);
+	XMMATRIX proj = XMLoadFloat4x4(m_ocCamera->getProjMatrix());
+	XMMATRIX view = XMLoadFloat4x4(m_ocCamera->getViewMatrix());
 
 	m_worldViewProj = world * view * proj;
 }
 
 void Graphics::createCam() {
-	Entity* oCamera = new Entity();
-	oCamera->initEntity();
+	m_oCamEntity = new Entity();
+	m_oCamEntity->initEntity();
 
-	oCamera->addComponents(&m_ocCamera);
-	m_ocCamera.initCamera(oCamera, aspectRatio());
-	oCamera->m_tTransform.translation({ 0.f, 3.f, -10.f,0.f });
+	m_ocCamera->initCamera(m_oCamEntity, aspectRatio());
+	m_oCamEntity->addComponents(m_ocCamera);
+	m_oCamEntity->m_tTransform.translation({ 0.f, 3.f, -10.f,0.f });
+	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, aspectRatio(), 1.0f, 1000.0f);
+	XMStoreFloat4x4(m_ocCamera->getProjMatrix(), P);
+
 }
 
 bool Graphics::deleteDirectX() {

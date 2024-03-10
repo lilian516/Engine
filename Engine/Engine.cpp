@@ -57,14 +57,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     oManager.m_vMesh.push_back(&test);
     
-    
-    
-    Entity* oCamera = new Entity();
-    oCamera->initEntity();
-
-
-
-    
     oManager.initManager();
     oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
     oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
@@ -83,8 +75,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
 
     oManager.addEntity(oEntity2);
-    
-    oManager.addEntity(oCamera);
 
 
     oManager.runWindow(hInstance);

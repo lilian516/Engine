@@ -5,14 +5,13 @@
 #pragma comment(lib, "D3D12.lib")
 #pragma comment(lib, "dxgi.lib")
 
-#include "Entity.h"
-#include "Camera.h"
+#include "Component.h"
 #include <string>
+#include <DirectXMath.h>
+#include <DirectXMathConvert.inl>
 
 
-#include "RenderItem.h"
 #include "ObjectConstants.h"
-#include "FrameResource.h"
 #include "Texture.h"
 #include <unordered_map>
 
@@ -20,6 +19,8 @@
 class Shader;
 class Mesh;
 class Manager;
+class Entity;
+class Camera;
 
 
 class Graphics
@@ -56,7 +57,6 @@ public :
 	
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSrvDescriptorHeap = nullptr;
 	UINT mCbvSrvDescriptorSize = 0;
-	Camera m_ocCamera;
 	ID3D12Device *m_d3dDevice;
 	IDXGIFactory4 *m_fDxgiFactory;
 	ID3D12Fence *m_fFence;
@@ -93,6 +93,8 @@ public :
 
 
 	XMMATRIX m_worldViewProj;
+	Entity* m_oCamEntity;
+	Camera* m_ocCamera;
 	
 	
 };

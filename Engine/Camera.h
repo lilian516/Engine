@@ -1,6 +1,7 @@
 #pragma once
 #include "ObjectConstants.h"
-class Component;
+#include "Component.h"
+#include <DirectXMath.h>
 
 class Camera :public Component
 {
@@ -13,8 +14,8 @@ public:
 	void update();
 	void change();
 	void changePos();
-	XMFLOAT4X4* getViewMatrix();
-	XMFLOAT4X4* getProjMatrix();
+	DirectX::XMFLOAT4X4* getViewMatrix();
+	DirectX::XMFLOAT4X4* getProjMatrix();
 
 private:
 	float m_fRotationSpeed;
@@ -24,17 +25,17 @@ private:
 	float m_NearZ;
 	float m_FarZ;
 
-	XMVECTOR m_vPosition;
-	XMVECTOR m_vForward;
+	DirectX::XMVECTOR m_vPosition;
+	DirectX::XMVECTOR m_vForward;
 
-	XMMATRIX m_mViewMatrix;
-	XMFLOAT4X4 m_mMatrixView = Identity4x4();
+	DirectX::XMMATRIX m_mViewMatrix;
+	DirectX::XMFLOAT4X4 m_mMatrixView = Identity4x4();
 
-	XMMATRIX m_mProjMatrix;
-	XMFLOAT4X4 m_mMatrixProj = Identity4x4();
+	DirectX::XMMATRIX m_mProjMatrix;
+	DirectX::XMFLOAT4X4 m_mMatrixProj = Identity4x4();
 
-	XMVECTOR m_vUp;
-	XMVECTOR m_vTarget;
+	DirectX::XMVECTOR m_vUp;
+	DirectX::XMVECTOR m_vTarget;
 
 	Transform* camTransform;
 protected:
