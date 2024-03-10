@@ -72,6 +72,21 @@ void Manager::addCollideEntity(Entity* oEntity) {
 	m_vCollideEntity.push_back(oEntity);
 }
 
+void Manager::deleteEntity(Entity* oEntity) {
+	for (auto it = m_vEntity.begin(); it != m_vEntity.end();) {
+		// Vérifiez si l'élément actuel correspond à celui que vous recherchez
+		if (*it == oEntity) {
+			// Suppression de l'élément du vecteur et mise à jour de l'itérateur
+			it = m_vEntity.erase(it);
+			delete oEntity;
+		}
+		else {
+			// Déplacez-vous vers l'élément suivant dans le vecteur
+			++it;
+		}
+
+	}
+}
 
 
 Manager::~Manager() {
