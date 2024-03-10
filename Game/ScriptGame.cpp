@@ -29,9 +29,9 @@ void ScriptGame::update() {
 	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(2)) {
 		App::Get()->m_oManager.m_vEntity.pop_back();
 	}
-	/*if (App::Get()->m_oManager.m_oTimer.getCurrentTime() > 100.0f) {
+	if (App::Get()->m_oManager.m_oTimer.m_fTotalTime - App::Get()->m_oManager.m_oTimer.getDeltaTime() > 10.0f) {
 		createEnemy();
-	}*/
+	}
 }
 
 void ScriptGame::createProjectile() {
