@@ -3,6 +3,8 @@
 #include <iostream>
 #include <random>
 
+#include "ColliderGame.h"
+
 ScriptEnemy::ScriptEnemy() {
 
 }
@@ -27,6 +29,10 @@ void ScriptEnemy::initEnemy(Entity* oEntity) {
 		App::Get()->m_oManager.m_vTexture[0]);
 	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice, 
 		App::Get()->m_oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
+
+	ColliderGame* pCollider = oEntity->addComponent<ColliderGame>();
+	App::Get()->m_oManager.addCollideEntity(oEntity);
+	pCollider->setCollider(oEntity, App::Get()->m_oManager.m_vCollideEntity);
 
 }
 
