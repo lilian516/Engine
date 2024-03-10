@@ -39,6 +39,9 @@
     <ClInclude Include="ScriptEnemy.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="ColliderGame.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -54,6 +57,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="ScriptEnemy.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderGame.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
