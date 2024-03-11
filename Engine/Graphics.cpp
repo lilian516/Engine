@@ -583,7 +583,7 @@ void Graphics::createCam() {
 
 	cam->initCamera(m_oCamEntity, aspectRatio(),m_d3dDevice);
 	m_oCamEntity->addComponents(cam);
-	m_oCamEntity->m_tTransform.translation({ 0.f, 0.f, -5.f});
+	m_oCamEntity->m_tTransform.translation({ 0.f, 0.f, 5.f});
 	//m_oCamEntity->m_tTransform.updateTransform();
 	///*XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, aspectRatio(), 1.0f, 1000.0f);
 	//XMStoreFloat4x4(cam->getProjMatrix(), P);*/
