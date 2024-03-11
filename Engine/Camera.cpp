@@ -25,12 +25,11 @@ void Camera::initCamera(Entity* oEntity,float aspectRatio, ID3D12Device* device)
 }
 
 void Camera::update() {
-    //XMMATRIX world = XMLoadFloat4x4(m_oEntity->getTransform().m_mTransform);
     XMMATRIX proj = XMLoadFloat4x4(getProjMatrix());
     /*XMFLOAT3 pos(0.0f, 0.0f, -0.01f);
     m_oEntity->getTransform().identify();
     m_oEntity->getTransform().translation(pos);*/
-    m_oEntity->getTransform().updateTransform();
+    //m_oEntity->getTransform().updateTransform();
     XMMATRIX view = XMLoadFloat4x4(&m_oEntity->getTransform().m_mTransform);
     view = XMMatrixInverse(nullptr, view);
     XMMATRIX viewProj;
@@ -46,8 +45,10 @@ void Camera::update() {
 }
 
 void Camera::updateMatrix() {
-    m_mProjMatrix = DirectX::XMMatrixPerspectiveFovLH(m_FovAngleY, m_AspectRatio, m_NearZ, m_FarZ);
-    DirectX::XMStoreFloat4x4(&m_mMatrixProj, m_mProjMatrix);
+    /*m_mProjMatrix = DirectX::XMMatrixPerspectiveFovLH(m_FovAngleY, m_AspectRatio, m_NearZ, m_FarZ);
+    DirectX::XMStoreFloat4x4(&m_mMatrixProj, m_mProjMatrix);*/
+    XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, m_AspectRatio, 1.0f, 1000.0f);
+    XMStoreFloat4x4(&m_mMatrixProj, P);
 }
 
 void Camera::change() {

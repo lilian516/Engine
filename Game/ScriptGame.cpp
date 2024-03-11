@@ -12,7 +12,7 @@ void ScriptGame::initGame(Entity* oEntity) {
 	App::Get()->m_oManager.m_oGraphics.createCam();
 	App::Get()->m_oManager.m_vEntity.push_back(App::Get()->m_oManager.m_oGraphics.m_oCamEntity);
 	Entity* pCube = App::Get()->m_oManager.createEntity();
-	//pCube->m_tTransform.translation({0.0f,10.0f,10.0f});
+	//pCube->m_tTransform.translation({0.0f,1.0f,0.0f});
 	Shader* pShader = App::Get()->m_oManager.createShader();
 	Texture* pTexture = App::Get()->m_oManager.createTexture("test",L"Texture/image.dds");
 	Sprite* pMesh = App::Get()->m_oManager.createMesh<Sprite>();
