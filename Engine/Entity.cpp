@@ -36,8 +36,14 @@ void Entity::update() {
 
 }
 
-void Entity::translate(XMFLOAT4 vTranslation) {
-	m_tTransform.translation(vTranslation);
+void Entity::move(float fDeltaTime, float fSpeed) {
+	float fSpeedTime = fDeltaTime * fSpeed;
+	XMVECTOR vDirection = XMLoadFloat4(&m_tTransform.m_vDirection);
+	vDirection = vDirection * fSpeedTime;
+	XMFLOAT4 fDirection;
+	XMStoreFloat4(&fDirection, vDirection);
+
+	m_tTransform.translation(fDirection);
 	m_tTransform.updateTransform();
 	m_aBox.pCenter = m_tTransform.m_vPosition;
 }

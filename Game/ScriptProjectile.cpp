@@ -22,7 +22,7 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 }
 
 void ScriptProjectile::update() {
-	m_oEntity->m_tTransform.move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2);
+	m_oEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2);
 	if (m_oEntity->m_tTransform.m_vPosition.z > 5) {
 		App::Get()->m_oManager.deleteEntity(m_oEntity);
 	}

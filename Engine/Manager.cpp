@@ -77,8 +77,8 @@ void Manager::deleteEntity(Entity* oEntity) {
 		// Vérifiez si l'élément actuel correspond à celui que vous recherchez
 		if (*it == oEntity) {
 			// Suppression de l'élément du vecteur et mise à jour de l'itérateur
-			it = m_vEntity.erase(it);
-			delete oEntity;
+			m_vEntity.erase(it);
+			break;
 		}
 		else {
 			// Déplacez-vous vers l'élément suivant dans le vecteur
@@ -86,6 +86,21 @@ void Manager::deleteEntity(Entity* oEntity) {
 		}
 
 	}
+	for (auto it = m_vCollideEntity.begin(); it != m_vCollideEntity.end();) {
+		// Vérifiez si l'élément actuel correspond à celui que vous recherchez
+		if (*it == oEntity) {
+			// Suppression de l'élément du vecteur et mise à jour de l'itérateur
+			m_vCollideEntity.erase(it);
+			break;
+		}
+		else {
+			// Déplacez-vous vers l'élément suivant dans le vecteur
+			++it;
+		}
+
+	}
+
+	delete oEntity;
 }
 
 

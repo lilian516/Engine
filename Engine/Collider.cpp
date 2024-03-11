@@ -54,16 +54,22 @@ void Collider::noCollision() {
 	for (Entity* entity : m_vColliderEntity) {
 		if (entity != m_oEntity){
 			if (std::abs(entity->m_aBox.pCenter.x - m_oEntity->m_aBox.pCenter.x) > (entity->m_aBox.vRadius.x + m_oEntity->m_aBox.vRadius.x)) {
-				return;
+				m_cCollision = NoCollision;
 			}
-			if (std::abs(entity->m_aBox.pCenter.y - m_oEntity->m_aBox.pCenter.y) > (entity->m_aBox.vRadius.y + m_oEntity->m_aBox.vRadius.y)) {
-				return;
+			else if (std::abs(entity->m_aBox.pCenter.y - m_oEntity->m_aBox.pCenter.y) > (entity->m_aBox.vRadius.y + m_oEntity->m_aBox.vRadius.y)) {
+				m_cCollision = NoCollision;
 			}
-			if (std::abs(entity->m_aBox.pCenter.z - m_oEntity->m_aBox.pCenter.z) > (entity->m_aBox.vRadius.z + m_oEntity->m_aBox.vRadius.z)) {
-				return;
+			else if (std::abs(entity->m_aBox.pCenter.z - m_oEntity->m_aBox.pCenter.z) > (entity->m_aBox.vRadius.z + m_oEntity->m_aBox.vRadius.z)) {
+				m_cCollision = NoCollision;
 			}
-			m_cCollision = FirstCollision;
-			m_eCollidingEntity = entity;
+			else {
+				m_cCollision = FirstCollision;
+				m_eCollidingEntity = entity;
+			}
 		}
 	}
+}
+
+Entity* Collider::getCollidingEntity() {
+	return m_eCollidingEntity;
 }

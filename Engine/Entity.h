@@ -39,7 +39,7 @@ public:
 	void initEntity();
 	void addComponents(Component* cComponent);
 	
-	void translate(XMFLOAT4 vTranslastion);
+	void move(float fDeltaTime, float fSpeed);
 	void rotate(float pitch, float roll, float yaw);
 	void scale(XMFLOAT3 ratio);
 	Transform& getTransform();
