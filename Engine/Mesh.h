@@ -44,6 +44,7 @@ public:
 	ID3D12Resource* CreateDefaultBuffer(ID3D12Device* device, ID3D12GraphicsCommandList* cmdList, const void* initData, UINT64 byteSize, ID3D12Resource*& uploadBuffer);
 	
 	MeshData m_mMesh;
+	XMVECTORF32 m_cColor = Colors::Blue;
 private:
 	
 

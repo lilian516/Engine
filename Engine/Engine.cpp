@@ -16,6 +16,7 @@
 #include "Texture.h"
 #include "Collider.h"
 #include "Camera.h"
+#include "ParticleSystem.h"
 
 #define MAX_LOADSTRING 100
 #ifdef _DEBUG
@@ -111,6 +112,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //}
 
     //return (int) msg.wParam;
+    delete oManager;
 #ifdef _DEBUG
     _CrtMemState memStateEnd, memStateDiff;
     _CrtMemCheckpoint(&memStateEnd);

@@ -7,7 +7,7 @@ Transform::~Transform() {}
 
 void Transform::identify() {
 	//-- SCALING --//
-	m_vScaling = { 1.f,1.f,1.f,0.0f };
+	m_vScaling = { 1.f,1.f,1.f };
 	m_mScaling = {
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
@@ -29,7 +29,7 @@ void Transform::identify() {
 	};
 
 	//-- POSITION --//
-	m_vPosition = { 0.0f,0.0f,0.0f,0.0f };
+	m_vPosition = { 0.0f,0.0f,0.0f };
 	m_mPosition = {
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
@@ -101,12 +101,12 @@ void Transform::scale(XMFLOAT3 ratio) {
 	m_bUpdate = true;
 }
 
-void Transform::translation(XMFLOAT4 fDirection) {
-	XMVECTOR vPosition = XMLoadFloat4(&m_vPosition);
-	XMVECTOR vDirection = XMLoadFloat4(&fDirection);
+void Transform::translation(XMFLOAT3 fDirection) {
+	XMVECTOR vPosition = XMLoadFloat3(&m_vPosition);
+	XMVECTOR vDirection = XMLoadFloat3(&fDirection);
 
 	vPosition += vDirection;
-	XMStoreFloat4(&m_vPosition, vPosition);
+	XMStoreFloat3(&m_vPosition, vPosition);
 
 	m_mPosition._41 = m_vPosition.x;
 	m_mPosition._42 = m_vPosition.y;

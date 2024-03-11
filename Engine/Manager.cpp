@@ -59,16 +59,20 @@ void Manager::addEntity(Entity* oEntity) {
 
 Manager::~Manager() {
 	while (m_vEntity.size() != 0) {
-		delete m_vEntity[0];
+		delete m_vEntity.back();
+		m_vEntity.pop_back();
 	}
 	while (m_vMesh.size() != 0) {
-		delete m_vMesh[0];
+		delete m_vMesh.back();
+		m_vMesh.pop_back();
 	}
 	while (m_vMeshRenderer.size() != 0) {
-		delete m_vMeshRenderer[0];
+		delete m_vMeshRenderer.back();
+		m_vMeshRenderer.pop_back();
 	}
 	while (m_vCollideEntity.size() != 0) {
-		delete m_vCollideEntity[0];
+		delete m_vCollideEntity.back();
+		m_vCollideEntity.pop_back();
 	}
 }
 

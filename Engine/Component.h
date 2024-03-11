@@ -13,6 +13,8 @@ public:
 	Entity* m_oEntity;
 
 	Component();
+	~Component();
+
 	void initComponent(int iId, Entity* oEntity);
 	virtual void update();
 	virtual void render(Graphics* oGraphics);
