@@ -27,7 +27,7 @@ void Camera::initCamera(Entity* oEntity,float aspectRatio, ID3D12Device* device)
 void Camera::update() {
     //XMMATRIX world = XMLoadFloat4x4(m_oEntity->getTransform().m_mTransform);
     XMMATRIX proj = XMLoadFloat4x4(getProjMatrix());
-   XMFLOAT4 pos(0.0f, 0.0f, -0.01f, 0.0f);
+    XMFLOAT3 pos(0.0f, 0.0f, -0.01f);
    //m_oEntity->getTransform().identify();
    m_oEntity->getTransform().translation(pos);
    m_oEntity->getTransform().updateTransform();
