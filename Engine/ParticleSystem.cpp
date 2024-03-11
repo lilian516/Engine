@@ -7,12 +7,13 @@ ParticleSystem::~ParticleSystem() {
 
 }
 
-void ParticleSystem::setParticleSystem(Entity* oEntity, int iNbParticle, float fScaleParticle, XMFLOAT3 fPosition, Shader* sShader, Mesh* mMesh) {
+void ParticleSystem::setParticleSystem(Entity* oEntity, int iNbParticle, float fScaleParticle, XMFLOAT3 fPosition, Shader* sShader, Mesh* mMesh, Texture* oTexture) {
 	m_iNbParticle = iNbParticle;
 	m_fScaleParticle = fScaleParticle;
 	m_fPosition = fPosition;
 	m_sShader = sShader;
 	m_mMesh = mMesh;
+	m_oTexture = oTexture;
 	createParticle();
 }
 
@@ -24,7 +25,7 @@ void ParticleSystem::createParticle(){
 	XMVECTOR vDirection;
 	for (int i = 0 ; i < m_iNbParticle ; i++){
 		Particle* particle = new Particle();
-		fScale =  1 / static_cast<float>(rand() % 90 + 10) ;
+		fScale =  (1 / static_cast<float>(rand() % 90 + 10))  * m_fScaleParticle;
 		fLifeTime = 1 / static_cast<float>(rand() % 50 + 1);
 		fVelocity = 1 / static_cast<float>(rand() % 50 + 5);
 		vDirection = {1 / static_cast<float>(rand() % 11 - 5), 1 / static_cast<float>(rand() % 11 - 5) , 1 / static_cast<float>(rand() % 11 - 5) };
@@ -52,8 +53,12 @@ void ParticleSystem::render(Graphics* oGraphics) {
 
 		oGraphics->m_cCommandList->SetGraphicsRootConstantBufferView(1, m_vParticle[i]->m_uObjectCB->Resource()->GetGPUVirtualAddress());
 
+		oGraphics->m_cCommandList->SetGraphicsRootDescriptorTable(0, m_oTexture->getGPUDesc());
+
 		//draw
 		oGraphics->m_cCommandList->DrawIndexedInstanced(m_mMesh->m_mMesh.indices.size(), 1, 0, 0, 0);
+
+
 	}
 }
 
