@@ -15,6 +15,7 @@ void Timer::start() {
     m_bPause = false;
     m_fDeltaTime = 0.0f;
     m_iFrameCount = 0;
+    m_fDifflTime = 0.0f;
 }
 
 void Timer::update() {
@@ -22,6 +23,7 @@ void Timer::update() {
         float currentTime = getCurrentTime();
         m_fDeltaTime = currentTime - m_fTime;
         m_fTotalTime += m_fDeltaTime;
+        m_fDifflTime += m_fDeltaTime;
         ++m_iFrameCount;
         m_fTime = currentTime;
     }

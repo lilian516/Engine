@@ -29,6 +29,7 @@ public :
 
 #pragma region Method
 	Graphics();
+	~Graphics();
 	bool initGraphics(Manager* oManager);
 	bool initDirectX();
 	bool deleteDirectX();

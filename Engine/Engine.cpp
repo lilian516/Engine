@@ -48,37 +48,56 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Placez le code ici.
 
-    Manager oManager;
-    BoxMesh test;
-    
-   
-    MeshRenderer oMeshRenderer;
-    MeshRenderer oMeshRenderer2;
-    Texture oTexture;
-    oManager.m_vMesh.push_back(&test);
-    
-    oManager.initManager();
-
-    oManager.m_oGraphics.createCam();
-    oManager.m_vEntity.push_back(oManager.m_oGraphics.m_oCamEntity);
-    
-    oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
-    oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
-    
-    //oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
+    //Manager oManager;
+    //Sprite boxMesh;
+    //
+    //
+    //Shader oShader;
+    //MeshRenderer oMeshRenderer;
+    //Texture oTexture;
+    //Camera ocCamera;
+    //
+    //oManager.m_vMesh.push_back(&boxMesh);
+    //oManager.m_vShader.push_back(&oShader);
+    //
+    //
+    //
+    //Entity* oCamera = new Entity();
+    //oCamera->initEntity();
 
 
-    Entity* oEntity2 = new Entity();
-    oEntity2->initEntity();
+    //Entity* oEntity = new Entity();
+    //oEntity->initEntity();
 
-    oMeshRenderer2.SetMeshRenderer(oEntity2, oManager.m_oGraphics.m_d3dDevice, &test, &oTexture);
+    //
+    //oManager.initManager();
+    //oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
+    //oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
+    //oMeshRenderer.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
+    //oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);
+    //
+    ////oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
 
-    oEntity2->addComponents(&oMeshRenderer2);
+    //ocCamera.initCamera(oCamera, &oManager.m_oGraphics.m_hMainWindow);
 
-    
+    //
 
-    oManager.addEntity(oEntity2);
-    oManager.runWindow(hInstance);
+    //oEntity->addComponents(&oMeshRenderer);
+
+    //oCamera->addComponents(&ocCamera);
+
+    //oManager.addEntity(oEntity);
+    //
+    //oManager.addEntity(oCamera);
+
+
+    //oManager.runWindow(hInstance);
+    ////Camera* oCamera = new Camera();
+    ////oCamera->initCamera(800,600, oEntity);
+
+    //MeshRenderer* oMeshRenderer = new MeshRenderer();
+    //oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
+    //oEntity->AddComponents(oMeshRenderer);
 
 
 

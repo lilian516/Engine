@@ -11,28 +11,14 @@ void Manager::initManager() {
 	m_oTimer.start();
 }
 
-int Manager::runWindow(HINSTANCE hInstance) {
-	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
 
-	MSG msg;
-
-	// Boucle de messages principale :
-	while (true)
-	{
-		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-		mainLoop();
-	}
-
-	return (int)msg.wParam;
-}
 
 void Manager::mainLoop() {
-	update();
-	render();
+	while (true) {
+		update();
+		render();
+	}
+	
 	
 }
 
@@ -54,26 +40,84 @@ void Manager::addEntity(Entity* oEntity) {
 	m_vEntity.push_back(oEntity);
 }
 
+Entity* Manager::createEntity() {
+	Entity* oEntity = new Entity();
+	oEntity->initEntity();
+	m_vEntity.push_back(oEntity);
+	return oEntity;
+}
 
+Shader* Manager::createShader() {
+	Shader* oShader = new Shader();
+	oShader->initializeRootSignature(m_oGraphics.m_d3dDevice);
+	oShader->initializeShader();
+	oShader->initializePipelineState(m_oGraphics.m_d3dDevice);
+	m_vShader.push_back(oShader);
+	return oShader;
+}
+
+Texture* Manager::createTexture(std::string name, wstring filename) {
+	Texture* oTexture = new Texture();
+	oTexture->loadTextureFromFile(name, filename,m_oGraphics.m_d3dDevice,&m_oGraphics);
+	oTexture->buildSRVDescriptorHeap(m_oGraphics.m_d3dDevice,name, &m_oGraphics);
+	m_vTexture.push_back(oTexture);
+	return oTexture;
+}
+
+void Manager::addCollideEntity(Entity* oEntity) {
+	m_vCollideEntity.push_back(oEntity);
+}
+
+void Manager::deleteEntity(Entity* oEntity) {
+	for (auto it = m_vEntity.begin(); it != m_vEntity.end();) {
+		// Vérifiez si l'élément actuel correspond à celui que vous recherchez
+		if (*it == oEntity) {
+			// Suppression de l'élément du vecteur et mise à jour de l'itérateur
+			m_vEntity.erase(it);
+			break;
+		}
+		else {
+			// Déplacez-vous vers l'élément suivant dans le vecteur
+			++it;
+		}
+
+	}
+	for (auto it = m_vCollideEntity.begin(); it != m_vCollideEntity.end();) {
+		// Vérifiez si l'élément actuel correspond à celui que vous recherchez
+		if (*it == oEntity) {
+			// Suppression de l'élément du vecteur et mise à jour de l'itérateur
+			m_vCollideEntity.erase(it);
+			break;
+		}
+		else {
+			// Déplacez-vous vers l'élément suivant dans le vecteur
+			++it;
+		}
+
+	}
+
+	delete oEntity;
+}
 
 
 Manager::~Manager() {
-	while (m_vEntity.size() != 0) {
-		delete m_vEntity.back();
-		m_vEntity.pop_back();
+	for (Entity* ptr : m_vEntity) {
+		delete ptr;
 	}
-	while (m_vMesh.size() != 0) {
-		delete m_vMesh.back();
-		m_vMesh.pop_back();
+	m_vEntity.clear();
+	for (Shader* ptr : m_vShader) {
+		delete ptr;
 	}
-	while (m_vMeshRenderer.size() != 0) {
-		delete m_vMeshRenderer.back();
-		m_vMeshRenderer.pop_back();
+	m_vShader.clear();
+	for (Mesh* ptr : m_vMesh) {
+		delete ptr;
 	}
-	while (m_vCollideEntity.size() != 0) {
-		delete m_vCollideEntity.back();
-		m_vCollideEntity.pop_back();
+	m_vMesh.clear();
+	for (Entity* ptr : m_vCollideEntity) {
+		delete ptr;
 	}
+	m_vCollideEntity.clear();
+	
 }
 
 

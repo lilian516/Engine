@@ -49,15 +49,6 @@ bool Graphics::initGraphics(Manager* oManager) {
 	onResize();
 	m_cCommandList->Reset(m_cDirectCmdListAlloc, nullptr);
 	createHeapDescriptor();
-
-
-
-	for (int i = 0; i < oManager->m_vMesh.size(); i++) {
-		oManager->m_vMesh[i]->buildGeometry(m_d3dDevice, m_cCommandList);
-	}
-
-
-
 	m_cCommandList->Close();
 	ID3D12CommandList* cmdsLists[] = { m_cCommandList };
 	m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
@@ -141,47 +132,47 @@ bool Graphics::initDirectX() {
 	}
 #endif
 
-CreateDXGIFactory1(IID_PPV_ARGS(&m_fDxgiFactory));
-// Try to create hardware device.
-HRESULT hHardwareResult = D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice));
+	CreateDXGIFactory1(IID_PPV_ARGS(&m_fDxgiFactory));
+	// Try to create hardware device.
+	HRESULT hHardwareResult = D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice));
 
-if (FAILED(hHardwareResult))
-{
-	IDXGIAdapter* aWarpAdapter;
-	m_fDxgiFactory->EnumWarpAdapter(IID_PPV_ARGS(&aWarpAdapter));
+	if (FAILED(hHardwareResult))
+	{
+		IDXGIAdapter* aWarpAdapter;
+		m_fDxgiFactory->EnumWarpAdapter(IID_PPV_ARGS(&aWarpAdapter));
 
-	if (FAILED(D3D12CreateDevice(aWarpAdapter, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice)))) {
-		deleteDirectX();
-		return false;
+		if (FAILED(D3D12CreateDevice(aWarpAdapter, D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_d3dDevice)))) {
+			deleteDirectX();
+			return false;
 
+		}
 	}
-}
 
-m_d3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_fFence));
+	m_d3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_fFence));
 
 
-m_iRtvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-m_iDsvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
-m_iCbvSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	m_iRtvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	m_iDsvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
+	m_iCbvSrvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS dQualityLevels;
-dQualityLevels.Format = m_fBackBufferFormat;
-dQualityLevels.SampleCount = 4;
-dQualityLevels.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
-dQualityLevels.NumQualityLevels = 0;
-m_d3dDevice->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &dQualityLevels, sizeof(dQualityLevels));
-m_i4xMsaaQuality = dQualityLevels.NumQualityLevels;
-assert(m_i4xMsaaQuality > 0 && "Unexpected MSAA quality level.");
+	D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS dQualityLevels;
+	dQualityLevels.Format = m_fBackBufferFormat;
+	dQualityLevels.SampleCount = 4;
+	dQualityLevels.Flags = D3D12_MULTISAMPLE_QUALITY_LEVELS_FLAG_NONE;
+	dQualityLevels.NumQualityLevels = 0;
+	m_d3dDevice->CheckFeatureSupport(D3D12_FEATURE_MULTISAMPLE_QUALITY_LEVELS, &dQualityLevels, sizeof(dQualityLevels));
+	m_i4xMsaaQuality = dQualityLevels.NumQualityLevels;
+	assert(m_i4xMsaaQuality > 0 && "Unexpected MSAA quality level.");
 
-#ifdef _DEBUG
-logAdapters();
-#endif
+	#ifdef _DEBUG
+	logAdapters();
+	#endif
 
-createCommandListQueue();
-createSwapChain();
-createRtvAndDsvDescriptorHeaps();
+	createCommandListQueue();
+	createSwapChain();
+	createRtvAndDsvDescriptorHeaps();
 
-return true;
+	return true;
 }
 
 void Graphics::createCommandListQueue() {
@@ -465,29 +456,6 @@ void Graphics::render(Manager* oManager) {
 		oManager->m_vEntity[i]->render(this);
 
 	}
-
-
-	/*Entity* oEntity2 = new Entity();
-	MeshRenderer* oMeshRenderer = new MeshRenderer();
-	oMeshRenderer->SetMeshRenderer(oEntity2, m_d3dDevice, m_oShader, m_oMesh);
-	m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
-	oMeshRenderer->render(this);*/
-	/*m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
-
-	D3D12_VERTEX_BUFFER_VIEW meshVertexBufferView = m_oMesh->m_mMesh.VertexBufferView();
-	m_cCommandList->IASetVertexBuffers(0, 1, &meshVertexBufferView);
-	D3D12_INDEX_BUFFER_VIEW meshIndexBufferView = m_oMesh->m_mMesh.IndexBufferView();
-	m_cCommandList->IASetIndexBuffer(&meshIndexBufferView);
-	m_cCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	m_cCommandList->SetGraphicsRootConstantBufferView(0, m_oShader->m_uObjectCB->Resource()->GetGPUVirtualAddress());
-
-
-	m_cCommandList->DrawIndexedInstanced(m_oMesh->m_mMesh.indices.size(),1,0,0,0);*/
-	// PER OBJECT
-
-
-
 	// Indicate a state transition on the resource usage.
 	CD3DX12_RESOURCE_BARRIER rValue = CD3DX12_RESOURCE_BARRIER::Transition(currentBackBuffer(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 	m_cCommandList->ResourceBarrier(1, &rValue);
@@ -668,4 +636,9 @@ bool Graphics::deleteDirectX() {
 		m_fDxgiFactory = nullptr;
 	}
 	return true;
+}
+
+Graphics::~Graphics() {
+	delete m_d3dDevice;
+
 }

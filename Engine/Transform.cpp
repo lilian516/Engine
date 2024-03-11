@@ -76,7 +76,7 @@ void Transform::rotate(float pitch, float roll, float yaw) {
 	m_vDirection.x = m_mRotation._31;
 	m_vDirection.y = m_mRotation._32;
 	m_vDirection.z = m_mRotation._33;
-
+	updateTransform();
 	m_bUpdate = true;
 }
 
@@ -97,7 +97,7 @@ void Transform::scale(XMFLOAT3 ratio) {
 
 	mScaled *= mScaling;
 	XMStoreFloat4x4(&m_mScaling, mScaled);
-
+	updateTransform();
 	m_bUpdate = true;
 }
 
@@ -111,18 +111,19 @@ void Transform::translation(XMFLOAT3 fDirection) {
 	m_mPosition._41 = m_vPosition.x;
 	m_mPosition._42 = m_vPosition.y;
 	m_mPosition._43 = m_vPosition.z;
+	updateTransform();
 	m_bUpdate = true;
 }
 
 void Transform::updateTransform() {
-	if (m_bUpdate) {
-		XMMATRIX mRotation = XMLoadFloat4x4(&m_mRotation);
-		XMMATRIX mPosition = XMLoadFloat4x4(&m_mPosition);
-		XMMATRIX mScaling = XMLoadFloat4x4(&m_mScaling);
-		XMMATRIX mTransform = XMLoadFloat4x4(&m_mTransform);
+	
+	XMMATRIX mRotation = XMLoadFloat4x4(&m_mRotation);
+	XMMATRIX mPosition = XMLoadFloat4x4(&m_mPosition);
+	XMMATRIX mScaling = XMLoadFloat4x4(&m_mScaling);
+	XMMATRIX mTransform = XMLoadFloat4x4(&m_mTransform);
 
-		mTransform = mRotation * mPosition * mScaling;
-		XMStoreFloat4x4(&m_mTransform, mTransform);
-		m_bUpdate = false;
-	}
+	mTransform = mRotation * mPosition * mScaling;
+	XMStoreFloat4x4(&m_mTransform, mTransform);
+	m_bUpdate = false;
+	
 }

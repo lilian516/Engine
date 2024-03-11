@@ -14,14 +14,17 @@ Entity::~Entity() {
 }
 
 void Entity::initEntity() {
-	//m_tTranform = new Transform();
+	
 	m_tTransform.identify();
+	
 
 }
 
 void Entity::addComponents(Component* cComponent) {
 	m_vComponents.push_back(cComponent);
 }
+
+
 
 vector<Component*> Entity::getVectorComponents() {
 	return m_vComponents;
@@ -32,14 +35,22 @@ void Entity::SRT() {
 }
 
 void Entity::update() {
+
+	
 	for (int i = 0; i < m_vComponents.size(); i++) {
 		m_vComponents[i]->update();
 	}
 
 }
 
-void Entity::translate(XMFLOAT3 vTranslation) {
-	m_tTransform.translation(vTranslation);
+void Entity::move(float fDeltaTime, float fSpeed) {
+	float fSpeedTime = fDeltaTime * fSpeed;
+	XMVECTOR vDirection = XMLoadFloat4(&m_tTransform.m_vDirection);
+	vDirection = vDirection * fSpeedTime;
+	XMFLOAT4 fDirection;
+	XMStoreFloat4(&fDirection, vDirection);
+
+	m_tTransform.translation(fDirection);
 	m_tTransform.updateTransform();
 	m_aBox.pCenter = m_tTransform.m_vPosition;
 }
@@ -67,4 +78,14 @@ void Entity::render(Graphics* oGraphics) {
 
 Transform& Entity::getTransform() {
 	return m_tTransform;
+}
+
+Entity::~Entity() {
+	for (Component* ptr : m_vComponents) {
+		// Libérer la mémoire allouée pour chaque pointeur
+		delete ptr;
+	}
+
+	// Effacer tous les éléments du vecteur
+	m_vComponents.clear();
 }

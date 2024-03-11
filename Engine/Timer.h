@@ -14,6 +14,7 @@ public:
     float getDeltaTime();
     float calculFPS();
     float getCurrentTime();
+    float m_fDifflTime;
 
 private:
     float m_fTime;

@@ -39,7 +39,8 @@ public:
 	~Entity();
 	void initEntity();
 	void addComponents(Component* cComponent);
-	void translate(XMFLOAT3 vTranslastion);
+	
+	void move(float fDeltaTime, float fSpeed);
 	void rotate(float pitch, float roll, float yaw);
 	void scale(XMFLOAT3 ratio);
 	Transform& getTransform();
@@ -47,5 +48,20 @@ public:
 	void SRT();
 	virtual void update();
 	virtual void render(Graphics* oGraphics);
+	float m_fRadius = 5.0f;
+	float m_fTheta = 1.5f * XM_PI;
+	float m_fPhi = XM_PIDIV4;
+
+	template<typename T>
+	T* addComponent();
+	
 
 };
+
+
+template<typename T>
+T* Entity::addComponent() {
+	T* composant = new T();
+	m_vComponents.push_back(composant);
+	return composant;
+}
