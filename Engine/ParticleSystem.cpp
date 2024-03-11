@@ -25,9 +25,9 @@ void ParticleSystem::createParticle(){
 	for (int i = 0 ; i < m_iNbParticle ; i++){
 		Particle* particle = new Particle();
 		fScale =  1 / static_cast<float>(rand() % 90 + 10) ;
-		fLifeTime = 2 / static_cast<float>(rand() % 1 + 3);
-		fVelocity = 1 / static_cast<float>(rand() % 90 + 10);
-		vDirection = { static_cast<float>(rand() % (-1) + 1), static_cast<float>(rand() % (-1) + 1) , static_cast<float>(rand() % (-1) + 1) };
+		fLifeTime = 1 / static_cast<float>(rand() % 50 + 1);
+		fVelocity = 1 / static_cast<float>(rand() % 50 + 5);
+		vDirection = {1 / static_cast<float>(rand() % 11 - 5), 1 / static_cast<float>(rand() % 11 - 5) , 1 / static_cast<float>(rand() % 11 - 5) };
 		XMStoreFloat3(&fDirection,XMVector3Normalize(vDirection));
 		particle->initParticle(fScale, fLifeTime, fVelocity, fDirection,m_fPosition);
 		m_vParticle.push_back(particle);
@@ -88,7 +88,7 @@ void ParticleSystem::update() {
 		XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, static_cast<float>(800) / 600, 1.0f, 1000.0f);
 		XMStoreFloat4x4(&m_fProj, P);
 		if (m_vParticle[i]->m_fLifeTime <= 0) {
-			//delete m_vParticle[i];
+			delete m_vParticle[i];
 			m_vParticle.erase(m_vParticle.begin() + i);
 			i--;
 		}

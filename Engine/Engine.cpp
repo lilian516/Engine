@@ -89,7 +89,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Entity* oEntity2 = new Entity();
     oEntity2->initEntity();
     ParticleSystem* particle = new ParticleSystem();
-    particle->setParticleSystem(oEntity2,100, 100, {0,0,0}, oShader, boxMesh);
+    particle->setParticleSystem(oEntity2,1000, 100, {0,0,0}, oShader, boxMesh);
     particle->setConstantBuffers(oManager->m_oGraphics.m_d3dDevice, oManager->m_oGraphics.m_dConstantBufferViewHeapDescriptor);
     oEntity2->addComponents(particle);
 
