@@ -8,7 +8,7 @@ class MeshRenderer :public Component
 public:
 	MeshRenderer();
 	~MeshRenderer();
-	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Mesh *oMesh, Texture* oTexture);
+	void SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh, Texture* oTexture);
 	void update()override;
 	void render(Graphics* oGraphics)override;
 	void buildConstantBuffers(ID3D12Device* device);

@@ -18,7 +18,8 @@ App* App::Get()
 }
 void App::initApp() {
 	m_oManager.initManager();
-
+	
+	
 	Entity* pEntity = m_oManager.createEntity();
 	ScriptGame* pScript = pEntity->addComponent<ScriptGame>();
 	pScript->initGame(pEntity);

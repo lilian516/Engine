@@ -9,7 +9,10 @@ ScriptGame::ScriptGame() {
 
 void ScriptGame::initGame(Entity* oEntity) {
 	setScript(oEntity);
+	App::Get()->m_oManager.m_oGraphics.createCam();
+	App::Get()->m_oManager.m_vEntity.push_back(App::Get()->m_oManager.m_oGraphics.m_oCamEntity);
 	Entity* pCube = App::Get()->m_oManager.createEntity();
+	//pCube->m_tTransform.translation({0.0f,10.0f,10.0f});
 	Shader* pShader = App::Get()->m_oManager.createShader();
 	Texture* pTexture = App::Get()->m_oManager.createTexture("test",L"Texture/image.dds");
 	Sprite* pMesh = App::Get()->m_oManager.createMesh<Sprite>();
@@ -17,7 +20,7 @@ void ScriptGame::initGame(Entity* oEntity) {
 	BoxMesh* pBox = App::Get()->m_oManager.createMesh<BoxMesh>();
 	MeshRenderer* pMeshRenderer = pCube->addComponent<MeshRenderer>();
 	pMeshRenderer->SetMeshRenderer(pCube, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMesh, pTexture);
-	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice, App::Get()->m_oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
+	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
 }
 
 void ScriptGame::update() {

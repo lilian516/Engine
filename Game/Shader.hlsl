@@ -2,9 +2,14 @@ Texture2D gTex : register(t0);
 SamplerState gSampler : register(s0);
 
 
-cbuffer ConstantBuffer : register(b0)
+cbuffer cbObj : register(b0)
 {
-    matrix WorldViewProjection;
+    matrix World;
+}
+
+cbuffer cbCam : register(b1)
+{
+    matrix ViewProjection;
 }
 
 struct VertexInput
@@ -24,7 +29,8 @@ struct VertexOutput
 VertexOutput vs_main(VertexInput input)
 {
     VertexOutput output;
-    output.position = mul(float4(input.position, 1.0f), WorldViewProjection);
+    float4 position = mul(float4(input.position, 1.0f), World);
+    output.position = mul(position, ViewProjection);
     output.color = input.color;
     output.TexC = input.TexC;
     return output;
@@ -32,6 +38,5 @@ VertexOutput vs_main(VertexInput input)
 
 float4 ps_main(VertexOutput input) : SV_TARGET
 {
-    //return float4(1, 0, 0, 1);
     return gTex.Sample(gSampler, input.TexC);
 }
