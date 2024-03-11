@@ -23,6 +23,9 @@ void ScriptGame::initGame(Entity* oEntity) {
 void ScriptGame::update() {
 
 	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(1)) {
+		POINT cursorPos;
+		GetCursorPos(&cursorPos);
+
 		createProjectile();
 		
 	}
