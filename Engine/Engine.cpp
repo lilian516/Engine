@@ -66,16 +66,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Entity* oCamera = new Entity();
     oCamera->initEntity();
 
-
+    
    /* Entity* oEntity = new Entity();
     oEntity->initEntity();*/
 
     
     oManager->initManager();
-   /* oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
-    oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
-    oMeshRenderer.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
-    oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);*/
+    oTexture->loadTextureFromFile("test", L"Texture/image.dds", oManager->m_oGraphics.m_d3dDevice,&oManager->m_oGraphics);
+    oTexture->buildSRVDescriptorHeap(oManager->m_oGraphics.m_d3dDevice, "test", &oManager->m_oGraphics);
     
     //oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
 
@@ -89,7 +87,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Entity* oEntity2 = new Entity();
     oEntity2->initEntity();
     ParticleSystem* particle = new ParticleSystem();
-    particle->setParticleSystem(oEntity2,1000, 100, {0,0,0}, oShader, boxMesh);
+    particle->setParticleSystem(oEntity2,1000, 1, {0,0,0}, oShader, boxMesh,oTexture);
     particle->setConstantBuffers(oManager->m_oGraphics.m_d3dDevice, oManager->m_oGraphics.m_dConstantBufferViewHeapDescriptor);
     oEntity2->addComponents(particle);
 

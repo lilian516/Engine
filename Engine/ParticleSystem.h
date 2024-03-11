@@ -13,11 +13,12 @@ public:
     XMFLOAT3 m_fPosition;
     Mesh* m_mMesh;
     Shader* m_sShader;
+    Texture* m_oTexture;
 
     ParticleSystem();
     ~ParticleSystem();
 
-    void setParticleSystem(Entity* oEntity, int iNbParticle, float fScaleParticle, XMFLOAT3 fPosition, Shader* sShader, Mesh* mMesh);
+    void setParticleSystem(Entity* oEntity, int iNbParticle, float fScaleParticle, XMFLOAT3 fPosition, Shader* sShader, Mesh* mMesh, Texture* oTexture);
     void createParticle();
     void update()override;
     void render(Graphics* oGraphics)override;
@@ -33,5 +34,6 @@ public:
 
     XMFLOAT4X4 m_fView = Identity4x4();
     XMFLOAT4X4 m_fProj = Identity4x4();
+
 private:
 };
