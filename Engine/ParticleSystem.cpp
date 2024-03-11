@@ -25,7 +25,7 @@ void ParticleSystem::createParticle(){
 	for (int i = 0 ; i < m_iNbParticle ; i++){
 		Particle* particle = new Particle();
 		fScale =  1 / static_cast<float>(rand() % 90 + 10) ;
-		fLifeTime = rand() % 1 / 2 + 2;
+		fLifeTime = 2 / static_cast<float>(rand() % 1 + 3);
 		fVelocity = 1 / static_cast<float>(rand() % 90 + 10);
 		vDirection = { static_cast<float>(rand() % (-1) + 1), static_cast<float>(rand() % (-1) + 1) , static_cast<float>(rand() % (-1) + 1) };
 		XMStoreFloat3(&fDirection,XMVector3Normalize(vDirection));
@@ -60,12 +60,9 @@ void ParticleSystem::render(Graphics* oGraphics) {
 void ParticleSystem::update() {
 
 	for (int i = 0; i < m_vParticle.size(); i++) {
-		m_vParticle[i]->update(0.0000001f);
+		m_vParticle[i]->update(0.001f);
 
-		if (m_vParticle[i]->m_fLifeTime <= 0) {
-			//delete m_vParticle[i];
-			m_vParticle.erase(m_vParticle.begin() + i);
-		}
+		
 		//Convert Spherical to Cartesian coordinates.
 		float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
 		float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
@@ -90,6 +87,11 @@ void ParticleSystem::update() {
 
 		XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, static_cast<float>(800) / 600, 1.0f, 1000.0f);
 		XMStoreFloat4x4(&m_fProj, P);
+		if (m_vParticle[i]->m_fLifeTime <= 0) {
+			//delete m_vParticle[i];
+			m_vParticle.erase(m_vParticle.begin() + i);
+			i--;
+		}
 	}
 }
 

@@ -22,6 +22,7 @@ void Particle::initParticle(float fScale, float fLifeTime, float fVelocity, XMFL
 
 void Particle::update(float deltaTime) {
     m_tTransform.translation(m_vMovement);
+    m_tTransform.updateTransform();
     m_fLifeTime -= deltaTime;
 }
 
