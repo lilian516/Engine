@@ -40,6 +40,7 @@ public :
 	vector<Entity*> m_vEntity;
 	vector<Mesh*> m_vMesh;
 	vector<Texture*> m_vTexture;
+	vector<Shader*> m_vShader;
 	
 	
 	

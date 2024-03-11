@@ -6,13 +6,6 @@ Entity::Entity() {
 
 }
 
-Entity::~Entity() {
-	while (m_vComponents.size() != 0) {
-		delete m_vComponents.back();
-		m_vComponents.pop_back();
-	}
-}
-
 void Entity::initEntity() {
 	
 	m_tTransform.identify();
@@ -47,8 +40,8 @@ void Entity::move(float fDeltaTime, float fSpeed) {
 	float fSpeedTime = fDeltaTime * fSpeed;
 	XMVECTOR vDirection = XMLoadFloat4(&m_tTransform.m_vDirection);
 	vDirection = vDirection * fSpeedTime;
-	XMFLOAT4 fDirection;
-	XMStoreFloat4(&fDirection, vDirection);
+	XMFLOAT3 fDirection;
+	XMStoreFloat3(&fDirection, vDirection);
 
 	m_tTransform.translation(fDirection);
 	m_tTransform.updateTransform();

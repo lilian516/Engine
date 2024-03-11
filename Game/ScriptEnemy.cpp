@@ -19,7 +19,7 @@ void ScriptEnemy::initEnemy(Entity* oEntity) {
 	float y = distr(eng);
 	float z = distr(eng);
 
-	XMFLOAT4 vect{ x,y,z,0.0f };
+	XMFLOAT3 vect{ x,y,z};
 	oEntity->m_tTransform.translation(vect);
 
 	MeshRenderer* pMeshRenderer = oEntity->addComponent<MeshRenderer>();
