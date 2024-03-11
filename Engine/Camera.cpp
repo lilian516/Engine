@@ -52,7 +52,7 @@ void Camera::updateMatrix() {
 
 void Camera::change() {
 
-    XMVECTOR pos = XMLoadFloat4(&m_oEntity->getTransform().m_vPosition);
+    XMVECTOR pos = XMLoadFloat3(&m_oEntity->getTransform().m_vPosition);
     XMVECTOR dir = XMLoadFloat4(&m_oEntity->getTransform().m_vDirection);
     XMVECTOR up = XMLoadFloat4(&m_oEntity->getTransform().m_vUp);
     //m_vTarget = pos + dir; // Calculez le point que la caméra regarde
@@ -62,9 +62,9 @@ void Camera::change() {
 }
 
 void Camera::changePos() {
-    XMVECTOR pos = XMLoadFloat4(&m_oEntity->getTransform().m_vPosition);
+    XMVECTOR pos = XMLoadFloat3(&m_oEntity->getTransform().m_vPosition);
     pos = XMVectorSet(camTransform->m_vPosition.x, camTransform->m_vPosition.y, camTransform->m_vPosition.z, 1.0f);
-    XMStoreFloat4(&m_oEntity->getTransform().m_vPosition, pos);
+    XMStoreFloat3(&m_oEntity->getTransform().m_vPosition, pos);
     change();
 }
 

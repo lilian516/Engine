@@ -2,7 +2,6 @@
 
 #include "Transform.h"
 #include "ObjectConstants.h"
-#include "FrameResource.h"
 
 #include "UploadBuffer.h"
 
