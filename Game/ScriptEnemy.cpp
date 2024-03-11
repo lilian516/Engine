@@ -14,12 +14,12 @@ void ScriptEnemy::initEnemy(Entity* oEntity) {
 
 	std::random_device rd;
 	std::default_random_engine eng(rd());
-	std::uniform_real_distribution<> distr(-2.0f, 2.0f);
+	std::uniform_real_distribution<> distr(0.0f, 2.0f);
 	float x = distr(eng);
 	float y = distr(eng);
 	float z = distr(eng);
 
-	XMFLOAT3 vect{ x,y,z};
+	XMFLOAT3 vect{ 0,0,z};
 	oEntity->m_tTransform.translation(vect);
 
 	MeshRenderer* pMeshRenderer = oEntity->addComponent<MeshRenderer>();
