@@ -92,9 +92,8 @@ public :
 	XMVECTORF32 m_vColor = Colors::LightSkyBlue;
 
 
-	XMMATRIX m_worldViewProj;
+	XMFLOAT4X4 m_worldViewProj;
 	Entity* m_oCamEntity;
-	Camera* m_ocCamera;
 	
 	
 };

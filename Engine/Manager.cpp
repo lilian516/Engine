@@ -17,17 +17,14 @@ int Manager::runWindow(HINSTANCE hInstance) {
 	MSG msg;
 
 	// Boucle de messages principale :
-	while (GetMessage(&msg, nullptr, 0, 0))
+	while (true)
 	{
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
 		mainLoop();
-
-
 	}
 
 	return (int)msg.wParam;

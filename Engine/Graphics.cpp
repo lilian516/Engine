@@ -413,6 +413,7 @@ void Graphics::update(Manager* oManager) {
 		//oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
 
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
+		//updateCam(oManager->m_vEntity[i]);
 		oManager->m_vEntity[i]->update();
 	}
 	onResize();
@@ -604,23 +605,19 @@ void Graphics::logOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format)
 }
 
 void Graphics::updateCam(Entity* oEntity) {
-	XMMATRIX world = XMLoadFloat4x4(&oEntity->getTransform().m_mTransform);
-	XMMATRIX proj = XMLoadFloat4x4(m_ocCamera->getProjMatrix());
-	XMMATRIX view = XMLoadFloat4x4(m_ocCamera->getViewMatrix());
-
-	m_worldViewProj = world * view * proj;
+	
 }
 
 void Graphics::createCam() {
-	m_ocCamera = new Camera();
+	Camera* cam = new Camera();
 	m_oCamEntity = new Entity();
 	m_oCamEntity->initEntity();
 
-	m_ocCamera->initCamera(m_oCamEntity, aspectRatio());
-	m_oCamEntity->addComponents(m_ocCamera);
-	m_oCamEntity->m_tTransform.translation({ 0.f, 3.f, -10.f,0.f });
+	cam->initCamera(m_oCamEntity, aspectRatio(),m_d3dDevice);
+	m_oCamEntity->addComponents(cam);
+	//m_oCamEntity->m_tTransform.translation({ 0.f, 0.f, -10.f,0.f });
 	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, aspectRatio(), 1.0f, 1000.0f);
-	XMStoreFloat4x4(m_ocCamera->getProjMatrix(), P);
+	XMStoreFloat4x4(cam->getProjMatrix(), P);
 
 }
 

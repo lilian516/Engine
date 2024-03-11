@@ -12,7 +12,7 @@ public:
 	void update()override;
 	void render(Graphics* oGraphics)override;
 	void buildConstantBuffers(ID3D12Device* device);
-	void updateConstantBuffer(XMMATRIX worldViewProjMatrix);
+	void updateConstantBuffer(XMFLOAT4X4 worldViewProjMatrix);
 
 	std::unique_ptr<UploadBuffer<ObjectConstants>> m_uObjectCB;
 

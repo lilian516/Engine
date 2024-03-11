@@ -63,12 +63,13 @@ void Shader::initializePipelineState(ID3D12Device* device) {
 
 void Shader::initializeRootSignature(ID3D12Device* device) {
 
-	const int count = 2;
+	const int count = 3;
 	CD3DX12_DESCRIPTOR_RANGE descRange;
 	descRange.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 	CD3DX12_ROOT_PARAMETER rootParameters[count];
 	rootParameters[0].InitAsDescriptorTable(1 ,&descRange, D3D12_SHADER_VISIBILITY_PIXEL);
 	rootParameters[1].InitAsConstantBufferView(0);
+	rootParameters[2].InitAsConstantBufferView(1);
 
 	auto staticSamplers = GetStaticSamplers();
 

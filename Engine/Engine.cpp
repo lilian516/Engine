@@ -54,10 +54,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MeshRenderer oMeshRenderer;
     MeshRenderer oMeshRenderer2;
     Texture oTexture;
-    
     oManager.m_vMesh.push_back(&test);
     
     oManager.initManager();
+
+    oManager.m_oGraphics.createCam();
+    oManager.m_vEntity.push_back(oManager.m_oGraphics.m_oCamEntity);
+    
     oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
     oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
     
@@ -70,13 +73,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     oMeshRenderer2.SetMeshRenderer(oEntity2, oManager.m_oGraphics.m_d3dDevice, &test, &oTexture);
 
     oEntity2->addComponents(&oMeshRenderer2);
-    oEntity2->rotate(0, 0, 0);
 
     
 
     oManager.addEntity(oEntity2);
-
-    oManager.m_oGraphics.createCam();
     oManager.runWindow(hInstance);
 
 
