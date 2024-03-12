@@ -14,9 +14,6 @@ static DirectX::XMFLOAT4X4 Identity4x4()
 }
 struct ObjectConstants
 {
-public:
-	ObjectConstants();
-	void init();
 	XMFLOAT4X4 WorldViewProj;
 };
 

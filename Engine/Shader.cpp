@@ -43,6 +43,7 @@ void Shader::initializePipelineState(ID3D12Device* device) {
 
 
 	m_d3dPipelineStateObjectDescriptor.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+	//m_d3dPipelineStateObjectDescriptor.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
 	m_d3dPipelineStateObjectDescriptor.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
 	m_d3dPipelineStateObjectDescriptor.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 	m_d3dPipelineStateObjectDescriptor.SampleMask = UINT_MAX;

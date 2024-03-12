@@ -120,10 +120,10 @@ void Transform::updateTransform() {
 	XMMATRIX mRotation = XMLoadFloat4x4(&m_mRotation);
 	XMMATRIX mPosition = XMLoadFloat4x4(&m_mPosition);
 	XMMATRIX mScaling = XMLoadFloat4x4(&m_mScaling);
-	XMMATRIX mTransform = XMLoadFloat4x4(&m_mTransform);
+	//XMMATRIX mTransform = XMLoadFloat4x4(&m_mTransform);
 
-	mTransform = mRotation * mPosition * mScaling;
+	//mTransform = mRotation * mPosition * mScaling;
+	XMMATRIX mTransform = mRotation * mScaling * mPosition;
 	XMStoreFloat4x4(&m_mTransform, mTransform);
 	m_bUpdate = false;
-	
 }

@@ -16,10 +16,10 @@ void Camera::initCamera(Entity* oEntity,float aspectRatio, ID3D12Device* device)
     m_FovAngleY = DirectX::XMConvertToRadians(70.0f);
     m_NearZ = 0.1f;
     m_FarZ = 1000.0f;
-    m_mProjMatrix = DirectX::XMMatrixPerspectiveFovLH(m_FovAngleY, m_AspectRatio, m_NearZ, m_FarZ);
+    DirectX::XMMATRIX mProjMatrix = DirectX::XMMatrixPerspectiveFovLH(m_FovAngleY, m_AspectRatio, m_NearZ, m_FarZ);
 
     // Stocker la matrice de projection dans une variable mProj (par exemple)
-    XMStoreFloat4x4(&m_mMatrixProj, m_mProjMatrix);
+    XMStoreFloat4x4(&m_mMatrixProj, mProjMatrix);
 
     m_uCamCB = new UploadBuffer<ObjectConstants>(device, 1, true);
 }
@@ -35,28 +35,39 @@ void Camera::update() {
  
     //XMStoreFloat4x4(&m_fView, view);
 
+    /*float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
+    float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
+    float y = m_fRadius * cosf(m_fPhi);*/
+
+    // Build the view matrix.
+    XMVECTOR pos = XMLoadFloat3(&m_oEntity->getTransform().m_vPosition);
+    XMVECTOR target = XMVectorZero();
+    XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+
     
 
+    XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
+  // XMMATRIX view = XMLoadFloat4x4(&m_oEntity->getTransform().m_mTransform);
+   //view = XMMatrixInverse(nullptr, view);
 
-    XMMATRIX view = XMLoadFloat4x4(&m_oEntity->getTransform().m_mTransform);
+    //XMMATRIX view = XMLoadFloat4x4(&m_oEntity->getTransform().m_mTransform);
     //view = XMMatrixInverse(nullptr, view);
-    XMMATRIX viewProj;
-    viewProj = view * proj;
+    XMMATRIX viewProj = view * proj;
     XMFLOAT4X4 m_fViewProj;
-    XMStoreFloat4x4(&m_fViewProj, viewProj);
+    XMStoreFloat4x4(&m_fViewProj, XMMatrixTranspose(viewProj));
 
     ObjectConstants data;
     data.WorldViewProj = m_fViewProj;
     m_uCamCB->CopyData(0, data);
-    updateMatrix();
+    //updateMatrix();
     
 }
 
 void Camera::updateMatrix() {
     /*m_mProjMatrix = DirectX::XMMatrixPerspectiveFovLH(m_FovAngleY, m_AspectRatio, m_NearZ, m_FarZ);
     DirectX::XMStoreFloat4x4(&m_mMatrixProj, m_mProjMatrix);*/
-    XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, m_AspectRatio, 1.0f, 1000.0f);
-    XMStoreFloat4x4(&m_mMatrixProj, P);
+    /*XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, m_AspectRatio, 1.0f, 1000.0f);
+    XMStoreFloat4x4(&m_mMatrixProj, P);*/
 }
 
 void Camera::change() {
