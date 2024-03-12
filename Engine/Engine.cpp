@@ -42,23 +42,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Texture* oTexture1 = new Texture();
     Shader* oShader = new Shader();
     BoxMesh* oBoxMesh = new BoxMesh();
-    PyramidMesh* oPyramidMesh =new PyramidMesh();
-    PenMesh* oPenMesh = new PenMesh();
-    Sprite* oSprite = new Sprite();
     MeshRenderer* oMeshRenderer = new MeshRenderer();
-    MeshRenderer* oMeshRenderer2 = new MeshRenderer();
-    MeshRenderer* oMeshRenderer3 = new MeshRenderer();
-    MeshRenderer* oMeshRenderer4 = new MeshRenderer();
     oManager->m_vTexture.push_back(oTexture1);
     oManager->m_vMesh.push_back(oBoxMesh);
-    oManager->m_vMesh.push_back(oPyramidMesh);
-    oManager->m_vMesh.push_back(oPenMesh);
-    oManager->m_vMesh.push_back(oSprite);
     oManager->m_vShader.push_back(oShader);
     oManager->m_vMeshRenderer.push_back(oMeshRenderer);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer2);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer3);
-    oManager->m_vMeshRenderer.push_back(oMeshRenderer4);
     
   
     //Entity* oEntity = new Entity();
@@ -91,9 +79,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     Entity* oEntity4 = new Entity();
     oEntity4->initEntity();
+    oEntity4->getTransform().rotate(0,0, XM_PI);
+    oEntity4->getTransform().updateTransform();
 
-    oMeshRenderer4->SetMeshRenderer(oEntity4, oManager->m_oGraphics->m_d3dDevice, oShader, oSprite, oTexture1);
-    oEntity4->AddComponents(oMeshRenderer4);
+    oMeshRenderer->SetMeshRenderer(oEntity4, oManager->m_oGraphics->m_d3dDevice, oShader, oBoxMesh, oTexture1);
+    oEntity4->AddComponents(oMeshRenderer);
 
     //
     //oManager->addEntity(oEntity);
