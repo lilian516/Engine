@@ -37,7 +37,7 @@ void InputManager::update() {
         }
         else
         {
-            switch (i) {
+            switch (m_cTableau[i]) {
                 case Press:
                     m_cTableau[i] = Up;
                     break;
@@ -67,7 +67,7 @@ bool InputManager::isKey(int i ) {
     {
         return true;
     }
-    else {
+    else{
         return false;
     }
 }
