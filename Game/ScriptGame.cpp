@@ -12,15 +12,21 @@ void ScriptGame::initGame(Entity* oEntity) {
 	App::Get()->m_oManager.m_oGraphics.createCam();
 	App::Get()->m_oManager.m_vEntity.push_back(App::Get()->m_oManager.m_oGraphics.m_oCamEntity);
 	Entity* pCube = App::Get()->m_oManager.createEntity();
+	Entity* pCubeSky = App::Get()->m_oManager.createEntity();;
 	//pCube->m_tTransform.translation({0.0f,1.0f,0.0f});
 	Shader* pShader = App::Get()->m_oManager.createShader();
 	Texture* pTexture = App::Get()->m_oManager.createTexture("test",L"Texture/image.dds");
+	Texture* pTextureSkybox = App::Get()->m_oManager.createTexture("test",L"Texture/sky.dds");
 	Sprite* pMesh = App::Get()->m_oManager.createMesh<Sprite>();
 	PyramidMesh* pPyramid = App::Get()->m_oManager.createMesh<PyramidMesh>();
 	BoxMesh* pBox = App::Get()->m_oManager.createMesh<BoxMesh>();
+	Skybox* pSky = App::Get()->m_oManager.createMesh<Skybox>();
 	MeshRenderer* pMeshRenderer = pCube->addComponent<MeshRenderer>();
+	MeshRenderer* pMeshRendererSky = pCubeSky->addComponent<MeshRenderer>();
+	pMeshRendererSky->SetMeshRenderer(pCubeSky, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pSky, pTextureSkybox);
 	pMeshRenderer->SetMeshRenderer(pCube, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMesh, pTexture);
 	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
+	pMeshRendererSky->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
 }
 
 void ScriptGame::update() {
