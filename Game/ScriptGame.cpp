@@ -55,7 +55,7 @@ void ScriptGame::update() {
 
 		
 	}
-	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2.0f);
+	//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2.0f);
 }
 
 void ScriptGame::createProjectile() {
