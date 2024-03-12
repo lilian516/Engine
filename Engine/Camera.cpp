@@ -40,8 +40,7 @@ void Camera::update() {
 
     XMMATRIX view = XMLoadFloat4x4(&m_oEntity->getTransform().m_mTransform);
     //view = XMMatrixInverse(nullptr, view);
-    XMMATRIX viewProj;
-    viewProj = view * proj;
+    XMMATRIX viewProj = view * proj;
     XMFLOAT4X4 m_fViewProj;
     XMStoreFloat4x4(&m_fViewProj, viewProj);
 
