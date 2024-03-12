@@ -12,6 +12,7 @@ struct Transform
 	XMFLOAT4X4 m_mScaling;
 
 	//-- ROTATION --//
+	XMFLOAT3 m_vRotation;
 	XMFLOAT4 m_vDirection;
 	XMFLOAT4 m_vRight;
 	XMFLOAT4 m_vUp;

@@ -8,13 +8,10 @@ ScriptProjectile::ScriptProjectile() {
 
 void ScriptProjectile::initProjectile(Entity* oEntity) {
 	setScript(oEntity);
-	//m_mDir = App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection;
 	m_mDir = { App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.x,
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.y,
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.z };
-	/*m_mDir(App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.x,
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.y,
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.z);*/
+
 	oEntity->m_tTransform.translation({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y -1.0f
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z});

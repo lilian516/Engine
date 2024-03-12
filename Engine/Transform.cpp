@@ -16,6 +16,7 @@ void Transform::identify() {
 	};
 
 	//-- ROTATION --//
+	m_vRotation = { 0.0f, 0.0f, 0.0f };
 	m_vDirection = { 0.0f,0.0f,1.0f,0.0f };
 	m_vRight = { 1.0f,0.0f,0.0f,0.0f };
 	m_vUp = { 0.0f,1.0f,0.0f, 0.0f };
@@ -60,6 +61,10 @@ void Transform::rotate(float pitch, float roll, float yaw) {
 	vQuaternion = XMQuaternionMultiply(XMQuaternionRotationAxis(vRight, pitch), vQuaternion);
 	vQuaternion = XMQuaternionMultiply(XMQuaternionRotationAxis(vUp, yaw), vQuaternion);
 	vQuaternionRotation = XMQuaternionMultiply(vQuaternion, vQuaternionRotation);
+
+	m_vRotation.x += pitch;
+	m_vRotation.y += yaw;
+	m_vRotation.z += roll;
 
 	XMStoreFloat4(&m_qRotation, vQuaternionRotation);
 
