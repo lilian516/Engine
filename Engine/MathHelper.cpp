@@ -14,3 +14,11 @@ float distanceCalcul(XMFLOAT4 posOne, XMFLOAT4 posTwo) {
 	float distance = static_cast<float>(sqrt(xPos + yPos + zPos));
 	return round(distance * 1000.0f) / 1000.0f;
 }
+void identity4x4(XMFLOAT4X4* matrix) {
+	*matrix = {
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	};
+}

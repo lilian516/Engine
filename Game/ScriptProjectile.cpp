@@ -8,7 +8,16 @@ ScriptProjectile::ScriptProjectile() {
 
 void ScriptProjectile::initProjectile(Entity* oEntity) {
 	setScript(oEntity);
-	oEntity->m_tTransform.translation({ 0.f, 0.f, -5.f });
+	//m_mDir = App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection;
+	m_mDir = { App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.x,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.y,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.z };
+	/*m_mDir(App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.x,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.y,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.z);*/
+	oEntity->m_tTransform.translation({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
+		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y -1.0f
+		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z});
 	
 	MeshRenderer* pMeshRenderer = oEntity->addComponent<MeshRenderer>();
 	pMeshRenderer->SetMeshRenderer(oEntity, App::Get()->m_oManager.m_oGraphics.m_d3dDevice,
@@ -23,7 +32,8 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 }
 
 void ScriptProjectile::update() {
-	m_oEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2);
+	XMVECTOR vDir = { m_mDir.x,m_mDir.y,m_mDir.z};
+	m_oEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 10, vDir);
 	if (m_oEntity->m_tTransform.m_vPosition.z > 5) {
 		App::Get()->m_oManager.deleteEntity(m_oEntity);
 	}

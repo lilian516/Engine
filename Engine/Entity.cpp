@@ -36,10 +36,10 @@ void Entity::update() {
 
 }
 
-void Entity::move(float fDeltaTime, float fSpeed) {
+void Entity::move(float fDeltaTime, float fSpeed, XMVECTOR vDir) {
 	float fSpeedTime = fDeltaTime * fSpeed;
-	XMVECTOR vDirection = XMLoadFloat4(&m_tTransform.m_vDirection);
-	vDirection = vDirection * fSpeedTime;
+	//XMVECTOR vDirection = XMLoadFloat4(&m_tTransform.m_vDirection);
+	XMVECTOR vDirection = vDir * fSpeedTime;
 	XMFLOAT3 fDirection;
 	XMStoreFloat3(&fDirection, vDirection);
 

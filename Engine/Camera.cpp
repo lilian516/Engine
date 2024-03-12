@@ -41,13 +41,15 @@ void Camera::update() {
 
     // Build the view matrix.
     XMVECTOR pos = XMLoadFloat3(&m_oEntity->getTransform().m_vPosition);
-    XMVECTOR target = XMVectorZero();
-    XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+    XMVECTOR target = XMLoadFloat4(&m_oEntity->getTransform().m_vDirection);
+    XMVECTOR up = XMLoadFloat4(&m_oEntity->getTransform().m_vUp);
+    //XMVECTOR target = XMLoadFloat3(&m_oEntity->getTransform().m_vPosition);
+    //XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
     
 
     XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
-  // XMMATRIX view = XMLoadFloat4x4(&m_oEntity->getTransform().m_mTransform);
+    //XMMATRIX view = XMLoadFloat4x4(&m_oEntity->getTransform().m_mTransform);
    //view = XMMatrixInverse(nullptr, view);
 
     //XMMATRIX view = XMLoadFloat4x4(&m_oEntity->getTransform().m_mTransform);
