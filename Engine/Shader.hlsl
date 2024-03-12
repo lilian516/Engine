@@ -4,12 +4,12 @@ SamplerState gSampler : register(s0);
 
 cbuffer cbObj : register(b0)
 {
-    matrix World;
+    float4x4 World;
 }
 
 cbuffer cbCam : register(b1)
 {
-    matrix ViewProjection;
+    float4x4 ViewProjection;
 }
 
 struct VertexInput

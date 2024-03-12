@@ -32,7 +32,7 @@ private:
 	//DirectX::XMMATRIX m_mViewMatrix;
 	//DirectX::XMFLOAT4X4 m_mMatrixView = Identity4x4();
 
-	DirectX::XMMATRIX m_mProjMatrix;
+	//DirectX::XMMATRIX m_mProjMatrix;
 	DirectX::XMFLOAT4X4 m_mMatrixProj = Identity4x4();
 
 	//DirectX::XMVECTOR m_vUp;

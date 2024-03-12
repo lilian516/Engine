@@ -28,8 +28,16 @@ void MeshRenderer::update() {
 
 void MeshRenderer::render(Graphics* oGraphics) {
 	updateConstantBuffer(m_oEntity->getTransform().m_mTransform);
+
 	//root signature
 	oGraphics->m_cCommandList->SetGraphicsRootSignature(m_oShader->m_d3dRootSignature);
+
+	for (int i = 0; i < oGraphics->m_oCamEntity->m_vComponents.size(); i++) {
+		if (Camera* cam = dynamic_cast<Camera*>(oGraphics->m_oCamEntity->m_vComponents[i])) {
+			oGraphics->m_cCommandList->SetGraphicsRootConstantBufferView(2, cam->m_uCamCB->Resource()->GetGPUVirtualAddress());
+			break;
+		}
+	}
 
 	//pipeline state
 	oGraphics->m_cCommandList->SetPipelineState(m_oShader->m_d3dPipelineState);
@@ -43,12 +51,6 @@ void MeshRenderer::render(Graphics* oGraphics) {
 	oGraphics->m_cCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	oGraphics->m_cCommandList->SetGraphicsRootConstantBufferView(1, m_uObjectCB->Resource()->GetGPUVirtualAddress());
-	for (int i = 0; i < oGraphics->m_oCamEntity->m_vComponents.size(); i++) {
-		if (Camera* cam = dynamic_cast<Camera*>(oGraphics->m_oCamEntity->m_vComponents[i])) {
-			oGraphics->m_cCommandList->SetGraphicsRootConstantBufferView(2, cam->m_uCamCB->Resource()->GetGPUVirtualAddress());
-			break;
-		}
-	}
 	
 
 	oGraphics->m_cCommandList->SetGraphicsRootDescriptorTable(0,m_oTexture->getGPUDesc());
@@ -63,7 +65,8 @@ void MeshRenderer::buildConstantBuffers(ID3D12Device* device)
 }
 
 void MeshRenderer::updateConstantBuffer(XMFLOAT4X4 world) {
+	
 	ObjectConstants data;
-	data.WorldViewProj = world;
+	XMStoreFloat4x4(&data.WorldViewProj, XMMatrixTranspose(XMLoadFloat4x4(&world)));
 	m_uObjectCB->CopyData(0, data);
 }
