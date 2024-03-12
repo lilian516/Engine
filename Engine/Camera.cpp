@@ -59,13 +59,13 @@ void Camera::update() {
     ObjectConstants data;
     data.WorldViewProj = m_fViewProj;
     m_uCamCB->CopyData(0, data);
-    //updateMatrix();
+    updateMatrix();
     
 }
 
 void Camera::updateMatrix() {
-    /*m_mProjMatrix = DirectX::XMMatrixPerspectiveFovLH(m_FovAngleY, m_AspectRatio, m_NearZ, m_FarZ);
-    DirectX::XMStoreFloat4x4(&m_mMatrixProj, m_mProjMatrix);*/
+    XMMATRIX mProjMatrix = DirectX::XMMatrixPerspectiveFovLH(m_FovAngleY, m_AspectRatio, m_NearZ, m_FarZ);
+    DirectX::XMStoreFloat4x4(&m_mMatrixProj, mProjMatrix);
     /*XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * 3.14, m_AspectRatio, 1.0f, 1000.0f);
     XMStoreFloat4x4(&m_mMatrixProj, P);*/
 }

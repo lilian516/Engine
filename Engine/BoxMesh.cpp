@@ -11,25 +11,25 @@ BoxMesh::~BoxMesh() {
 void BoxMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
-		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//0
-		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//1
-		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//2
-		Vertex({ XMFLOAT3(-0.5, -0.5, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//3
+		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//0
+		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//1
+		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//2
+		Vertex({ XMFLOAT3(-0.5, -0.5, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//3
 
-		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//4
-		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//5
-		Vertex({ XMFLOAT3(-0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//6
-		Vertex({ XMFLOAT3(-0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//7
+		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//4
+		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//5
+		Vertex({ XMFLOAT3(-0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(0,1)}),//6
+		Vertex({ XMFLOAT3(-0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//7
 
-		Vertex({ XMFLOAT3(-0.5, -0.5f, 0.5f), XMFLOAT4(Colors::White), XMFLOAT2(0,0)}),//8
-		Vertex({ XMFLOAT3(0.5, -0.5, 0.5f), XMFLOAT4(Colors::White), XMFLOAT2(0,1)}),//9
-		Vertex({ XMFLOAT3(0.5, 0.5f, 0.5f), XMFLOAT4(Colors::Black), XMFLOAT2(1,1)}),//10
-		Vertex({ XMFLOAT3(-0.5, 0.5, 0.5f), XMFLOAT4(Colors::Black), XMFLOAT2(1,0)}),//11
+		Vertex({ XMFLOAT3(-0.5, -0.5f, 0.5f), XMFLOAT4(Colors::White), XMFLOAT2(0,1)}),//8
+		Vertex({ XMFLOAT3(0.5, -0.5, 0.5f), XMFLOAT4(Colors::White), XMFLOAT2(1,1)}),//9
+		Vertex({ XMFLOAT3(0.5, 0.5f, 0.5f), XMFLOAT4(Colors::Black), XMFLOAT2(1,0)}),//10
+		Vertex({ XMFLOAT3(-0.5, 0.5, 0.5f), XMFLOAT4(Colors::Black), XMFLOAT2(0,0)}),//11
 
-		Vertex({ XMFLOAT3(0.5, 0.5, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//12
-		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//13
-		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//14
-		Vertex({ XMFLOAT3(0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,0)}),//15
+		Vertex({ XMFLOAT3(0.5, 0.5, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//12
+		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//13
+		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//14
+		Vertex({ XMFLOAT3(0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//15
 
 		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//16
 		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//17

@@ -8,6 +8,7 @@ ScriptProjectile::ScriptProjectile() {
 
 void ScriptProjectile::initProjectile(Entity* oEntity) {
 	setScript(oEntity);
+	oEntity->m_tTransform.translation({ 0.f, 0.f, -5.f });
 	
 	MeshRenderer* pMeshRenderer = oEntity->addComponent<MeshRenderer>();
 	pMeshRenderer->SetMeshRenderer(oEntity, App::Get()->m_oManager.m_oGraphics.m_d3dDevice,

@@ -35,10 +35,21 @@ void ScriptGame::update() {
 	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(2)) {
 		App::Get()->m_oManager.m_vEntity.pop_back();
 	}
-	if (App::Get()->m_oManager.m_oTimer.m_fDifflTime  > 5.0f) {
+	/*if (App::Get()->m_oManager.m_oTimer.m_fDifflTime  > 5.0f) {
 		createEnemy();
 		App::Get()->m_oManager.m_oTimer.m_fDifflTime = 0.0f;
+	}*/
+
+	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(65)) {
+
+		
+		
 	}
+	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(66)) {
+
+		
+	}
+	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2.0f);
 }
 
 void ScriptGame::createProjectile() {
