@@ -9,6 +9,8 @@ void InputManager::init() {
     for (int i = 0; i < 256; i++) {
         m_cTableau[i] = NoPress;
     }
+    m_iDeltaX = 0;
+    m_iDeltaY = 0;
 	
 }
 
@@ -56,6 +58,20 @@ void InputManager::update() {
         
 		
 	}
+
+
+    POINT currentMousePos;
+    GetCursorPos(&currentMousePos);
+
+    
+
+    // Calculez les différences de position de la souris entre les cadres
+    m_iDeltaX = currentMousePos.x - m_pLastMousePos.x;
+    m_iDeltaY = currentMousePos.y - m_pLastMousePos.y;
+
+    m_pLastMousePos = currentMousePos;
+
+    
 }
 
 bool InputManager::isKey(int i ) {

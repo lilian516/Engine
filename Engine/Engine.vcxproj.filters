@@ -82,6 +82,9 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Fichiers sources\Meshes</Filter>
     </ClCompile>
+    <ClCompile Include="ScriptManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h">
@@ -183,6 +186,7 @@
     <ClInclude Include="Skybox.h">
       <Filter>Fichier d%27en-tête\Meshes</Filter>
     </ClInclude>
+    <ClInclude Include="ScriptManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc" />

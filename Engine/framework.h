@@ -32,3 +32,4 @@
 #include "PenMesh.h"
 #include "Collider.h"
 #include "Skybox.h"
+#include "ScriptManager.h"
