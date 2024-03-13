@@ -33,6 +33,7 @@ void ScriptGame::initGame(Entity* oEntity) {
 	pMeshRendererMenu->SetMeshRenderer(pMenu, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMenuBox, pTexture);
 	pMeshRendererMenu->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
 	//pMeshRendererSky->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
+	createEnemy();
 }
 
 void ScriptGame::update() {
