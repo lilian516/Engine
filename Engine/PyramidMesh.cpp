@@ -11,11 +11,17 @@ PyramidMesh::~PyramidMesh() {
 void PyramidMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
-		Vertex({ XMFLOAT3(0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White) }),//0
-		Vertex({ XMFLOAT3(0.0f, -0.5f, -0.5f), XMFLOAT4(Colors::White) }),//1
-		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White) }),//2
-		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f), XMFLOAT4(Colors::White) }),//3
-		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(Colors::Blue) }),//4
+		Vertex({ XMFLOAT3(0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(0,1)}),//0
+		Vertex({ XMFLOAT3(0.0f, -0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//1
+		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//2
+		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//3
+		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(0,0) }),//4
+
+
+
+		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//5
+		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//6
+		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(1,0) }),//7
 
 	};
 	m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f };
@@ -29,7 +35,7 @@ void PyramidMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList*
 		// left front face
 		2, 4, 1,
 		// right back face
-		3, 4, 2,
+		6, 7, 5,
 		// left back face
 		0, 4, 3,
 
