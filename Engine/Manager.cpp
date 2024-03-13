@@ -59,8 +59,8 @@ Shader* Manager::createShader() {
 Texture* Manager::createTexture(std::string name, wstring filename) {
 	Texture* oTexture = new Texture();
 	oTexture->loadTextureFromFile(name, filename,m_oGraphics.m_d3dDevice,&m_oGraphics);
-	oTexture->buildSRVDescriptorHeap(m_oGraphics.m_d3dDevice,name, &m_oGraphics);
-	m_vTexture.push_back(oTexture);
+	m_vTexture.insert(std::make_pair(name,oTexture));
+	oTexture->buildSRVDescriptorHeap(m_oGraphics.m_d3dDevice,name, &m_oGraphics,m_vTexture);
 	return oTexture;
 }
 

@@ -16,7 +16,7 @@ public:
 	Texture();
 	~Texture();
 	void loadTextureFromFile(string name,wstring filename, ID3D12Device* device, Graphics* oGraphics);
-	void buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics* oGraphics);
+	void buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics* oGraphics, std::map<std::string, Texture*> soTexture);
 
 	UINT getDescriptorSize();
 	CD3DX12_CPU_DESCRIPTOR_HANDLE getDescriptorHandle();
@@ -24,7 +24,6 @@ public:
 
 	std::string m_Name;
 	std::wstring m_Filename;
-	std::map<std::string, Texture*> m_sTextures;
 
 	Microsoft::WRL::ComPtr<ID3D12Resource> m_rResource = nullptr;
 	Microsoft::WRL::ComPtr<ID3D12Resource> m_rUploadHeap = nullptr;
