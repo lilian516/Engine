@@ -15,7 +15,7 @@ void Camera::initCamera(Entity* oEntity,float aspectRatio, ID3D12Device* device)
     m_AspectRatio = aspectRatio;
     m_FovAngleY = DirectX::XMConvertToRadians(70.0f);
     m_NearZ = 0.1f;
-    m_FarZ = 1000.0f;
+    m_FarZ = 1500.0f;
     DirectX::XMMATRIX mProjMatrix = DirectX::XMMatrixPerspectiveFovLH(m_FovAngleY, m_AspectRatio, m_NearZ, m_FarZ);
 
     // Stocker la matrice de projection dans une variable mProj (par exemple)
