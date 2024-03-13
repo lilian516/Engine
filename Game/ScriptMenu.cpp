@@ -13,7 +13,7 @@ ScriptMenu::ScriptMenu() {
 void ScriptMenu::initMenu(Entity* oEntity) {
 	setScript(oEntity);
 
-	// bouton start
+	// boutton start
 	Entity* pButtonStart = App::Get()->m_oManager.createEntity();
 	Shader* pShader = App::Get()->m_oManager.createShader();
 	Texture* pTexture = App::Get()->m_oManager.createTexture("start",L"Texture/start.dds");
