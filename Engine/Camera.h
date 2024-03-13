@@ -15,9 +15,10 @@ public:
 	void update();
 	void change();
 	void changePos();
-	XMVECTOR getForwardVector();
+	
 	DirectX::XMFLOAT4X4* getProjMatrix();
 	UploadBuffer<ObjectConstants> *m_uCamCB;
+	
 
 private:
 	float m_fRotationSpeed;

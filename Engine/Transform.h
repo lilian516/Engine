@@ -17,6 +17,8 @@ struct Transform
 	XMFLOAT4 m_vRight;
 	XMFLOAT4 m_vUp;
 
+	XMFLOAT3 m_fTarget;
+
 	XMFLOAT4 m_qRotation;
 	XMFLOAT4X4 m_mRotation;
 
@@ -37,5 +39,6 @@ struct Transform
 	void scale(XMFLOAT3 ratio);
 	void translation(XMFLOAT3 vDirection);
 	void updateTransform();
+	XMVECTOR getForwardVector();
 };
 

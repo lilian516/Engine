@@ -8,9 +8,16 @@ ScriptProjectile::ScriptProjectile() {
 
 void ScriptProjectile::initProjectile(Entity* oEntity) {
 	setScript(oEntity);
-	m_mDir = { App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.x,
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.y,
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.z };
+	XMVECTOR vForward = App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().getForwardVector();
+	XMFLOAT3 fForward;
+	XMStoreFloat3(&fForward, vForward);
+	m_mDir = { fForward.x,
+		fForward.y,
+		fForward.z };
+
+	/*m_mDir = { App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.x,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.y,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.z };*/
 
 	oEntity->translate({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y -1.0f

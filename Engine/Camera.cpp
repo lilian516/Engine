@@ -43,7 +43,8 @@ void Camera::update() {
     XMVECTOR pos = XMLoadFloat3(&m_oEntity->getTransform().m_vPosition);
     //XMVECTOR target = XMLoadFloat4(&m_oEntity->getTransform().m_vDirection);
     XMVECTOR vPosition = XMLoadFloat3(&m_oEntity->getTransform().m_vPosition);
-    XMVECTOR target = XMVectorAdd(vPosition, getForwardVector());
+    XMVECTOR target = XMVectorAdd(vPosition, m_oEntity->getTransform().getForwardVector());
+    //XMStoreFloat3(&m_oEntity->m_tTransform.m_fTarget, target);
     //XMVECTOR up = XMLoadFloat4(&m_oEntity->getTransform().m_vUp);
     //XMVECTOR target = XMLoadFloat3(&m_oEntity->getTransform().m_vPosition);
     XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);  // lui il bouge pas
@@ -97,17 +98,3 @@ XMFLOAT4X4* Camera::getProjMatrix() {
     return &m_mMatrixProj;
 }
 
-XMVECTOR Camera::getForwardVector() {
-    // Construire une matrice de rotation à partir des angles d'Euler de la caméra
-
-    DirectX::XMMATRIX rotationMatrix = DirectX::XMMatrixRotationRollPitchYawFromVector(DirectX::XMLoadFloat3(&m_oEntity->m_tTransform.m_vRotation));
-
-    // Définir la direction avant comme l'axe z (0, 0, 1) transformé par la matrice de rotation
-    DirectX::XMVECTOR forward = DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
-    forward = DirectX::XMVector3TransformNormal(forward, rotationMatrix);
-
-    // Normaliser le vecteur résultant
-    forward = DirectX::XMVector3Normalize(forward);
-
-    return forward;
-}
