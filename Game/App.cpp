@@ -21,13 +21,13 @@ void App::initApp() {
 	m_oManager.initManager();
 	
 	
-	Entity* pEntity = m_oManager.createEntity();
+	Entity* pEntityGame = m_oManager.createEntity();
 	ScriptMenu* pScriptMenu = new ScriptMenu();
 	ScriptGame* pScriptGame = new ScriptGame();
-	pScriptGame->initGame(pEntity);
-	pScriptMenu->initMenu(pEntity);
-	ScriptManager* pScriptManager = pEntity->addComponent<ScriptManager>();
-	pScriptManager->setScriptManager<ScriptMenu,ScriptGame>(pEntity, pScriptMenu, pScriptGame);
+	pScriptGame->initGame(pEntityGame);
+	pScriptMenu->initMenu(pEntityGame);
+	ScriptManager* pScriptManager = pEntityGame->addComponent<ScriptManager>();
+	pScriptManager->setScriptManager<ScriptMenu,ScriptGame>(pEntityGame, pScriptMenu, pScriptGame);
 	pScriptMenu->setScriptManager(pScriptManager);
 	//template<typename T>
 	//test(T a);

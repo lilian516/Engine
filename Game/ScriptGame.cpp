@@ -11,36 +11,36 @@ ScriptGame::ScriptGame() {
 void ScriptGame::initGame(Entity* oEntity) {
 	setScript(oEntity);
 	App::Get()->m_oManager.m_oGraphics.createCam();
-	App::Get()->m_oManager.m_vEntity.push_back(App::Get()->m_oManager.m_oGraphics.m_oCamEntity);
-	Entity* pMenu = App::Get()->m_oManager.createEntity();
-	Entity* pCube = App::Get()->m_oManager.createEntity();
-	Entity* pCubeSky = App::Get()->m_oManager.createEntity();;
+	App::Get()->m_oManager.addEntity(App::Get()->m_oManager.m_oGraphics.m_oCamEntity);
+	//Entity* pMenu = App::Get()->m_oManager.createEntity();
+	//Entity* pCube = App::Get()->m_oManager.createEntity();
+	//Entity* pCubeSky = App::Get()->m_oManager.createEntity();
 
-	//pCube->m_tTransform.translation({0.0f,1.0f,0.0f});
-	Shader* pShader = App::Get()->m_oManager.createShader();
+	////pCube->m_tTransform.translation({0.0f,1.0f,0.0f});
+	//Shader* pShader = App::Get()->m_oManager.createShader();
 
-	Texture* pTexture = App::Get()->m_oManager.createTexture("viktor",L"Texture/image.dds");
-	Texture* pTextureSkybox = App::Get()->m_oManager.createTexture("apognan", L"Texture/sky.dds");
+	//Texture* pTexture = App::Get()->m_oManager.createTexture("viktor",L"Texture/image.dds");
+	//Texture* pTextureSkybox = App::Get()->m_oManager.createTexture("apognan", L"Texture/sky.dds");
 
-	Sprite* pMesh = App::Get()->m_oManager.createMesh<Sprite>();
-	BoxMesh* pMenuBox = App::Get()->m_oManager.createMesh<BoxMesh>();
-	PyramidMesh* pPyramid = App::Get()->m_oManager.createMesh<PyramidMesh>();
-	BoxMesh* pBox = App::Get()->m_oManager.createMesh<BoxMesh>();
-	Skybox* pSky = App::Get()->m_oManager.createMesh<Skybox>();
-
-
-	MeshRenderer* pMeshRenderer = pCube->addComponent<MeshRenderer>();
-	MeshRenderer* pMeshRendererMenu = pMenu->addComponent<MeshRenderer>();
-	MeshRenderer* pMeshRendererSky = pCubeSky->addComponent<MeshRenderer>();
-	pCubeSky->scale({ 800.0f,800.0f,800.0f });
+	//Sprite* pMesh = App::Get()->m_oManager.createMesh<Sprite>();
+	//BoxMesh* pMenuBox = App::Get()->m_oManager.createMesh<BoxMesh>();
+	//PyramidMesh* pPyramid = App::Get()->m_oManager.createMesh<PyramidMesh>();
+	//BoxMesh* pBox = App::Get()->m_oManager.createMesh<BoxMesh>();
+	//Skybox* pSky = App::Get()->m_oManager.createMesh<Skybox>();
 
 
-	pMeshRendererSky->SetMeshRenderer(pCubeSky, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pSky, pTextureSkybox);
-	pMeshRenderer->SetMeshRenderer(pCube, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMesh, pTexture);
-	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
-	pMeshRendererMenu->SetMeshRenderer(pMenu, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMenuBox, pTexture);
-	pMeshRendererMenu->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
-	pMeshRendererSky->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
+	//MeshRenderer* pMeshRenderer = pCube->addComponent<MeshRenderer>();
+	//MeshRenderer* pMeshRendererMenu = pMenu->addComponent<MeshRenderer>();
+	//MeshRenderer* pMeshRendererSky = pCubeSky->addComponent<MeshRenderer>();
+	//pCubeSky->scale({ 800.0f,800.0f,800.0f });
+
+
+	//pMeshRendererSky->SetMeshRenderer(pCubeSky, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pSky, pTextureSkybox);
+	//pMeshRenderer->SetMeshRenderer(pCube, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMesh, pTexture);
+	//pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
+	//pMeshRendererMenu->SetMeshRenderer(pMenu, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMenuBox, pTexture);
+	//pMeshRendererMenu->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
+	//pMeshRendererSky->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
 }
 
 void ScriptGame::update() {
@@ -133,9 +133,3 @@ void ScriptGame::createEnemy() {
 	pScript->initEnemy(pEnemy);
 }
 
-void ScriptGame::createMenu() {
-	Entity* pMenu = App::Get()->m_oManager.createEntity();
-
-	ScriptMenu* pScriptMenu = pMenu->addComponent<ScriptMenu>();
-	pScriptMenu->initMenu(pMenu);
-}

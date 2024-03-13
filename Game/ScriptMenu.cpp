@@ -26,44 +26,44 @@ void ScriptMenu::initMenu(Entity* oEntity) {
 }
 
 void ScriptMenu::update() {
-	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(1)) {
-		POINT cursorPos;
-		GetCursorPos(&cursorPos);
+	//if (App::Get()->m_oManager.m_oInputManager.isKeyDown(1)) {
+	//	POINT cursorPos;
+	//	GetCursorPos(&cursorPos);
 
-		createProjectile();
+	//	createProjectile();
 
-	}
-	if (App::Get()->m_oManager.m_oTimer.m_fDifflTime > 5.0f) {
-		App::Get()->m_oManager.m_oTimer.m_fDifflTime = 0.0f;
-	}
+	//}
+	//if (App::Get()->m_oManager.m_oTimer.m_fDifflTime > 5.0f) {
+	//	App::Get()->m_oManager.m_oTimer.m_fDifflTime = 0.0f;
+	//}
 
-	/*if (App::Get()->m_oManager.m_oInputManager.isKey(65)) {
+	///*if (App::Get()->m_oManager.m_oInputManager.isKey(65)) {
 
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({0.0f,0.0f,0.001f});
+	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({0.0f,0.0f,0.001f});
 
-	}*/
-	if (App::Get()->m_oManager.m_oInputManager.isKey(81)) {  //gauche
-		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ -0.005f,0.0f,0.0f });
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(-0.5f));
+	//}*/
+	//if (App::Get()->m_oManager.m_oInputManager.isKey(81)) {  //gauche
+	//	//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ -0.005f,0.0f,0.0f });
+	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(-0.5f));
 
-	}
-	if (App::Get()->m_oManager.m_oInputManager.isKey(83)) { // bas
+	//}
+	//if (App::Get()->m_oManager.m_oInputManager.isKey(83)) { // bas
 
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.5f), 0.0f, 0.0f);
+	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.5f), 0.0f, 0.0f);
 
-	}
-	if (App::Get()->m_oManager.m_oInputManager.isKey(68)) {  //droite
-		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ 0.005f,0.0f,0.0f });
-		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-10.f), 0.0f, 0.0f);
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.5f));
+	//}
+	//if (App::Get()->m_oManager.m_oInputManager.isKey(68)) {  //droite
+	//	//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ 0.005f,0.0f,0.0f });
+	//	//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-10.f), 0.0f, 0.0f);
+	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.5f));
 
-	}
-	if (App::Get()->m_oManager.m_oInputManager.isKey(90)) {  //haut
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
+	//}
+	//if (App::Get()->m_oManager.m_oInputManager.isKey(90)) {  //haut
+	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
 
 
-	}
-	if (App::Get()->m_oManager.m_oInputManager.isKey(87)) {
+	//}
+	if (App::Get()->m_oManager.m_oInputManager.isKey(65)) {
 		m_oScriptManager->updateState();
 	}
 }
