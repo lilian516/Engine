@@ -13,6 +13,17 @@ ScriptMenu::ScriptMenu() {
 void ScriptMenu::initMenu(Entity* oEntity) {
 	setScript(oEntity);
 
+	// bouton start
+	Entity* pButtonStart = App::Get()->m_oManager.createEntity();
+	Shader* pShader = App::Get()->m_oManager.createShader();
+	Texture* pTexture = App::Get()->m_oManager.createTexture("start",L"Texture/start.dds");
+	Sprite* pSprite = App::Get()->m_oManager.createMesh<Sprite>();
+	MeshRenderer* pMeshRenderer = pButtonStart->addComponent<MeshRenderer>();
+	pMeshRenderer->SetMeshRenderer(pButtonStart, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pSprite, pTexture);
+	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
+	pButtonStart->m_tTransform.translation({0.0f,2.0f,-2.0f});
+
+
 	/*std::random_device rd;
 	std::default_random_engine eng(rd());
 	std::uniform_real_distribution<> distr(10.0f, 20.0f);
