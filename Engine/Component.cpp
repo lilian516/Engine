@@ -5,7 +5,7 @@ Component::Component() {
 }
 
 Component::~Component() {
-
+	
 }
 
 void Component::initComponent(int iId, Entity* oEntity) {

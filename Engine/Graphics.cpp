@@ -638,5 +638,14 @@ bool Graphics::deleteDirectX() {
 
 Graphics::~Graphics() {
 	delete m_d3dDevice;
+	delete m_fDxgiFactory;
+	delete m_fFence;
+	delete m_cCommandQueue;
+	delete m_cDirectCmdListAlloc;
+	delete m_cCommandList;
+	delete m_cSwapChain;
+	delete m_dRtvHeap;
+	delete m_dDsvHeap;
+	delete m_dConstantBufferViewHeapDescriptor;
 
 }

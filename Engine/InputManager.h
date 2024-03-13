@@ -14,6 +14,8 @@ public:
 	bool isKey(int i); //Press/Down
 	bool isKeyDown(int i);
 	bool isKeyUp(int i);
+
+
 	int m_iDeltaX;
 	int m_iDeltaY;
 	

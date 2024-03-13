@@ -27,7 +27,7 @@ Mesh::Mesh() {
 }
 
 Mesh::~Mesh() {
-
+	
 }
 
 void Mesh::update() {

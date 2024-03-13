@@ -3,7 +3,9 @@
 Transform::Transform() {
 
 }
-Transform::~Transform() {}
+Transform::~Transform() {
+
+}
 
 void Transform::identify() {
 	//-- SCALING --//

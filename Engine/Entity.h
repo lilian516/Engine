@@ -31,27 +31,31 @@ private:
 
 public:
 
-	vector<Component*> m_vComponents;
-	Transform m_tTransform;
-	AABB m_aBox;
+	
 
 	Entity();
 	~Entity();
 	void initEntity();
 	void addComponents(Component* cComponent);
-	
 	void move(float fDeltaTime, float fSpeed, XMVECTOR vDir);
 	void translate(XMFLOAT3 vDir);
 	void rotate(float pitch, float roll, float yaw);
 	void scale(XMFLOAT3 ratio);
-	Transform& getTransform();
-	vector<Component*> getVectorComponents();
 	void SRT();
 	virtual void update();
 	virtual void render(Graphics* oGraphics);
+	Transform& getTransform();
+	vector<Component*> getVectorComponents();
+
+
+
 	float m_fRadius = 5.0f;
 	float m_fTheta = 1.5f * XM_PI;
 	float m_fPhi = XM_PIDIV4;
+
+	vector<Component*> m_vComponents;
+	Transform m_tTransform;
+	AABB m_aBox;
 
 	template<typename T>
 	T* addComponent();

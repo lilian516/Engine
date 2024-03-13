@@ -4,7 +4,7 @@ Camera::Camera() {
 }
 
 Camera::~Camera() {
-
+    delete camTransform;
 }
 
 void Camera::initCamera(Entity* oEntity,float aspectRatio, ID3D12Device* device) {

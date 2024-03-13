@@ -7,7 +7,13 @@ Collider::Collider() {
 }
 
 Collider::~Collider() {
-
+	delete m_eCollidingEntity;
+	for (Entity* ptr : m_vColliderEntity) {
+		// Libérer la mémoire allouée pour chaque pointeur
+		delete ptr;
+	}
+	// Effacer tous les éléments du vecteur
+	m_vColliderEntity.clear();
 }
 
 void Collider::setCollider(Entity* oEntity, vector<Entity*> vColliderEntity) {

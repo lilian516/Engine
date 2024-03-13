@@ -61,9 +61,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>Fichiers sources\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Fichiers sources\Components</Filter>
-    </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
       <Filter>Fichiers sources\Components</Filter>
     </ClCompile>
@@ -171,9 +168,6 @@
     <ClInclude Include="Component.h">
       <Filter>Fichier d%27en-tête\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>Fichier d%27en-tête\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleSystem.h">
       <Filter>Fichier d%27en-tête\Components</Filter>
     </ClInclude>
@@ -186,14 +180,17 @@
     <ClInclude Include="Skybox.h">
       <Filter>Fichier d%27en-tête\Meshes</Filter>
     </ClInclude>
-    <ClInclude Include="ScriptManager.h" />
+    <ClInclude Include="ScriptManager.h">
+      <Filter>Fichier d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Engine.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Engine.ico" />
-    <Image Include="small.ico" />
+    <Image Include="Engine.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Fichier d%27en-tête">
@@ -214,10 +211,18 @@
     <Filter Include="Fichiers sources\Meshes">
       <UniqueIdentifier>{a08401f6-3ed9-4782-abef-c5e269979d2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{04e55dc3-037a-4419-be3c-50007b0d4b3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader.hlsl">
       <Filter>Fichiers sources</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

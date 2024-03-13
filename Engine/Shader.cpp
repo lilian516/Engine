@@ -15,9 +15,14 @@ Shader::Shader() {
 }
 
 Shader::~Shader() {
-
+	delete m_d3dPipelineState;
+	delete m_d3dRootSignature;
+	delete m_rConstantBuffer;
 }
-void Shader::update() {}
+
+
+void Shader::update() {
+}
 
 void Shader::init(ID3D12Device* device) {
 	initializeRootSignature(device);

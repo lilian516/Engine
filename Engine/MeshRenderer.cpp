@@ -6,6 +6,9 @@ MeshRenderer::MeshRenderer() {
 }
 
 MeshRenderer::~MeshRenderer() {
+	delete m_oShader;
+	delete m_oMesh;
+	delete m_oTexture;
 }
 
 void MeshRenderer::SetMeshRenderer(Entity *oEntity, ID3D12Device* device, Shader* oShader, Mesh* oMesh, Texture* oTexture) {

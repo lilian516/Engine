@@ -2,20 +2,7 @@
 //
 
 #include "framework.h"
-#include "Engine.h"
-#include "Graphics.h"
-#include "Manager.h"
-#include "MeshRenderer.h"
-#include "Entity.h"
-#include "Mesh.h"
-#include "Shader.h"
-#include "BoxMesh.h"
-#include "PyramidMesh.h"
-#include "PenMesh.h"
-#include "Sprite.h"
-#include "Texture.h"
-#include "Collider.h"
-#include "Camera.h"
+
 #include "ParticleSystem.h"
 
 #define MAX_LOADSTRING 100

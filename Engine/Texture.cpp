@@ -8,7 +8,9 @@
 	Check(SUCCEEDED(hresult))
 
 Texture::Texture() {}
-Texture::~Texture() {}
+Texture::~Texture() {
+	delete HeapDesc;
+}
 
 void Texture::loadTextureFromFile(std::string name, wstring filename, ID3D12Device* device, Graphics* oGraphics) {
 	oGraphics->m_cDirectCmdListAlloc->Reset();

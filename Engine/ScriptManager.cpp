@@ -25,3 +25,9 @@ void ScriptManager::updateState() {
 		break;
 	}
 }
+
+
+ScriptManager::~ScriptManager() {
+	delete m_oScript1;
+	delete m_oScript2;
+}

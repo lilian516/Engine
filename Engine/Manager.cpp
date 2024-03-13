@@ -117,6 +117,10 @@ Manager::~Manager() {
 		delete ptr;
 	}
 	m_vCollideEntity.clear();
+	/*for (Texture* ptr : m_vTexture) {
+		delete ptr;
+	}
+	m_vTexture.clear();*/
 	
 }
 

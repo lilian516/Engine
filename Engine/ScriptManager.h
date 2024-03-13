@@ -2,10 +2,11 @@
 #include "Component.h"
 #include "Script.h"
 
-class ScriptManager : public Component
+class ScriptManager : public Script
 {
 public:
 	ScriptManager();
+	~ScriptManager();
 	template<typename S1, typename S2>
 	void setScriptManager(Entity* oEntity, S1* oScript1, S2* oScript2);
 	void update()override;
