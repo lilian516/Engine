@@ -31,7 +31,15 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 void ScriptProjectile::update() {
 	XMVECTOR vDir = { m_mDir.x,m_mDir.y,m_mDir.z};
 	m_oEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 10, vDir);
-	if (m_oEntity->m_tTransform.m_vPosition.z > 5) {
+	m_oEntity->getTransform().m_vPosition;
+	XMFLOAT4 fPostionProjectile = { m_oEntity->getTransform().m_vPosition.x, 
+		m_oEntity->getTransform().m_vPosition .y, 
+		m_oEntity->getTransform().m_vPosition .z, 0.0f};
+	XMFLOAT4 fPostionCamera = { App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z, 0.0f };
+	float distance = distanceCalcul(fPostionProjectile, fPostionCamera);
+	if (distance > 20) {
 		App::Get()->m_oManager.deleteEntity(m_oEntity);
 	}
 	

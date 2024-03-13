@@ -41,10 +41,10 @@ void ScriptGame::update() {
 	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(2)) {
 		App::Get()->m_oManager.m_vEntity.pop_back();
 	}
-	/*if (App::Get()->m_oManager.m_oTimer.m_fDifflTime  > 5.0f) {
+	if (App::Get()->m_oManager.m_oTimer.m_fDifflTime  > 5.0f) {
 		createEnemy();
 		App::Get()->m_oManager.m_oTimer.m_fDifflTime = 0.0f;
-	}*/
+	}
 
 	/*if (App::Get()->m_oManager.m_oInputManager.isKey(65)) {
 
