@@ -19,16 +19,17 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.y,
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.z };*/
 
-	oEntity->translate({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
-		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y -1.0f
-		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z});
+	
 	
 	MeshRenderer* pMeshRenderer = oEntity->addComponent<MeshRenderer>();
 	pMeshRenderer->SetMeshRenderer(oEntity, App::Get()->m_oManager.m_oGraphics.m_d3dDevice,
 		App::Get()->m_oManager.m_vShader[0], 
 		App::Get()->m_oManager.m_vMesh[2], 
-		App::Get()->m_oManager.m_vTexture[0]);
+		App::Get()->m_oManager.m_vTexture.find("apognan")->second);
 	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
+	oEntity->translate({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
+		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y - 1.0f
+		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z });
 	ColliderGame* pCollider = oEntity->addComponent<ColliderGame>();
 	App::Get()->m_oManager.addCollideEntity(oEntity);
 	pCollider->setCollider(oEntity, App::Get()->m_oManager.m_vCollideEntity);
@@ -46,7 +47,13 @@ void ScriptProjectile::update() {
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y,
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z, 0.0f };
 	float distance = distanceCalcul(fPostionProjectile, fPostionCamera);
-	if (distance > 20) {
+	int collideState;
+	for (int i = 0; i < m_oEntity->getVectorComponents().size(); i++) {
+		if (Collider* collider = dynamic_cast<Collider*>(m_oEntity->getVectorComponents()[i])) {
+			collideState = collider->m_cCollision;
+		}
+	}
+	if (distance > 40.0f && collideState != 1) {
 		App::Get()->m_oManager.deleteEntity(m_oEntity);
 	}
 	
