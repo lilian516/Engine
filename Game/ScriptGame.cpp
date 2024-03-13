@@ -46,7 +46,7 @@ void ScriptGame::update() {
 	/*if (App::Get()->m_oManager.m_oTimer.m_fDifflTime  > 5.0f) {
 		createEnemy();
 		App::Get()->m_oManager.m_oTimer.m_fDifflTime = 0.0f;
-	}*/
+	}
 
 	/*if (App::Get()->m_oManager.m_oInputManager.isKey(65)) {
 

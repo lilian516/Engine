@@ -14,7 +14,7 @@ void ScriptEnemy::initEnemy(Entity* oEntity) {
 
 	std::random_device rd;
 	std::default_random_engine eng(rd());
-	std::uniform_real_distribution<> distr(0.0f, 2.0f);
+	std::uniform_real_distribution<> distr(10.0f, 20.0f);
 	double x = distr(eng);
 	double y = distr(eng);
 	double z = distr(eng);
