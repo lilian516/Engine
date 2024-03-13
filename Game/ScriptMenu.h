@@ -6,5 +6,9 @@ public:
 	ScriptMenu();
 	void initMenu(Entity* oEntity);
 	void update()override;
+	void setScriptManager(ScriptManager* oScriptManager);
+	void createProjectile();
+
+	ScriptManager* m_oScriptManager;
 };
 
