@@ -11,35 +11,35 @@ Skybox::~Skybox() {
 void Skybox::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
-		Vertex({ XMFLOAT3(-500.0f, 500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//0
-		Vertex({ XMFLOAT3(500.0f, 500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//1
-		Vertex({ XMFLOAT3(500.0f, -500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//2
-		Vertex({ XMFLOAT3(-500.0f, -500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//3
+		Vertex({ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//0
+		Vertex({ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//1
+		Vertex({ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//2
+		Vertex({ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//3
 
-		Vertex({ XMFLOAT3(-500.0f, 500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//4
-		Vertex({ XMFLOAT3(-500.0f, 500.0f, 500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//5
-		Vertex({ XMFLOAT3(-500.0f, -500.0f, 500.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//6
-		Vertex({ XMFLOAT3(-500.0f, -500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//7
+		Vertex({ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//4
+		Vertex({ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//5
+		Vertex({ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//6
+		Vertex({ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//7
 
-		Vertex({ XMFLOAT3(-500.0f, -500.0f, 500.0f), XMFLOAT4(Colors::Black), XMFLOAT2(0,0)}),//8
-		Vertex({ XMFLOAT3(500.0f, -500.0f, 500.0f), XMFLOAT4(Colors::Black), XMFLOAT2(0,1)}),//9
-		Vertex({ XMFLOAT3(500.0f, 500.0f, 500.0f), XMFLOAT4(Colors::Black), XMFLOAT2(1,1)}),//10
-		Vertex({ XMFLOAT3(-500.0f, 500.0f, 500.0f), XMFLOAT4(Colors::Black), XMFLOAT2(1,0)}),//11
+		Vertex({ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(Colors::Black), XMFLOAT2(0,0)}),//8
+		Vertex({ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(Colors::Black), XMFLOAT2(0,1)}),//9
+		Vertex({ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(Colors::Black), XMFLOAT2(1,1)}),//10
+		Vertex({ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(Colors::Black), XMFLOAT2(1,0)}),//11
 
-		Vertex({ XMFLOAT3(500.0f, 500.0f, 500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//12
-		Vertex({ XMFLOAT3(500.0f, 500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//13
-		Vertex({ XMFLOAT3(500.0f, -500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//14
-		Vertex({ XMFLOAT3(500.0f, -500.0f, 500.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,0)}),//15
+		Vertex({ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//12
+		Vertex({ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//13
+		Vertex({ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//14
+		Vertex({ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,0)}),//15
 
-		Vertex({ XMFLOAT3(-500.0f, 500.0f, 500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//16
-		Vertex({ XMFLOAT3(-500.0f, 500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//17
-		Vertex({ XMFLOAT3(500.0f, 500.0f, -500.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//18
-		Vertex({ XMFLOAT3(500.0f, 500.0f, 500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//19
+		Vertex({ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//16
+		Vertex({ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//17
+		Vertex({ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//18
+		Vertex({ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//19
 
-		Vertex({ XMFLOAT3(-500.0f, -500.0f, 500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//20
-		Vertex({ XMFLOAT3(-500.0f, -500.0f, -500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//21
-		Vertex({ XMFLOAT3(500.0f, -500.0f, -500.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//22
-		Vertex({ XMFLOAT3(500.0f, -500.0f, 500.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//23
+		Vertex({ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,0) }),//20
+		Vertex({ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//21
+		Vertex({ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//22
+		Vertex({ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//23
 
 	};
 	m_mMesh.vertices = std::move(vertices);
