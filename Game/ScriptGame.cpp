@@ -3,6 +3,7 @@
 #include "framework.h"
 #include "ScriptProjectile.h"
 #include "ScriptEnemy.h"
+#include "ScriptMenu.h"
 ScriptGame::ScriptGame() {
 
 }
@@ -35,7 +36,7 @@ void ScriptGame::initGame(Entity* oEntity) {
 }
 
 void ScriptGame::update() {
-
+	
 	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(1)) {
 		POINT cursorPos;
 		GetCursorPos(&cursorPos);
@@ -91,4 +92,11 @@ void ScriptGame::createEnemy() {
 
 	ScriptEnemy* pScript = pEnemy->addComponent<ScriptEnemy>();
 	pScript->initEnemy(pEnemy);
+}
+
+void ScriptGame::createMenu() {
+	Entity* pMenu = App::Get()->m_oManager.createEntity();
+
+	ScriptMenu* pScriptMenu = pMenu->addComponent<ScriptMenu>();
+	pScriptMenu->initMenu(pMenu);
 }
