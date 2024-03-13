@@ -33,5 +33,7 @@ public:
 	UINT m_uCbvSrvDescriptorSize;
 	CD3DX12_CPU_DESCRIPTOR_HANDLE m_dDescriptorHandle;
 	CD3DX12_GPU_DESCRIPTOR_HANDLE m_dDescriptorHandleGPU;
+	UINT m_DescriptorIndexCPU = 0; // Suivi de l'index du prochain emplacement disponible dans le heap de descripteurs CPU
+	UINT m_DescriptorIndexGPU = 0; // Suivi de l'index du prochain emplacement disponible dans le heap de descripteurs GPU
 };
 

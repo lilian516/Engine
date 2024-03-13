@@ -12,14 +12,14 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.y,
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vDirection.z };
 
-	oEntity->m_tTransform.translation({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
+	oEntity->translate({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y -1.0f
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z});
 	
 	MeshRenderer* pMeshRenderer = oEntity->addComponent<MeshRenderer>();
 	pMeshRenderer->SetMeshRenderer(oEntity, App::Get()->m_oManager.m_oGraphics.m_d3dDevice,
 		App::Get()->m_oManager.m_vShader[0], 
-		App::Get()->m_oManager.m_vMesh[1], 
+		App::Get()->m_oManager.m_vMesh[2], 
 		App::Get()->m_oManager.m_vTexture[0]);
 	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
 	ColliderGame* pCollider = oEntity->addComponent<ColliderGame>();

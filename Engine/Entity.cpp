@@ -48,6 +48,12 @@ void Entity::move(float fDeltaTime, float fSpeed, XMVECTOR vDir) {
 	m_aBox.pCenter = m_tTransform.m_vPosition;
 }
 
+void Entity::translate(XMFLOAT3 vDir) {
+	m_tTransform.translation(vDir);
+	m_tTransform.updateTransform();
+	m_aBox.pCenter = m_tTransform.m_vPosition;
+}
+
 void Entity::rotate(float pitch, float roll, float yaw) {
 	m_tTransform.rotate(pitch, roll, yaw);
 	m_tTransform.updateTransform();

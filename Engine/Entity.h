@@ -41,6 +41,7 @@ public:
 	void addComponents(Component* cComponent);
 	
 	void move(float fDeltaTime, float fSpeed, XMVECTOR vDir);
+	void translate(XMFLOAT3 vDir);
 	void rotate(float pitch, float roll, float yaw);
 	void scale(XMFLOAT3 ratio);
 	Transform& getTransform();

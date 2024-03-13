@@ -22,8 +22,10 @@ void Texture::loadTextureFromFile(std::string name, wstring filename, ID3D12Devi
 
 void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics* oGraphics) {
 	
-	m_dDescriptorHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetCPUDescriptorHandleForHeapStart());
+	m_dDescriptorHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetCPUDescriptorHandleForHeapStart(), m_DescriptorIndexCPU, device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
 	//hDescriptor.Offset(itex, )
+	m_dDescriptorHandleGPU = CD3DX12_GPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetGPUDescriptorHandleForHeapStart(), m_DescriptorIndexGPU, device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)), m_DescriptorIndexGPU;
+	//m_dDescriptorGPU.Offset(itex, )
 
 	auto CreateText = m_sTextures[name]->m_rResource;
 
@@ -37,6 +39,8 @@ void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics
 
 	device->CreateShaderResourceView(CreateText.Get(), &srvDesc, m_dDescriptorHandle);
 
+	
+
 	oGraphics->m_cCommandList->Close();
 	ID3D12CommandList* cmdsLists[] = { oGraphics->m_cCommandList };
 	oGraphics->m_cCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
@@ -45,8 +49,8 @@ void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics
 	oGraphics->flushCommandQueue();
 	m_rUploadHeap.Reset();
 
-	m_dDescriptorHandleGPU = CD3DX12_GPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetGPUDescriptorHandleForHeapStart());
-	//m_dDescriptorGPU.Offset(itex, )
+	m_DescriptorIndexCPU += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	m_DescriptorIndexGPU += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 }
 
 
