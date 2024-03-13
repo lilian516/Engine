@@ -13,31 +13,28 @@ Texture::~Texture() {}
 void Texture::loadTextureFromFile(std::string name, wstring filename, ID3D12Device* device, Graphics* oGraphics) {
 	oGraphics->m_cDirectCmdListAlloc->Reset();
 	oGraphics->m_cCommandList->Reset(oGraphics->m_cDirectCmdListAlloc, nullptr);
+	m_Name = name;
+	m_Filename = filename;
+	CheckSucceded(DirectX::CreateDDSTextureFromFile12(device, oGraphics->m_cCommandList, filename.c_str(), m_rResource, m_rUploadHeap));
 	
-	this->m_Name = name;
-	this->m_Filename = filename;
-	CheckSucceded(DirectX::CreateDDSTextureFromFile12(device, oGraphics->m_cCommandList, this->m_Filename.c_str(), m_rResource, m_rUploadHeap));
-	m_sTextures[name] = std::move(this);
 }
 
-void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics* oGraphics) {
-	
-	m_dDescriptorHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetCPUDescriptorHandleForHeapStart(), m_DescriptorIndexCPU, device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
-	//hDescriptor.Offset(itex, )
-	m_dDescriptorHandleGPU = CD3DX12_GPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetGPUDescriptorHandleForHeapStart(), m_DescriptorIndexGPU, device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)), m_DescriptorIndexGPU;
-	//m_dDescriptorGPU.Offset(itex, )
-
-	auto CreateText = m_sTextures[name]->m_rResource;
+void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics* oGraphics, std::map<std::string, Texture*> soTexture) {
+	m_uCbvSrvDescriptorSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	m_dDescriptorHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetCPUDescriptorHandleForHeapStart());
+	m_dDescriptorHandle.Offset(soTexture.size() - 1, m_uCbvSrvDescriptorSize);
+	m_dDescriptorHandleGPU = CD3DX12_GPU_DESCRIPTOR_HANDLE(oGraphics->m_dConstantBufferViewHeapDescriptor->GetGPUDescriptorHandleForHeapStart());
+	m_dDescriptorHandleGPU.Offset(soTexture.size() - 1, m_uCbvSrvDescriptorSize);
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.Format = m_sTextures[name]->m_rResource->GetDesc().Format;
+	srvDesc.Format = m_rResource->GetDesc().Format;
 	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MostDetailedMip = 0;
-	srvDesc.Texture2D.MipLevels = m_sTextures[name]->m_rResource->GetDesc().MipLevels;
+	srvDesc.Texture2D.MipLevels = m_rResource->GetDesc().MipLevels;
 	srvDesc.Texture2D.ResourceMinLODClamp = 0.0f;
 
-	device->CreateShaderResourceView(CreateText.Get(), &srvDesc, m_dDescriptorHandle);
+	device->CreateShaderResourceView(m_rResource.Get(), &srvDesc, m_dDescriptorHandle);
 
 	
 
@@ -48,9 +45,6 @@ void Texture::buildSRVDescriptorHeap(ID3D12Device* device, string name, Graphics
 	// Wait until initialization is complete.
 	oGraphics->flushCommandQueue();
 	m_rUploadHeap.Reset();
-
-	m_DescriptorIndexCPU += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	m_DescriptorIndexGPU += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 }
 
 

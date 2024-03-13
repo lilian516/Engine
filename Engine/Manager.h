@@ -8,6 +8,9 @@
 #include "Timer.h"
 #include <vector>
 #include <iostream>
+#include <string>
+#include <map>
+#include <memory>
 #include "framework.h"
 
 using namespace std;
@@ -39,7 +42,7 @@ public :
 	vector<Entity*> m_vCollideEntity;
 	vector<Entity*> m_vEntity;
 	vector<Mesh*> m_vMesh;
-	vector<Texture*> m_vTexture;
+	std::map<std::string, Texture*> m_vTexture;
 	vector<Shader*> m_vShader;
 	
 	
