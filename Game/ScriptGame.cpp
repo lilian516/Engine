@@ -15,18 +15,25 @@ void ScriptGame::initGame(Entity* oEntity) {
 	Entity* pMenu = App::Get()->m_oManager.createEntity();
 	Entity* pCube = App::Get()->m_oManager.createEntity();
 	//Entity* pCubeSky = App::Get()->m_oManager.createEntity();;
+
 	//pCube->m_tTransform.translation({0.0f,1.0f,0.0f});
 	Shader* pShader = App::Get()->m_oManager.createShader();
-	Texture* pTexture = App::Get()->m_oManager.createTexture("test",L"Texture/image.dds");
-	/*Texture* pTextureSkybox = App::Get()->m_oManager.createTexture("test",L"Texture/sky.dds");*/
+
+	Texture* pTexture = App::Get()->m_oManager.createTexture("viktor",L"Texture/image.dds");
+	Texture* pTextureSkybox = App::Get()->m_oManager.createTexture("apognan", L"Texture/sky.dds");
+
 	Sprite* pMesh = App::Get()->m_oManager.createMesh<Sprite>();
 	BoxMesh* pMenuBox = App::Get()->m_oManager.createMesh<BoxMesh>();
 	PyramidMesh* pPyramid = App::Get()->m_oManager.createMesh<PyramidMesh>();
 	BoxMesh* pBox = App::Get()->m_oManager.createMesh<BoxMesh>();
-	//Skybox* pSky = App::Get()->m_oManager.createMesh<Skybox>();
+	Skybox* pSky = App::Get()->m_oManager.createMesh<Skybox>();
+
+
 	MeshRenderer* pMeshRenderer = pCube->addComponent<MeshRenderer>();
 	MeshRenderer* pMeshRendererMenu = pMenu->addComponent<MeshRenderer>();
 	//MeshRenderer* pMeshRendererSky = pCubeSky->addComponent<MeshRenderer>();
+
+
 	//pMeshRendererSky->SetMeshRenderer(pCubeSky, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pSky, pTextureSkybox);
 	pMeshRenderer->SetMeshRenderer(pCube, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, pShader, pMesh, pTexture);
 	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
@@ -57,22 +64,22 @@ void ScriptGame::update() {
 	}*/
 	if (App::Get()->m_oManager.m_oInputManager.isKey(81)) {  //gauche
 		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ -0.005f,0.0f,0.0f });
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate( 0.0f,0.0f, XMConvertToRadians(-1.f));
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate( 0.0f,0.0f, XMConvertToRadians(-0.5f));
 		
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(83)) { // bas
 		
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(1.f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.5f), 0.0f, 0.0f);
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(68)) {  //droite
 		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ 0.005f,0.0f,0.0f });
 		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-10.f), 0.0f, 0.0f);
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(1.f));
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.5f));
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(90)) {  //haut
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-1.f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
 		
 
 	}

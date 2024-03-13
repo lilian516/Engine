@@ -18,7 +18,7 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 	pMeshRenderer->SetMeshRenderer(oEntity, App::Get()->m_oManager.m_oGraphics.m_d3dDevice,
 		App::Get()->m_oManager.m_vShader[0], 
 		App::Get()->m_oManager.m_vMesh[2], 
-		App::Get()->m_oManager.m_vTexture[0]);
+		App::Get()->m_oManager.m_vTexture.find("apognan")->second);
 	pMeshRenderer->buildConstantBuffers(App::Get()->m_oManager.m_oGraphics.m_d3dDevice);
 	oEntity->translate({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y - 1.0f
