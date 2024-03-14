@@ -69,8 +69,13 @@ void Collider::noCollision() {
 				m_cCollision = NoCollision;
 			}
 			else {
-				m_cCollision = FirstCollision;
-				m_eCollidingEntity = entity;
+				Collider* entityCollider = getCollider(entity);
+				if (entityCollider->m_cCollision == NoCollision && m_cCollision == NoCollision) {
+					entityCollider->m_cCollision = FirstCollision;
+					m_cCollision = FirstCollision;
+					m_eCollidingEntity = entity;
+					return;
+				}
 			}
 		}
 	}
@@ -78,4 +83,12 @@ void Collider::noCollision() {
 
 Entity* Collider::getCollidingEntity() {
 	return m_eCollidingEntity;
+}
+
+Collider* Collider::getCollider(Entity* colliderEntity) {
+	for (Component* entityComponent : colliderEntity->m_vComponents) {
+		if (Collider* collider = dynamic_cast<Collider*>(entityComponent)) {
+			return collider;
+		}
+	}
 }
