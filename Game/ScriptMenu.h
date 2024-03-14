@@ -10,5 +10,7 @@ public:
 	void createProjectile();
 
 	ScriptManager* m_oScriptManager;
+	Entity* m_pButtonStart;
+	Entity* m_pMenu;
 };
 
