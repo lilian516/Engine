@@ -22,7 +22,10 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 		App::Get()->m_oManager.m_vShader[0], 
 		App::Get()->m_oManager.m_vMesh[2], 
 		App::Get()->m_oManager.m_vTexture.find("laser")->second);
-
+	oEntity->rotate(App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.x,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.z,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.y);
+	oEntity->scale({ 0.1,0.7,0.1 });
 	oEntity->translate({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y - 0.5f
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z });

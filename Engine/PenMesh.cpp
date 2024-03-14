@@ -11,51 +11,51 @@ PenMesh::~PenMesh() {
 void PenMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
-		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//0
-		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//1
-		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//2
-		Vertex({ XMFLOAT3(-0.5, -0.5, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//3
+		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f),XMFLOAT2(1,0) }),//0
+		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f),XMFLOAT2(0,0) }),//1
+		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f),XMFLOAT2(0,1) }),//2
+		Vertex({ XMFLOAT3(-0.5, -0.5, -0.5f),XMFLOAT2(1,1) }),//3
 
-		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//4
-		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//5
-		Vertex({ XMFLOAT3(-0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(0,1)}),//6
-		Vertex({ XMFLOAT3(-0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,1) }),//7
+		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f),XMFLOAT2(1,0) }),//4
+		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f),XMFLOAT2(0,0) }),//5
+		Vertex({ XMFLOAT3(-0.5, -0.5, 0.5f) ,XMFLOAT2(0,1)}),//6
+		Vertex({ XMFLOAT3(-0.5, -0.5f, -0.5f),XMFLOAT2(1,1) }),//7
 
-		Vertex({ XMFLOAT3(-0.5, -0.5f, 0.5f), XMFLOAT4(Colors::White), XMFLOAT2(0,1)}),//8
-		Vertex({ XMFLOAT3(0.5, -0.5, 0.5f), XMFLOAT4(Colors::White), XMFLOAT2(1,1)}),//9
-		Vertex({ XMFLOAT3(0.5, 0.5f, 0.5f), XMFLOAT4(Colors::Black), XMFLOAT2(1,0)}),//10
-		Vertex({ XMFLOAT3(-0.5, 0.5, 0.5f), XMFLOAT4(Colors::Black), XMFLOAT2(0,0)}),//11
+		Vertex({ XMFLOAT3(-0.5, -0.5f, 0.5f), XMFLOAT2(0,1)}),//8
+		Vertex({ XMFLOAT3(0.5, -0.5, 0.5f), XMFLOAT2(1,1)}),//9
+		Vertex({ XMFLOAT3(0.5, 0.5f, 0.5f), XMFLOAT2(1,0)}),//10
+		Vertex({ XMFLOAT3(-0.5, 0.5, 0.5f), XMFLOAT2(0,0)}),//11
 
-		Vertex({ XMFLOAT3(0.5, 0.5, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//12
-		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//13
-		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(0,1) }),//14
-		Vertex({ XMFLOAT3(0.5, -0.5, 0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//15
+		Vertex({ XMFLOAT3(0.5, 0.5, 0.5f),XMFLOAT2(1,0) }),//12
+		Vertex({ XMFLOAT3(0.5, 0.5f, -0.5f),XMFLOAT2(0,0) }),//13
+		Vertex({ XMFLOAT3(0.5, -0.5f, -0.5f),XMFLOAT2(0,1) }),//14
+		Vertex({ XMFLOAT3(0.5, -0.5, 0.5f),XMFLOAT2(1,1)}),//15
 
-		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//16
-		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//17
-		Vertex({ XMFLOAT3(0.5, 0.5, -0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//18
-		Vertex({ XMFLOAT3(0.5, 0.5f, 0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//19
+		Vertex({ XMFLOAT3(-0.5, 0.5f, 0.5f),XMFLOAT2(0,0) }),//16
+		Vertex({ XMFLOAT3(-0.5, 0.5f, -0.5f),XMFLOAT2(0,1) }),//17
+		Vertex({ XMFLOAT3(0.5, 0.5, -0.5f),XMFLOAT2(1,1)}),//18
+		Vertex({ XMFLOAT3(0.5, 0.5f, 0.5f),XMFLOAT2(1,0) }),//19
 
-		Vertex({ XMFLOAT3(-0.5, -0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,0) }),//20
-		Vertex({ XMFLOAT3(-0.5, -0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//21
-		Vertex({ XMFLOAT3(0.5, -0.5, -0.5f), XMFLOAT4(Colors::Black) ,XMFLOAT2(1,1)}),//22
-		Vertex({ XMFLOAT3(0.5, -0.5f, 0.5f), XMFLOAT4(Colors::Black),XMFLOAT2(1,0) }),//23
+		Vertex({ XMFLOAT3(-0.5, -0.5f, 0.5f),XMFLOAT2(0,0) }),//20
+		Vertex({ XMFLOAT3(-0.5, -0.5f, -0.5f),XMFLOAT2(0,1) }),//21
+		Vertex({ XMFLOAT3(0.5, -0.5, -0.5f) ,XMFLOAT2(1,1)}),//22
+		Vertex({ XMFLOAT3(0.5, -0.5f, 0.5f),XMFLOAT2(1,0) }),//23
 
-		Vertex({ XMFLOAT3(-0.5f, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//24
-		Vertex({ XMFLOAT3(0.5f, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//25
-		Vertex({ XMFLOAT3(0.0f, 1.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(1,0) }),//26
+		Vertex({ XMFLOAT3(-0.5f, 0.5f, 0.5f),XMFLOAT2(1,1) }),//24
+		Vertex({ XMFLOAT3(0.5f, 0.5f, 0.5f),XMFLOAT2(0,1) }),//25
+		Vertex({ XMFLOAT3(0.0f, 1.5f, 0.0f),XMFLOAT2(1,0) }),//26
 
-		Vertex({ XMFLOAT3(0.5f, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,1)}),//27
-		Vertex({ XMFLOAT3(0.5f, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//28
-		Vertex({ XMFLOAT3(0.0f, 1.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(1,0) }),//29
+		Vertex({ XMFLOAT3(0.5f, 0.5f, 0.5f),XMFLOAT2(1,1)}),//27
+		Vertex({ XMFLOAT3(0.5f, 0.5f, -0.5f),XMFLOAT2(0,1) }),//28
+		Vertex({ XMFLOAT3(0.0f, 1.5f, 0.0f),XMFLOAT2(1,0) }),//29
 
-		Vertex({ XMFLOAT3(-0.5f, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,1)}),//30
-		Vertex({ XMFLOAT3(-0.5f, 0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//31
-		Vertex({ XMFLOAT3(0.0f, 1.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(0,0) }),//32
+		Vertex({ XMFLOAT3(-0.5f, 0.5f, -0.5f),XMFLOAT2(1,1)}),//30
+		Vertex({ XMFLOAT3(-0.5f, 0.5f, 0.5f),XMFLOAT2(0,1) }),//31
+		Vertex({ XMFLOAT3(0.0f, 1.5f, 0.0f),XMFLOAT2(0,0) }),//32
 
-		Vertex({ XMFLOAT3(-0.5f, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1)}),//33
-		Vertex({ XMFLOAT3(0.5f, 0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//34
-		Vertex({ XMFLOAT3(0.0f, 1.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(1,0) }),//35
+		Vertex({ XMFLOAT3(-0.5f, 0.5f, -0.5f),XMFLOAT2(0,1)}),//33
+		Vertex({ XMFLOAT3(0.5f, 0.5f, -0.5f),XMFLOAT2(1,1) }),//34
+		Vertex({ XMFLOAT3(0.0f, 1.5f, 0.0f),XMFLOAT2(1,0) }),//35
 
 	};
     m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f };

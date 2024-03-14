@@ -20,7 +20,7 @@ void ScriptGame::initGame(Entity* oEntity) {
 	PenMesh* pPen = App::Get()->m_oManager.createMesh<PenMesh>();
 	BoxMesh* pBox = App::Get()->m_oManager.createMesh<BoxMesh>();
 	Texture* pTexture = App::Get()->m_oManager.createTexture("viktor", L"Texture/image.dds");
-	Texture* pTextureLaser = App::Get()->m_oManager.createTexture("laser",L"Texture/Laser.dds");
+	Texture* pTextureLaser = App::Get()->m_oManager.createTexture("laser",L"Texture/Laser2.dds");
 
 
 	/// création de la Skybox

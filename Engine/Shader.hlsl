@@ -15,14 +15,12 @@ cbuffer cbCam : register(b1)
 struct VertexInput
 {
     float3 position : POSITION;
-    float4 color : COLOR;
     float2 TexC : TEXCOORD;
 };
 
 struct VertexOutput
 {
     float4 position : SV_POSITION;
-    float4 color : COLOR;
     float2 TexC : TEXCOORD;
 };
 
@@ -31,7 +29,6 @@ VertexOutput vs_main(VertexInput input)
     VertexOutput output;
     float4 position = mul(float4(input.position, 1.0f), World);
     output.position = mul(position, ViewProjection);
-    output.color = input.color;
     output.TexC = input.TexC;
     return output;
 }
