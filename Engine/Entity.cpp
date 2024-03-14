@@ -53,8 +53,12 @@ void Entity::translate(XMFLOAT3 vDir) {
 	m_aBox.pCenter = m_tTransform.m_vPosition;
 }
 
-void Entity::rotate(float pitch, float roll, float yaw) {
-	m_tTransform.rotate(pitch, roll, yaw);
+void Entity::rotate(float fDeltaTime, float fSpeed, float pitch, float roll, float yaw) {
+	float fpitch = fDeltaTime * fSpeed * pitch;
+	float froll = fDeltaTime * fSpeed * roll;
+	float fyaw = fDeltaTime * fSpeed * yaw;
+
+	m_tTransform.rotate(fpitch, froll, fyaw);
 	m_tTransform.updateTransform();
 }
 

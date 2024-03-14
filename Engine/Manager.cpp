@@ -128,10 +128,7 @@ Manager::~Manager() {
 		delete ptr;
 	}
 	m_vEntity.clear();
-	for (Shader* ptr : m_vShader) {
-		delete ptr;
-	}
-	m_vShader.clear();
+	
 	for (Mesh* ptr : m_vMesh) {
 		delete ptr;
 	}
@@ -140,6 +137,7 @@ Manager::~Manager() {
 		delete ptr;
 	}
 	m_vCollideEntity.clear();
+	
 	/*for (Texture* ptr : m_vTexture) {
 		delete ptr;
 	}

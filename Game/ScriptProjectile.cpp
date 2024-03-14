@@ -29,7 +29,7 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 	ColliderGame* pCollider = oEntity->addComponent<ColliderGame>();
 	App::Get()->m_oManager.addCollideEntity(oEntity);
 	pCollider->setCollider(oEntity, App::Get()->m_oManager.m_vCollideEntity);
-	oEntity->rotate(XM_PI / 2, 0.0f, 0.0f);
+	oEntity->m_tTransform.rotate(XM_PI / 2, 0.0f, 0.0f);
 	oEntity->scale({ 0.1f,0.5f,0.1f });
 
 }
