@@ -13,7 +13,7 @@ void ScriptEnemy::initEnemy(Entity* oEntity) {
 	setScript(oEntity);
 
 	float x = rand() % 30 + (-30);
-	float y = rand() % 30 + (-30);
+	float y = rand() % 10 + (-10);
 	float z = rand() % 30 + (-30);
 
 	XMFLOAT3 vect{ x,y,z};
@@ -36,7 +36,7 @@ void ScriptEnemy::initEnemy(Entity* oEntity) {
 }
 
 void ScriptEnemy::update() {
-	XMVECTOR vDir = { m_DirVect.x,m_DirVect.y,m_DirVect.z };
+	XMVECTOR vDir = {m_DirVect.x,m_DirVect.y,m_DirVect.z};
 	XMVECTOR vDirNormalize = XMVector3Normalize(vDir);
 	m_oEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2.0f, vDirNormalize);
 }

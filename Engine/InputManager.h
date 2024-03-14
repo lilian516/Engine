@@ -5,7 +5,7 @@ class InputManager
 public:
 
 	InputManager();
-	void init();
+	void init(HWND* hWindow);
 	void update();
 	
 
@@ -24,6 +24,7 @@ private:
 	unsigned char m_cTableau[256];
 	enum StateKey {Press,Up,Down,NoPress};
 	POINT m_pLastMousePos;
+	HWND* m_hWindow;
 	
 
 protected:

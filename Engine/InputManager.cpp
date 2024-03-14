@@ -6,11 +6,12 @@ InputManager::InputManager() {
     m_iDeltaY = 0;
 }
 
-void InputManager::init() {
+void InputManager::init(HWND *hWindow) {
     for (int i = 0; i < 256; i++) {
         m_cTableau[i] = NoPress;
     }
-    
+
+    m_hWindow = hWindow;
 	
 }
 
@@ -62,16 +63,19 @@ void InputManager::update() {
 
     POINT currentMousePos;
     GetCursorPos(&currentMousePos);
-
+    ScreenToClient(*m_hWindow, &currentMousePos);
     
 
     // Calculez les différences de position de la souris entre les cadres
     m_iDeltaX = currentMousePos.x - m_pLastMousePos.x;
     m_iDeltaY = currentMousePos.y - m_pLastMousePos.y;
 
+
     m_pLastMousePos = currentMousePos;
-    /*SetCursorPos(400, 300);
-    ScreenToClient(dx12Inst->m_handle, &lastMousePos);*/
+    
+    SetCursorPos(400, 300);
+    
+    ScreenToClient(*m_hWindow, &m_pLastMousePos);
 
     
 }

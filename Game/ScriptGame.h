@@ -10,6 +10,7 @@ public :
 	void update()override;
 	void createProjectile();
 	void createEnemy();
+	void inputCamera();
 	
 };
 

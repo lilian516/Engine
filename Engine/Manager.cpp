@@ -7,7 +7,7 @@ Manager::Manager() {
 
 void Manager::initManager() {
 	m_oGraphics.initGraphics(this);
-	m_oInputManager.init();
+	m_oInputManager.init(&m_oGraphics.m_hMainWindow);
 	m_oTimer.start();
 }
 
@@ -133,11 +133,11 @@ Manager::~Manager() {
 		delete ptr;
 	}
 	m_vMesh.clear();
-	for (Entity* ptr : m_vCollideEntity) {
+	/*for (Entity* ptr : m_vCollideEntity) {
 		delete ptr;
 	}
 	m_vCollideEntity.clear();
-	
+	*/
 	/*for (Texture* ptr : m_vTexture) {
 		delete ptr;
 	}
