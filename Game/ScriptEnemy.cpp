@@ -26,7 +26,7 @@ void ScriptEnemy::initEnemy(Entity* oEntity) {
 	pMeshRenderer->SetMeshRenderer(oEntity, App::Get()->m_oManager.m_oGraphics.m_d3dDevice,
 		App::Get()->m_oManager.m_vShader[0],
 		App::Get()->m_oManager.m_vMesh[3],
-		App::Get()->m_oManager.m_vTexture.find("viktor")->second);
+		App::Get()->m_oManager.m_vTexture.find("enemy")->second);
 	
 	oEntity->translate(vect);
 	ColliderGame* pCollider = oEntity->addComponent<ColliderGame>();
@@ -40,8 +40,5 @@ void ScriptEnemy::update() {
 	XMVECTOR vDirNormalize = XMVector3Normalize(vDir);
 	m_oEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2.0f, vDirNormalize);
 
-	if (m_oEntity->getTransform().m_vPosition.x == 0.0f && m_oEntity->getTransform().m_vPosition.y == 0.0f
-		&& m_oEntity->getTransform().m_vPosition.z == -10.0f) {
-		App::Get()->m_pScriptManager->updateState();
-	}
+	
 }

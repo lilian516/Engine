@@ -71,3 +71,7 @@ void ScriptProjectile::update() {
 	}
 	
 }
+
+ScriptProjectile::~ScriptProjectile() {
+
+}
