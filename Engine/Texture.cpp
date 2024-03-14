@@ -17,7 +17,7 @@ void Texture::loadTextureFromFile(std::string name, wstring filename, ID3D12Devi
 	oGraphics->m_cCommandList->Reset(oGraphics->m_cDirectCmdListAlloc, nullptr);
 	m_Name = name;
 	m_Filename = filename;
-	CheckSucceded(DirectX::CreateDDSTextureFromFile12(device, oGraphics->m_cCommandList, filename.c_str(), m_rResource, m_rUploadHeap));
+	CheckSucceded(DirectX::CreateDDSTextureFromFile12(device, oGraphics->m_cCommandList, m_Filename.c_str(), m_rResource, m_rUploadHeap));
 	
 }
 

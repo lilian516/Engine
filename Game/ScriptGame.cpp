@@ -16,8 +16,10 @@ void ScriptGame::initGame(Entity* oEntity) {
 	App::Get()->m_oManager.addEntity(App::Get()->m_oManager.m_oGraphics.m_oCamEntity);
 
 	PyramidMesh* pPyramid = App::Get()->m_oManager.createMesh<PyramidMesh>();
+	PenMesh* pPen = App::Get()->m_oManager.createMesh<PenMesh>();
 	BoxMesh* pBox = App::Get()->m_oManager.createMesh<BoxMesh>();
 	Texture* pTexture = App::Get()->m_oManager.createTexture("viktor", L"Texture/image.dds");
+	Texture* pTextureLaser = App::Get()->m_oManager.createTexture("laser",L"Texture/Laser.dds");
 
 
 	/// création de la Skybox
