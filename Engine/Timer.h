@@ -14,6 +14,7 @@ public:
     float getDeltaTime();
     float calculFPS();
     float getCurrentTime();
+    void slowDown();
     float m_fDifflTime;
 
 private:

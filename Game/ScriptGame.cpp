@@ -57,6 +57,8 @@ void ScriptGame::update() {
 	if (m_bSetCursor) {
 		setCursorPos();
 	}
+
+	App::Get()->m_oManager.m_oTimer.slowDown();
 }
 
 void ScriptGame::createProjectile() {
