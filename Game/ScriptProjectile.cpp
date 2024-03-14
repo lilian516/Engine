@@ -11,9 +11,7 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 	XMVECTOR vForward = App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().getForwardVector();
 	XMFLOAT3 fForward;
 	XMStoreFloat3(&fForward, vForward);
-	m_mDir = { fForward.x,
-		fForward.y,
-		fForward.z };
+	m_mDir = { fForward.x,fForward.y,fForward.z };
 
 	/*m_mDir = { App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.x,
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.y,
