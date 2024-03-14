@@ -22,15 +22,18 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 		App::Get()->m_oManager.m_vShader[0], 
 		App::Get()->m_oManager.m_vMesh[2], 
 		App::Get()->m_oManager.m_vTexture.find("laser")->second);
-
+	oEntity->rotate(App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.x,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.z,
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.y);
+	oEntity->scale({ 0.1,0.7,0.1 });
 	oEntity->translate({ App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y - 0.5f
 		,App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z });
 	ColliderGame* pCollider = oEntity->addComponent<ColliderGame>();
 	App::Get()->m_oManager.addCollideEntity(oEntity);
 	pCollider->setCollider(oEntity, App::Get()->m_oManager.m_vCollideEntity);
-	oEntity->rotate(XM_PI / 2, 0.0f, 0.0f);
-	oEntity->scale({ 0.1f,0.5f,0.1f });
+	//oEntity->rotate(XM_PI / 2, 0.0f, 0.0f);
+	//oEntity->scale({ 0.1f,0.5f,0.1f });
 
 }
 

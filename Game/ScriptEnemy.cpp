@@ -12,9 +12,9 @@ ScriptEnemy::ScriptEnemy() {
 void ScriptEnemy::initEnemy(Entity* oEntity) {
 	setScript(oEntity);
 
-	float x = rand() % 10 + (-10);
-	float y = rand() % 10 + (-10);
-	float z = rand() % 10 + (-10);
+	float x = rand() % 8 + (-8);
+	float y = rand() % 8 + (-8);
+	float z = rand() % 8 + (-8);
 
 	XMFLOAT3 vect{ x,y,z};
 

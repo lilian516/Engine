@@ -11,29 +11,27 @@ PyramidMesh::~PyramidMesh() {
 void PyramidMesh::buildGeometry(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 	std::vector<Vertex> vertices =
 	{
-		Vertex({ XMFLOAT3(0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(0,0)}),//0
-		Vertex({ XMFLOAT3(0.0f, -0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,0) }),//1
-		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//2
-		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//3
-		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(0,0) }),//4
+		Vertex({ XMFLOAT3(0.5f, -0.5f, 0.0f),XMFLOAT2(0,0)}),//0
+		Vertex({ XMFLOAT3(0.0f, -0.5f, -0.5f),XMFLOAT2(1,0) }),//1
+		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f),XMFLOAT2(1,1) }),//2
+		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f),XMFLOAT2(0,1) }),//3
+		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f),XMFLOAT2(0,0) }),//4
 
+		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f),XMFLOAT2(1,1) }),//5
+		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f),XMFLOAT2(0,1) }),//6
+		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f),XMFLOAT2(1,0) }),//7
 
+		Vertex({ XMFLOAT3(0.5f, -0.5f, 0.0f),XMFLOAT2(1,1)}),//8
+		Vertex({ XMFLOAT3(0.0f, -0.5f, -0.5f),XMFLOAT2(0,1) }),//9
+		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f),XMFLOAT2(1,0) }),//10
 
-		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//5
-		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//6
-		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(1,0) }),//7
+		Vertex({ XMFLOAT3(0.0f, -0.5f, -0.5f),XMFLOAT2(1,1) }),//11
+		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f),XMFLOAT2(0,1) }),//12
+		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f),XMFLOAT2(0,0) }),//13
 
-		Vertex({ XMFLOAT3(0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(1,1)}),//8
-		Vertex({ XMFLOAT3(0.0f, -0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//9
-		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(1,0) }),//10
-
-		Vertex({ XMFLOAT3(0.0f, -0.5f, -0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//11
-		Vertex({ XMFLOAT3(-0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(0,1) }),//12
-		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(0,0) }),//13
-
-		Vertex({ XMFLOAT3(0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::White),XMFLOAT2(0,1)}),//14
-		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f), XMFLOAT4(Colors::White),XMFLOAT2(1,1) }),//15
-		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(Colors::Blue),XMFLOAT2(0,0) }),//16
+		Vertex({ XMFLOAT3(0.5f, -0.5f, 0.0f),XMFLOAT2(0,1)}),//14
+		Vertex({ XMFLOAT3(0.0f, -0.5f, 0.5f),XMFLOAT2(1,1) }),//15
+		Vertex({ XMFLOAT3(0.0f, 0.5f, 0.0f),XMFLOAT2(0,0) }),//16
 	};
 	m_mMesh.oBox.pCenter = { 0.0f,0.0f,0.0f };
 	m_mMesh.oBox.vRadius = { 0.5f,0.5f,0.5f };
