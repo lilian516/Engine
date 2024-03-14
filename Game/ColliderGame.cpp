@@ -15,3 +15,4 @@ void ColliderGame::enterCollision() {
 	App::Get()->m_oManager.deleteEntity(m_oEntity);
 	App::Get()->m_oManager.deleteEntity(oEntityCollider);
 }
+
