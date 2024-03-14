@@ -12,11 +12,15 @@ ScriptEnemy::ScriptEnemy() {
 void ScriptEnemy::initEnemy(Entity* oEntity) {
 	setScript(oEntity);
 
-	float x = rand() % 8 + (-8);
-	float y = rand() % 8 + (-8);
-	float z = rand() % 8 + (-8);
+	float x = rand() % 30 + (-30);
+	float y = rand() % 30 + (-30);
+	float z = rand() % 30 + (-30);
 
 	XMFLOAT3 vect{ x,y,z};
+
+	m_DirVect = { App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.x - vect.x,
+	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.y - vect.y,
+	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vPosition.z - vect.z };
 
 	MeshRenderer* pMeshRenderer = oEntity->addComponent<MeshRenderer>();
 	pMeshRenderer->SetMeshRenderer(oEntity, App::Get()->m_oManager.m_oGraphics.m_d3dDevice,
@@ -32,5 +36,7 @@ void ScriptEnemy::initEnemy(Entity* oEntity) {
 }
 
 void ScriptEnemy::update() {
-
+	XMVECTOR vDir = { m_DirVect.x,m_DirVect.y,m_DirVect.z };
+	XMVECTOR vDirNormalize = XMVector3Normalize(vDir);
+	m_oEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2.0f, vDirNormalize);
 }

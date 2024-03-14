@@ -7,5 +7,6 @@ public :
 	ScriptEnemy();
 	void initEnemy(Entity* oEntity);
 	void update()override;
+	XMFLOAT3 m_DirVect;
 };
 

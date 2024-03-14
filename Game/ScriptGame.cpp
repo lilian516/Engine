@@ -77,25 +77,21 @@ void ScriptGame::update() {
 	
 	if (App::Get()->m_oManager.m_oInputManager.isKey(81)) {  //gauche
 		
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(),
-			2.0f, 0.0f, 0.0f, XMConvertToRadians(-0.4f));
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(-0.5f));
 		
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(83)) { // bas
 		
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(),
-			2,XMConvertToRadians(0.4f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.5f), 0.0f, 0.0f);
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(68)) {  //droite
 		
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(),
-			2,0.0f, 0.0f, XMConvertToRadians(0.4f));
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.5f));
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(90)) {  //haut
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(),
-			2.0f , XMConvertToRadians(-0.4f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
 
 	}
 
