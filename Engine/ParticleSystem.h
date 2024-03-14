@@ -19,7 +19,6 @@ public:
     ~ParticleSystem();
 
     void setParticleSystem(Entity* oEntity, int iNbParticle, float fScaleParticle, XMFLOAT3 fPosition, Shader* sShader, Mesh* mMesh, Texture* oTexture);
-    void createParticle();
     void update()override;
     void render(Graphics* oGraphics)override;
     void setConstantBuffers(ID3D12Device* device, ID3D12DescriptorHeap* dCbvHeap);
@@ -36,4 +35,5 @@ public:
     XMFLOAT4X4 m_fProj = Identity4x4();
 
 private:
+    void createParticle();
 };
