@@ -13,11 +13,34 @@ void Manager::initManager() {
 
 
 
-void Manager::mainLoop() {
-	while (true) {
-		update();
-		render();
+void Manager::mainLoop(HINSTANCE hInstance) {
+
+
+	bool bIsRunning = true;
+	
+	MSG msg;
+	while (bIsRunning) {
+
+
+		
+
+		// Boucle de messages principale :
+		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT) {
+				bIsRunning = false;
+			}
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			
+		}
+		else {
+			update();
+			render();
+		}
+		
 	}
+	delete this;
 	
 	
 }

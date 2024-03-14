@@ -21,7 +21,7 @@ class Manager
 public :
 	Manager();
 	void initManager();
-	void mainLoop();
+	void mainLoop(HINSTANCE hInstance);
 	void update();
 	void render();
 	void addEntity(Entity* oEntity);
