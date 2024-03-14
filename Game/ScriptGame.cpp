@@ -75,21 +75,21 @@ void ScriptGame::createEnemy() {
 
 void ScriptGame::inputCamera() {
 	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaX < 0) {  //gauche
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(),300,0.0f, 0.0f, XMConvertToRadians(-0.5f));
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(),270,0.0f, 0.0f, XMConvertToRadians(-0.5f));
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaY > 0) { // bas
 
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 300, XMConvertToRadians(0.5f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 270, XMConvertToRadians(0.5f), 0.0f, 0.0f);
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaX > 0) {  //droite
 
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 300, 0.0f, 0.0f, XMConvertToRadians(0.5f));
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 270, 0.0f, 0.0f, XMConvertToRadians(0.5f));
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaY < 0) {  //haut
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 300, XMConvertToRadians(-0.5f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->rotate(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 270, XMConvertToRadians(-0.5f), 0.0f, 0.0f);
 	}
 }
 
