@@ -1,11 +1,12 @@
 #pragma once
 #include "Windows.h"
+#include "Graphics.h"
 class InputManager
 {
 public:
 
 	InputManager();
-	void init(HWND* hWindow);
+	void init(Graphics* oGraphic);
 	void update();
 	
 
@@ -24,7 +25,9 @@ private:
 	unsigned char m_cTableau[256];
 	enum StateKey {Press,Up,Down,NoPress};
 	POINT m_pLastMousePos;
+	POINT m_pMousePos;
 	HWND* m_hWindow;
+	Graphics* m_oGraphics;
 	
 
 protected:

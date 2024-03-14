@@ -6,12 +6,15 @@ InputManager::InputManager() {
     m_iDeltaY = 0;
 }
 
-void InputManager::init(HWND *hWindow) {
+void InputManager::init(Graphics* oGraphic) {
     for (int i = 0; i < 256; i++) {
         m_cTableau[i] = NoPress;
     }
-
-    m_hWindow = hWindow;
+    m_oGraphics = oGraphic;
+    m_hWindow = &m_oGraphics->m_hMainWindow;
+    GetCursorPos(&m_pLastMousePos);
+    ScreenToClient(*m_hWindow, &m_pLastMousePos);
+    m_pMousePos = m_pLastMousePos;
 	
 }
 
@@ -73,7 +76,9 @@ void InputManager::update() {
 
     m_pLastMousePos = currentMousePos;
     
-    SetCursorPos(400, 300);
+    SetCursorPos(m_oGraphics->m_iClientWidth/2, m_oGraphics->m_iClientHeight / 2);
+    m_pLastMousePos.x = m_oGraphics->m_iClientWidth / 2;
+    m_pLastMousePos.y = m_oGraphics->m_iClientHeight / 2;
     
     ScreenToClient(*m_hWindow, &m_pLastMousePos);
 
