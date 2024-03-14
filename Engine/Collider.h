@@ -18,6 +18,7 @@ public:
 	void virtual stayCollision();
 	void virtual exitCollision();
 	void noCollision();
+	Collider* getCollider(Entity* colliderEntity);
 	Entity* getCollidingEntity();
 
 	CollisionState m_cCollision;

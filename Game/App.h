@@ -5,7 +5,7 @@ class App
 public :
 	App();
 	void initApp();
-	void runApp();
+	void runApp(HINSTANCE hInstance);
 	Manager m_oManager;
 	static App* pInstance;
 	static void Init();

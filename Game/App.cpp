@@ -36,8 +36,8 @@ void App::initApp() {
 	//pEntity->ChangeCurrentScript(pScript);
 }
 
-void App::runApp() {
-	m_oManager.mainLoop();
+void App::runApp(HINSTANCE hInstance) {
+	m_oManager.mainLoop(hInstance);
 }
 
 //Init

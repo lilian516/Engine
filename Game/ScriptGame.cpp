@@ -64,8 +64,6 @@ void ScriptGame::initGame(Entity* oEntity) {
 void ScriptGame::update() {
 	ShowCursor(FALSE);
 	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(1)) {
-
-
 		createProjectile();
 		
 	}
@@ -74,30 +72,25 @@ void ScriptGame::update() {
 		App::Get()->m_oManager.m_oTimer.m_fDifflTime = 0.0f;
 	}
 
-	/*if (App::Get()->m_oManager.m_oInputManager.isKey(65)) {
-
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({0.0f,0.0f,0.001f});
-		
-	}*/
+	
+	
 	if (App::Get()->m_oManager.m_oInputManager.isKey(81)) {  //gauche
-		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ -0.005f,0.0f,0.0f });
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate( 0.0f,0.0f, XMConvertToRadians(-0.5f));
+		
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate( 0.0f,0.0f, XMConvertToRadians(-0.4f));
 		
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(83)) { // bas
 		
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.5f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.4f), 0.0f, 0.0f);
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(68)) {  //droite
-		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ 0.005f,0.0f,0.0f });
-		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-10.f), 0.0f, 0.0f);
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.5f));
+		
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.4f));
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.isKey(90)) {  //haut
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
-		
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.4f), 0.0f, 0.0f);
 
 	}
 
@@ -107,24 +100,25 @@ void ScriptGame::update() {
 	
 	//ScreenToClient(App::Get()->m_oManager.m_oGraphics.m_hMainWindow, &App::Get()->m_oManager.m_oInputManager.m_pLastMousePos);
 
-	//if (App::Get()->m_oManager.m_oInputManager.m_iDeltaX < 0) {  //gauche
-	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(-0.5f));
-	//	
+	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaX < 0) {  //gauche
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(-0.5f));
+		
 
-	//}
-	//if (App::Get()->m_oManager.m_oInputManager.m_iDeltaY > 0) { // bas
+	}
+	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaY > 0) { // bas
 
-	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.5f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.5f), 0.0f, 0.0f);
 
-	//}
-	//if (App::Get()->m_oManager.m_oInputManager.m_iDeltaX > 0) {  //droite
-	//	//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ 0.005f,0.0f,0.0f });
-	//	//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-10.f), 0.0f, 0.0f);
-	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.5f));
+	}
+	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaX > 0) {  //droite
+		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.translation({ 0.005f,0.0f,0.0f });
+		//App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-10.f), 0.0f, 0.0f);
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.5f));
 
-	//}
-	//if (App::Get()->m_oManager.m_oInputManager.m_iDeltaY < 0) {  //haut
-	//	App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
+	}
+	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaY < 0) {  //haut
+		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
+	}
 
 
 	//}

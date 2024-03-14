@@ -38,7 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     App::Init();
     App::Get()->initApp();
-    App::Get()->runApp();
+    App::Get()->runApp(hInstance);
     
     
 #ifdef _DEBUG
