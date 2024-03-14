@@ -11,5 +11,7 @@ public :
 	static App* pInstance;
 	static void Init();
 	static App* Get();
+
+	ScriptManager* m_pScriptManager;
 };
 

@@ -31,7 +31,7 @@ void ScriptGame::initGame(Entity* oEntity) {
 	pCubeSky->scale({ 800.0f,800.0f,800.0f });
 	pMeshRendererSky->SetMeshRenderer(pCubeSky, App::Get()->m_oManager.m_oGraphics.m_d3dDevice, App::Get()->m_oManager.m_vShader[0], pSky, pTextureSkybox);
 	
-
+	m_bSetCursor = true;
 
 	
 }
@@ -48,6 +48,15 @@ void ScriptGame::update() {
 	}
 
 	inputCamera();
+
+	if (App::Get()->m_oManager.m_oInputManager.isKeyDown(27)) {
+		ShowCursor(TRUE);
+		m_bSetCursor = false;
+	}
+
+	if (m_bSetCursor) {
+		setCursorPos();
+	}
 }
 
 void ScriptGame::createProjectile() {
@@ -65,30 +74,8 @@ void ScriptGame::createEnemy() {
 }
 
 void ScriptGame::inputCamera() {
-	if (App::Get()->m_oManager.m_oInputManager.isKey(81)) {  //gauche
-
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(-0.5f));
-
-	}
-	if (App::Get()->m_oManager.m_oInputManager.isKey(83)) { // bas
-
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(0.5f), 0.0f, 0.0f);
-
-	}
-	if (App::Get()->m_oManager.m_oInputManager.isKey(68)) {  //droite
-
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(0.5f));
-
-	}
-	if (App::Get()->m_oManager.m_oInputManager.isKey(90)) {  //haut
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
-
-	}
-
-
 	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaX < 0) {  //gauche
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(0.0f, 0.0f, XMConvertToRadians(-0.5f));
-
 
 	}
 	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaY > 0) { // bas
@@ -104,5 +91,11 @@ void ScriptGame::inputCamera() {
 	if (App::Get()->m_oManager.m_oInputManager.m_iDeltaY < 0) {  //haut
 		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->m_tTransform.rotate(XMConvertToRadians(-0.5f), 0.0f, 0.0f);
 	}
+}
+
+void ScriptGame::setCursorPos() {
+	SetCursorPos(App::Get()->m_oManager.m_oGraphics.m_iClientWidth / 2, App::Get()->m_oManager.m_oGraphics.m_iClientHeight / 2);
+	App::Get()->m_oManager.m_oInputManager.m_pLastMousePos.x = App::Get()->m_oManager.m_oGraphics.m_iClientWidth / 2;
+	App::Get()->m_oManager.m_oInputManager.m_pLastMousePos.y = App::Get()->m_oManager.m_oGraphics.m_iClientHeight / 2;
 }
 

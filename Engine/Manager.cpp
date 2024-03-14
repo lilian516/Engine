@@ -21,10 +21,7 @@ void Manager::mainLoop(HINSTANCE hInstance) {
 	MSG msg;
 	while (bIsRunning) {
 
-
 		
-
-		// Boucle de messages principale :
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT) {
@@ -135,17 +132,9 @@ Manager::~Manager() {
 	m_vMesh.clear();
 
 	for (auto it = m_vTexture.begin(); it != m_vTexture.end(); ++it) {
-		// Supprimer chaque pointeur
 		delete it->second;
 	}
-	// Effacer la map après avoir libéré les pointeurs
 	m_vTexture.clear();
-
-	
-	/*for (Texture* ptr : m_vTexture) {
-		delete ptr;
-	}
-	m_vTexture.clear();*/
 	
 }
 

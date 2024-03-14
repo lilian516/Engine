@@ -19,12 +19,13 @@ public:
 
 	int m_iDeltaX;
 	int m_iDeltaY;
+	POINT m_pLastMousePos;
 	
 
 private:
 	unsigned char m_cTableau[256];
 	enum StateKey {Press,Up,Down,NoPress};
-	POINT m_pLastMousePos;
+	
 	POINT m_pMousePos;
 	HWND* m_hWindow;
 	Graphics* m_oGraphics;

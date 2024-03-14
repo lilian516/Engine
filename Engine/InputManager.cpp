@@ -76,9 +76,9 @@ void InputManager::update() {
 
     m_pLastMousePos = currentMousePos;
     
-    SetCursorPos(m_oGraphics->m_iClientWidth/2, m_oGraphics->m_iClientHeight / 2);
+    /*SetCursorPos(m_oGraphics->m_iClientWidth/2, m_oGraphics->m_iClientHeight / 2);
     m_pLastMousePos.x = m_oGraphics->m_iClientWidth / 2;
-    m_pLastMousePos.y = m_oGraphics->m_iClientHeight / 2;
+    m_pLastMousePos.y = m_oGraphics->m_iClientHeight / 2;*/
     
     //ScreenToClient(*m_hWindow, &m_pLastMousePos);
 

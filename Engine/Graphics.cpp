@@ -37,6 +37,9 @@ Graphics::Graphics() {
 	m_dDsvHeap = nullptr;
 	m_rDepthStencilBuffer = nullptr;
 	m_dConstantBufferViewHeapDescriptor = nullptr;
+
+	m_iClientWidth = 800;
+	m_iClientHeight = 600;
 }
 
 bool Graphics::initGraphics(Manager* oManager) {

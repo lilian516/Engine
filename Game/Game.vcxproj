@@ -135,6 +135,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScriptEnemy.h" />
     <ClInclude Include="ScriptGame.h" />
+    <ClInclude Include="ScriptLoose.h" />
     <ClInclude Include="ScriptMenu.h" />
     <ClInclude Include="ScriptProjectile.h" />
     <ClInclude Include="targetver.h" />
@@ -145,6 +146,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ScriptEnemy.cpp" />
     <ClCompile Include="ScriptGame.cpp" />
+    <ClCompile Include="ScriptLoose.cpp" />
     <ClCompile Include="ScriptMenu.cpp" />
     <ClCompile Include="ScriptProjectile.cpp" />
   </ItemGroup>

@@ -79,8 +79,8 @@ public :
 	HWND      m_hMainWindow = nullptr;
 	ID3D12DescriptorHeap *m_dRtvHeap;
 	ID3D12DescriptorHeap *m_dDsvHeap;
-	int m_iClientWidth = 800;
-	int m_iClientHeight = 600;
+	int m_iClientWidth;
+	int m_iClientHeight;
 	UINT64 m_iCurrentFence = 0;
 	Microsoft::WRL::ComPtr<ID3D12Resource> m_rDepthStencilBuffer;
 	int m_iCurrBackBuffer = 0;

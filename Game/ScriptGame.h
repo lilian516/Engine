@@ -11,6 +11,8 @@ public :
 	void createProjectile();
 	void createEnemy();
 	void inputCamera();
+	void setCursorPos();
+	bool m_bSetCursor;
 	
 };
 

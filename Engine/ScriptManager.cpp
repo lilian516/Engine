@@ -13,6 +13,9 @@ void ScriptManager::update() {
 	else if (oStateGame == game) {
 		m_oScript2->update();
 	}
+	else if (oStateGame == loose) {
+		m_oScript3->update();
+	}
 }
 
 void ScriptManager::updateState() {
@@ -21,7 +24,7 @@ void ScriptManager::updateState() {
 		oStateGame = game;
 		break;
 	case game:
-		oStateGame = menu;
+		oStateGame = loose;
 		break;
 	}
 }
