@@ -40,7 +40,7 @@ void ScriptEnemy::update() {
 	XMVECTOR vDirNormalize = XMVector3Normalize(vDir);
 	m_oEntity->move(App::Get()->m_oManager.m_oTimer.getDeltaTime(), 2.0f, vDirNormalize);
 
-	if (m_oEntity->getTransform().m_vPosition == {0.0f,0.0f,0.0f}) {
+	/*if (m_oEntity->getTransform().m_vPosition == {0.0f,0.0f,0.0f}) {
 
-	}
+	}*/
 }
