@@ -40,6 +40,10 @@ void App::runApp(HINSTANCE hInstance) {
 	m_oManager.mainLoop(hInstance);
 }
 
+App::~App() {
+	
+}
+
 //Init
 //{
 //	creation des inst

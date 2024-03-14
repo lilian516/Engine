@@ -4,6 +4,7 @@ class App
 {
 public :
 	App();
+	~App();
 	void initApp();
 	void runApp(HINSTANCE hInstance);
 	Manager m_oManager;

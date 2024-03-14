@@ -45,7 +45,7 @@ public :
 	bool initMainWindow();
 	void render(Manager* oManager);
 	void update(Manager* oManager);
-	void updateCam(Entity* oEntity);
+	
 	void createCam();
 	float aspectRatio()const;
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilView()const;
@@ -54,7 +54,7 @@ public :
 #pragma endregion
 
 #pragma region Attribute
-	ID3D12DescriptorHeap* m_dConstantBufferViewHeapDescriptor = nullptr;
+	ID3D12DescriptorHeap* m_dConstantBufferViewHeapDescriptor;
 	
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSrvDescriptorHeap = nullptr;
 	UINT mCbvSrvDescriptorSize = 0;

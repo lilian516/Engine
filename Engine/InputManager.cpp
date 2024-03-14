@@ -63,7 +63,7 @@ void InputManager::update() {
 
     POINT currentMousePos;
     GetCursorPos(&currentMousePos);
-    ScreenToClient(*m_hWindow, &currentMousePos);
+    //ScreenToClient(*m_hWindow, &currentMousePos);
     
 
     // Calculez les différences de position de la souris entre les cadres
@@ -73,9 +73,9 @@ void InputManager::update() {
 
     m_pLastMousePos = currentMousePos;
     
-    SetCursorPos(400, 300);
+    //SetCursorPos(400, 300);
     
-    ScreenToClient(*m_hWindow, &m_pLastMousePos);
+    //ScreenToClient(*m_hWindow, &m_pLastMousePos);
 
     
 }

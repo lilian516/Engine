@@ -133,11 +133,15 @@ Manager::~Manager() {
 		delete ptr;
 	}
 	m_vMesh.clear();
-	/*for (Entity* ptr : m_vCollideEntity) {
-		delete ptr;
+
+	for (auto it = m_vTexture.begin(); it != m_vTexture.end(); ++it) {
+		// Supprimer chaque pointeur
+		delete it->second;
 	}
-	m_vCollideEntity.clear();
-	*/
+	// Effacer la map après avoir libéré les pointeurs
+	m_vTexture.clear();
+
+	
 	/*for (Texture* ptr : m_vTexture) {
 		delete ptr;
 	}

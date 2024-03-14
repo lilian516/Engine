@@ -36,6 +36,7 @@ Graphics::Graphics() {
 	m_dRtvHeap = nullptr;
 	m_dDsvHeap = nullptr;
 	m_rDepthStencilBuffer = nullptr;
+	m_dConstantBufferViewHeapDescriptor = nullptr;
 }
 
 bool Graphics::initGraphics(Manager* oManager) {
@@ -67,12 +68,6 @@ MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 		PostQuitMessage(0);
 		return 0;
-	case WM_CLOSE:
-		PostQuitMessage(0);
-		return 0;
-
-
-
 	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
@@ -187,9 +182,6 @@ void Graphics::createCommandListQueue() {
 	m_d3dDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, m_cDirectCmdListAlloc, nullptr, IID_PPV_ARGS(&m_cCommandList));
 
 
-	//Commencez dans un ?tat ferm?. C'est parce que la premi?re fois que nous faisons r?f?rence
-	// ? la liste des commandes, nous allons la r?initialiser, et elle doit ?tre ferm?e avant
-	// appelant Reset.
 	m_cCommandList->Close();
 }
 
@@ -371,40 +363,8 @@ void Graphics::flushCommandQueue()
 
 void Graphics::update(Manager* oManager) {
 
-	////Convert Spherical to Cartesian coordinates.
-	//float x = m_fRadius * sinf(m_fPhi) * cosf(m_fTheta);
-	//float z = m_fRadius * sinf(m_fPhi) * sinf(m_fTheta);
-	//float y = m_fRadius * cosf(m_fPhi);
-
-	////// Build the view matrix.
-	//XMVECTOR pos = XMVectorSet(x, y, z, 1.0f);
-	//XMVECTOR target = XMVectorZero();
-	//XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-
-	//XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
-	//XMStoreFloat4x4(&m_fView, view);
-
-	//XMMATRIX world = XMLoadFloat4x4(&m_fWorld);
-	//XMMATRIX proj = XMLoadFloat4x4(&m_fProj);
-	//XMMATRIX worldViewProj = world * view * proj;
-
-	////// Update the constant buffer with the latest worldViewProj matrix.
-	//ObjectConstants objConstants;
-	//XMStoreFloat4x4(&objConstants.WorldViewProj, XMMatrixTranspose(worldViewProj));
-
-	//for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-	//	for (int j = 0; j < oManager->m_vEntity[i]->m_vComponents.size(); j++) {
-	//		if (MeshRenderer* meshRenderer = dynamic_cast<MeshRenderer*>(oManager->m_vEntity[i]->m_vComponents[j])) {
-	//			meshRenderer->m_uObjectCB->CopyData(0, objConstants);
-	//		}
-
-	//	}
-	//}
-
-		//oManager->m_vShader[i]->m_uObjectCB->CopyData(0, objConstants);
 
 	for (int i = 0; i < oManager->m_vEntity.size(); i++) {
-		//updateCam(oManager->m_vEntity[i]);
 		oManager->m_vEntity[i]->update();
 	}
 	onResize();
@@ -572,9 +532,7 @@ void Graphics::logOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format)
 	}
 }
 
-void Graphics::updateCam(Entity* oEntity) {
-	
-}
+
 
 void Graphics::createCam() {
 	Camera* cam = new Camera();
