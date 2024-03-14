@@ -91,4 +91,5 @@ Collider* Collider::getCollider(Entity* colliderEntity) {
 			return collider;
 		}
 	}
+	return nullptr;
 }

@@ -4,7 +4,11 @@
 
 #pragma once
 
-#pragma comment(lib, "Engine.lib")
+#ifdef _DEBUG
+	#pragma comment(lib, "../x64/debug/Engine.lib")
+#else
+	#pragma comment(lib, "../x64/release/Engine.lib")
+#endif
 
 #include "targetver.h"
 
