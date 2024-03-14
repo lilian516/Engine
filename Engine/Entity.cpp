@@ -43,9 +43,8 @@ void Entity::move(float fDeltaTime, float fSpeed, XMVECTOR vDir) {
 	XMFLOAT3 fDirection;
 	XMStoreFloat3(&fDirection, vDirection);
 
-	m_tTransform.translation(fDirection);
-	m_tTransform.updateTransform();
-	m_aBox.pCenter = m_tTransform.m_vPosition;
+	translate(fDirection);
+	
 }
 
 void Entity::translate(XMFLOAT3 vDir) {

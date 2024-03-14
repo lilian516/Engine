@@ -2,15 +2,15 @@
 #include "Windows.h"
 
 InputManager::InputManager() {
-
+    m_iDeltaX = 0;
+    m_iDeltaY = 0;
 }
 
 void InputManager::init() {
     for (int i = 0; i < 256; i++) {
         m_cTableau[i] = NoPress;
     }
-    m_iDeltaX = 0;
-    m_iDeltaY = 0;
+    
 	
 }
 
@@ -70,6 +70,8 @@ void InputManager::update() {
     m_iDeltaY = currentMousePos.y - m_pLastMousePos.y;
 
     m_pLastMousePos = currentMousePos;
+    /*SetCursorPos(400, 300);
+    ScreenToClient(dx12Inst->m_handle, &lastMousePos);*/
 
     
 }
