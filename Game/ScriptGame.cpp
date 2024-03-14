@@ -58,7 +58,7 @@ void ScriptGame::update() {
 		setCursorPos();
 	}
 
-	App::Get()->m_oManager.m_oTimer.slowDown();
+	
 }
 
 void ScriptGame::createProjectile() {

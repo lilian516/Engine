@@ -55,6 +55,3 @@ float Timer::getCurrentTime() {
     return std::chrono::duration_cast<std::chrono::duration<float>>(duration).count();
 }
 
-void Timer::slowDown() {
-    m_fDeltaTime = m_fDeltaTime / 2.0f;
-}
