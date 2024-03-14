@@ -1,7 +1,6 @@
 #include "App.h"
 #include "ScriptGame.h"
 #include "ScriptMenu.h"
-#include "ScriptLoose.h"
 
 App::App(){
 
@@ -25,13 +24,12 @@ void App::initApp() {
 	Entity* pEntityGame = m_oManager.createEntity();
 	ScriptMenu* pScriptMenu = new ScriptMenu();
 	ScriptGame* pScriptGame = new ScriptGame();
-	ScriptLoose* pScriptLoose = new ScriptLoose();
+	
 	m_pScriptManager = pEntityGame->addComponent<ScriptManager>();
 	pScriptMenu->initMenu(pEntityGame);
 	pScriptMenu->setScriptManager(m_pScriptManager);
 	pScriptGame->initGame(pEntityGame);
-	pScriptLoose->initScriptLoose(pEntityGame);
-	m_pScriptManager->setScriptManager<ScriptMenu,ScriptGame,ScriptLoose>(pEntityGame, pScriptMenu, pScriptGame, pScriptLoose);
+	m_pScriptManager->setScriptManager<ScriptMenu,ScriptGame>(pEntityGame, pScriptMenu, pScriptGame);
 	
 }
 
