@@ -19,16 +19,13 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 	MeshRenderer* pMeshRenderer = oEntity->addComponent<MeshRenderer>();
 	pMeshRenderer->SetMeshRenderer(oEntity, App::Get()->m_oManager.m_oGraphics.m_d3dDevice,
 		App::Get()->m_oManager.m_vShader[0], 
-		App::Get()->m_oManager.m_vMesh[2], 
+		App::Get()->m_oManager.m_vMesh[1], 
 		App::Get()->m_oManager.m_vTexture.find("laser")->second);
 
-	/// la rotation
-	oEntity->m_tTransform.rotate(App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.x,
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.z,
-		App::Get()->m_oManager.m_oGraphics.m_oCamEntity->getTransform().m_vRotation.y);
+	
 
 	/// le scale
-	oEntity->scale({ 0.1,0.7,0.1 });
+	oEntity->scale({ 0.15,0.15,0.15 });
 
 
 	/// le positionnement
@@ -40,8 +37,6 @@ void ScriptProjectile::initProjectile(Entity* oEntity) {
 	ColliderGame* pCollider = oEntity->addComponent<ColliderGame>();
 	App::Get()->m_oManager.addCollideEntity(oEntity);
 	pCollider->setCollider(oEntity, App::Get()->m_oManager.m_vCollideEntity);
-	oEntity->m_tTransform.rotate(XM_PI / 2, 0.0f, 0.0f);
-	oEntity->scale({ 0.1f,0.5f,0.1f });
 
 }
 
