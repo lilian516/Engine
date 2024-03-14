@@ -7,7 +7,7 @@ Manager::Manager() {
 
 void Manager::initManager() {
 	m_oGraphics.initGraphics(this);
-	m_oInputManager.init(&m_oGraphics.m_hMainWindow);
+	m_oInputManager.init(&m_oGraphics);
 	m_oTimer.start();
 }
 
