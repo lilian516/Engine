@@ -74,7 +74,7 @@ public :
 
 
 	static const int m_sSwapChainBufferCount = 2;
-	//ID3D12Resource *m_cSwapChainBuffer[m_sSwapChainBufferCount];
+	
 	Microsoft::WRL::ComPtr<ID3D12Resource> m_cSwapChainBuffer[m_sSwapChainBufferCount];
 	HWND      m_hMainWindow = nullptr;
 	ID3D12DescriptorHeap *m_dRtvHeap;

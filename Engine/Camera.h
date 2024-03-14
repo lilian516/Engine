@@ -13,8 +13,6 @@ public:
 	void initCamera(Entity *oEntity, float aspectRatio, ID3D12Device* device);
 	void updateMatrix();
 	void update();
-	void change();
-	void changePos();
 	
 	DirectX::XMFLOAT4X4* getProjMatrix();
 	UploadBuffer<ObjectConstants> *m_uCamCB;

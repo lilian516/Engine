@@ -3,12 +3,9 @@
 
 #include "framework.h"
 
-#include "ParticleSystem.h"
+
 
 #define MAX_LOADSTRING 100
-#ifdef _DEBUG
-#include <crtdbg.h>
-#endif
 
 // Variables globales :
 HINSTANCE hInst;                                // instance actuelle
@@ -26,106 +23,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-#ifdef _DEBUG
-    _CrtMemState memStateInit;
-    _CrtMemCheckpoint(&memStateInit);
-#endif
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: Placez le code ici.
-
-    //Manager oManager;
-    //Sprite boxMesh;
-    //
-    //
-    //Shader oShader;
-    //MeshRenderer oMeshRenderer;
-    //Texture oTexture;
-    //Camera ocCamera;
-    //
-    //oManager.m_vMesh.push_back(&boxMesh);
-    //oManager.m_vShader.push_back(&oShader);
-    //
-    //
-    //
-    //Entity* oCamera = new Entity();
-    //oCamera->initEntity();
-
-
-    //Entity* oEntity = new Entity();
-    //oEntity->initEntity();
-
-    //
-    //oManager.initManager();
-    //oTexture.loadTextureFromFile("test", L"Texture/image.dds", oManager.m_oGraphics.m_d3dDevice,&oManager.m_oGraphics);
-    //oTexture.buildSRVDescriptorHeap(oManager.m_oGraphics.m_d3dDevice, "test", &oManager.m_oGraphics);
-    //oMeshRenderer.buildConstantBuffers(oManager.m_oGraphics.m_d3dDevice, oManager.m_oGraphics.m_dConstantBufferViewHeapDescriptor);
-    //oMeshRenderer.SetMeshRenderer(oEntity, oManager.m_oGraphics.m_d3dDevice, &oShader, &boxMesh, &oTexture);
-    //
-    ////oEntity->translate(XMFLOAT4(1.5f, 0, 0, 0));
-
-    //ocCamera.initCamera(oCamera, &oManager.m_oGraphics.m_hMainWindow);
-
-    //
-
-    //oEntity->addComponents(&oMeshRenderer);
-
-    //oCamera->addComponents(&ocCamera);
-
-    //oManager.addEntity(oEntity);
-    //
-    //oManager.addEntity(oCamera);
-
-
-    //oManager.runWindow(hInstance);
-    ////Camera* oCamera = new Camera();
-    ////oCamera->initCamera(800,600, oEntity);
-
-    //MeshRenderer* oMeshRenderer = new MeshRenderer();
-    //oMeshRenderer->SetMeshRenderer(oEntity, oManager->m_oGraphics->m_d3dDevice);
-    //oEntity->AddComponents(oMeshRenderer);
-
-
-
-    //// Initialise les chaînes globales
-    //LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    //LoadStringW(hInstance, IDC_ENGINE, szWindowClass, MAX_LOADSTRING);
-    //MyRegisterClass(hInstance);
-
-    //// Effectue l'initialisation de l'application :
-    //if (!InitInstance (hInstance, nCmdShow))
-    //{
-    //    return FALSE;
-    //}
-
-    //HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ENGINE));
-
-    //MSG msg;
-    //
-    //// Boucle de messages principale :
-    //while (GetMessage(&msg, nullptr, 0, 0))
-    //{
-    //    if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-    //    {
-    //        TranslateMessage(&msg);
-    //        DispatchMessage(&msg);
-    //    }
-    //    
-    //    oManager->mainLoop();
-    //    
-    //    
-    //}
-
-    //return (int) msg.wParam;
-    
-#ifdef _DEBUG
-    _CrtMemState memStateEnd, memStateDiff;
-    _CrtMemCheckpoint(&memStateEnd);
-    if (_CrtMemDifference(&memStateDiff, &memStateInit, &memStateEnd))
-    {
-        MessageBoxA(NULL, "MEMORY LEAKS", "DISCLAIMER", 0);
-    }
-#endif 
 }
 

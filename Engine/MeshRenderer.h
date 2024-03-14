@@ -16,9 +16,6 @@ public:
 
 	std::unique_ptr<UploadBuffer<ObjectConstants>> m_uObjectCB;
 
-	float m_fRadius = 5.0f;
-	float m_fTheta = 1.5f * XM_PI;
-	float m_fPhi = XM_PIDIV4;
 
 	XMFLOAT4X4 m_fWorld = Identity4x4();
 	XMFLOAT4X4 m_fView = Identity4x4();

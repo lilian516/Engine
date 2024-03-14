@@ -598,15 +598,24 @@ bool Graphics::deleteDirectX() {
 }
 
 Graphics::~Graphics() {
-	
-	/*delete m_fDxgiFactory;
-	delete m_fFence;
-	delete m_cCommandQueue;
-	delete m_cDirectCmdListAlloc;
-	delete m_cCommandList;
-	delete m_cSwapChain;
-	delete m_dRtvHeap;
-	delete m_dDsvHeap;
-	delete m_dConstantBufferViewHeapDescriptor;*/
-
+	m_rDepthStencilBuffer->Release();
+	m_rDepthStencilBuffer = nullptr;
+	m_dDsvHeap->Release();
+	m_dDsvHeap = nullptr;
+	m_dRtvHeap->Release();
+	m_dRtvHeap = nullptr;
+	m_cCommandList->Release();
+	m_cCommandList = nullptr;
+	m_cDirectCmdListAlloc->Release();
+	m_cDirectCmdListAlloc = nullptr;
+	m_cCommandQueue->Release();
+	m_cCommandQueue = nullptr;
+	m_fFence->Release();
+	m_fFence = nullptr;
+	m_d3dDevice->Release();
+	m_d3dDevice = nullptr;
+	m_fDxgiFactory->Release();
+	m_fDxgiFactory = nullptr;
+	m_cSwapChain->Release();
+	m_cSwapChain = nullptr;
 }

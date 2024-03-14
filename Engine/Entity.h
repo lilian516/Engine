@@ -48,11 +48,6 @@ public:
 	vector<Component*> getVectorComponents();
 
 
-
-	float m_fRadius = 5.0f;
-	float m_fTheta = 1.5f * XM_PI;
-	float m_fPhi = XM_PIDIV4;
-
 	vector<Component*> m_vComponents;
 	Transform m_tTransform;
 	AABB m_aBox;
